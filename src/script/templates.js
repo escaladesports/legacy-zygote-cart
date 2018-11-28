@@ -216,6 +216,7 @@ exports.cart = () => {
 					</div>
 
 
+					<div class="zygoteChargeInfo">* Charges will appear as Escalade Sports</div>
 				</div>
 
 				<div class="zygoteStep4 zygoteStep"></div>
@@ -262,6 +263,7 @@ exports.cart = () => {
 						<li class="zygoteTotal">$0.00</li>
 					</ul>
 				</div>
+
 
 				<div class="zygoteStepBtns">
 					<button class="zygoteBtn zygotePrev" role="button">Previous Step</button>
