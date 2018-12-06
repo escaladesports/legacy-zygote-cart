@@ -6,6 +6,7 @@ import totalsState from '../state/totals'
 import displayError from './display-error'
 import displayInfo from './display-info'
 import addTotalModification from './add-total-modification'
+import addQuantityModification from './quantity-modifications'
 import setShipping from './set-shipping'
 import triggerEvent from './trigger-event'
 import stepState from '../state/step'
@@ -62,6 +63,8 @@ export default async function fetchWebhook(path, body) {
 		} = data
 
 		addTotalModification(data.modifications)
+		addQuantityModification(data.quantityModifications)
+
 		if (typeof meta === `object`) {
 			metaState.setState({ meta })
 		}

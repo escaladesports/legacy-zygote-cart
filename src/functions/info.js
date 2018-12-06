@@ -34,6 +34,16 @@ export async function handler({ body }) {
 			},
 		],
 		selectedShippingMethod: `ship-0`,
+		quantityModifications: [
+			{
+				id: `TESTA`,
+				availble: `5`,
+			},
+			{
+				id: `TESTB`,
+				availble: `2`,
+			},
+		],
 	}
 
 	// Response
