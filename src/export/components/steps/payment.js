@@ -23,6 +23,7 @@ import CreditCard from '../inputs/credit-card'
 import Expiration from '../inputs/expiration'
 import Cvc from '../inputs/cvc'
 import Paypal from '../paypal'
+import previousStep from '../../utils/previous-step'
 
 export default class PaymentStep extends React.Component{
 	constructor(props){
@@ -131,6 +132,11 @@ export default class PaymentStep extends React.Component{
 								</div>
 								<div className='zygotePaymentBtn'>
 									<Button onClick={submitOrder} disabled={loading ? true : false}>Place Order</Button>
+								</div>
+								<div className='zygoteInfoLink'>
+									<Button className='zygoteBtn' secondary={true} onClick={previousStep}>
+										Previous Step
+									</Button>
 								</div>
 								{!!paymentFooter && (
 									<div>{paymentFooter}</div>

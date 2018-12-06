@@ -1,6 +1,7 @@
 import productState from '../state/products'
 import calculateTotals from './calculate-totals'
 import triggerEvent from './trigger-event'
+import changeStep from './change-step'
 
 export default function removeFromCart(id){
 	let products = [...productState.state.products]
@@ -15,6 +16,9 @@ export default function removeFromCart(id){
 	productState.setState({ products })
 	calculateTotals()
 	if (removedProduct){
+		if (products.length == 0) {
+			changeStep(`cart`)
+		}
 		triggerEvent(`removeProduct`, removedProduct)
 	}
 }

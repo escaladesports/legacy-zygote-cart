@@ -43,7 +43,7 @@ export default class InfoMessages extends React.Component {
 							</div>
 						</div>
 						<div className='zygoteSimpleSummaryList'>
-							<ProductList />
+							<ProductList editable={true} />
 							<Totals />
 						</div>
 					</div>

@@ -6,7 +6,7 @@ import increaseQuantity from '../utils/increase-quantity'
 import decreaseQuantity from '../utils/decrease-quantity'
 import formatUsd from '../utils/format-usd'
 
-export default class ProductList extends React.Component{
+export default class ProductItem extends React.Component{
 	render() {
 		const {
 			image,
