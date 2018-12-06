@@ -2,7 +2,7 @@ import productState from '../state/products'
 import calculateTotals from './calculate-totals'
 import triggerEvent from './trigger-event'
 
-export default function decreaseQuantity(id, quantity = 1) {
+export default function decreaseQuantity(id, quantity = 1, quantityModded = false) {
 	let products = [...productState.state.products]
 	let removedProduct
 	for (let i = products.length; i--;) {
@@ -13,6 +13,7 @@ export default function decreaseQuantity(id, quantity = 1) {
 			if (!product.quantity) {
 				product.quantity = 1
 			}
+			product.quantityModded = quantityModded
 			if (typeof product.stock === `number`) {
 				if (product.quantity > product.stock) {
 					product.quantity = product.stock

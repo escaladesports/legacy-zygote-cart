@@ -14,6 +14,7 @@ import StepsHeader from '../steps-header'
 import Header from '../header'
 import Button from '../button'
 import attemptSubmitInfo from '../../utils/attempt-submit-info'
+import previousStep from '../../utils/previous-step'
 import productsState from '../../state/products'
 import settingsState from '../../state/settings'
 import SimpleSummary from '../simple-summary'
@@ -103,6 +104,11 @@ export default class InfoStep extends React.Component{
 								<div className='zygoteInfoBtn'>
 									<Button onClick={attemptSubmitInfo}>
 										Next Step
+									</Button>
+								</div>
+								<div className='zygoteInfoLink'>
+									<Button className='zygoteBtn' secondary={true} onClick={previousStep}>
+										Previous Step
 									</Button>
 								</div>
 								{!!infoFooter && (

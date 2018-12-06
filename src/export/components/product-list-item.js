@@ -6,7 +6,7 @@ import increaseQuantity from '../utils/increase-quantity'
 import decreaseQuantity from '../utils/decrease-quantity'
 import formatUsd from '../utils/format-usd'
 
-export default class ProductList extends React.Component{
+export default class ProductItem extends React.Component{
 	render() {
 		const {
 			image,
@@ -16,6 +16,7 @@ export default class ProductList extends React.Component{
 			price,
 			id,
 			quantity,
+			quantityModded,
 		} = this.props
 		return (
 			<li
@@ -33,6 +34,11 @@ export default class ProductList extends React.Component{
 				<div className='zygoteProdDesc'>
 					{description}
 				</div>
+				{quantityModded &&
+					<div className='zygoteProdDesc zygoteProdMod'>
+						Due to a limited quantity, this item has been modified.
+					</div>
+				}
 				<div className='zygoteProdQty'>
 					{editable && (
 						<button
@@ -104,6 +110,9 @@ export default class ProductList extends React.Component{
 			marginBottom: 10,
 			marginTop: 5,
 			fontSize: `.75em`,
+		},
+		'.zygoteProdMod': {
+			color: `#F00`,
 		},
 		'.zygoteProdQty': {
 			userSelect: `none`,

@@ -9,6 +9,7 @@ import ProductList from '../product-list'
 import Totals from '../totals'
 import ShippingMethods from '../shipping-methods'
 import nextStep from '../../utils/next-step'
+import previousStep from '../../utils/previous-step'
 
 export default class ShippingStep extends React.Component{
 	render() {
@@ -36,6 +37,11 @@ export default class ShippingStep extends React.Component{
 										disabled={loading ? true : false}
 									>
 										Next Step
+									</Button>
+								</div>
+								<div className='zygoteInfoLink'>
+									<Button className='zygoteBtn' secondary={true} onClick={previousStep}>
+										Previous Step
 									</Button>
 								</div>
 								{!!paymentFooter && (
