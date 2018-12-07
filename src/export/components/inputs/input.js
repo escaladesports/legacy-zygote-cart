@@ -1,8 +1,6 @@
 import React from 'react'
 import InputMask from 'react-input-mask'
 import classNames from 'classnames'
-import { Field } from 'formik'
-
 import registerInput from '../../utils/register-input'
 import unregisterInput from '../../utils/unregister-input'
 
@@ -24,12 +22,7 @@ export default class Input extends React.Component{
 		if(this.props.onChange){
 			this.props.onChange(e)
 		}
-		if (this.input) {
-			this.setState({ value: this.input.value })
-		}
-		else {
-			this.setState({ value: e.currentTarget.value })
-		}
+		this.setState({ value: this.input.value })
 	}
 	handleFocus(e) {
 		if (this.props.onFocus) {
@@ -45,7 +38,7 @@ export default class Input extends React.Component{
 	}
 	validate(){
 		this.setState({ focus: false })
-		const { value } = this.input || this.state
+		const { value } = this.input
 
 		// Required message
 		if (this.props.required && !value){
@@ -84,7 +77,6 @@ export default class Input extends React.Component{
 			autoComplete,
 			name,
 			inputRef,
-			track,
 		} = this.props
 		return (
 			<label
@@ -127,41 +119,20 @@ export default class Input extends React.Component{
 					</InputMask>
 				)}
 				{!mask && (
-					track 
-						? (
-							<Field 
-								type={type || `text`}
-								autoComplete={autoComplete}
-								// value={this.props.value || value}
-								name={name}
-								className='zygoteInput'
-								onChange={this.handleChange}
-								// onFocus={this.handleFocus}
-								// onBlur={this.validate}
-								// render={({ field }) =>
-								// 	<input
-								// 		{...field}
-								// 		onChange={doChange}
-								// 	/>
-								// }
-							/>
-						)
-						: (
-							<input
-								type={type || `text`}
-								autoComplete={autoComplete}
-								ref={input => {
-									this.input = input
-									inputRef(input)
-								}}
-								value={this.props.value || value}
-								name={name}
-								className='zygoteInput'
-								onChange={this.handleChange}
-								onFocus={this.handleFocus}
-								onBlur={this.validate}
-							/>
-						)
+					<input
+						type={type || `text`}
+						autoComplete={autoComplete}
+						ref={input => {
+							this.input = input
+							inputRef(input)
+						}}
+						value={this.props.value || value}
+						name={name}
+						className='zygoteInput'
+						onChange={this.handleChange}
+						onFocus={this.handleFocus}
+						onBlur={this.validate}
+					/>
 				)}
 				{error && (
 					<span className='zygoteInputErrMsg' data-error>{error}</span>
