@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
+import { Formik, Form } from 'formik'
+
 import stepState from '../../state/step'
 import NameInput from '../inputs/name'
 import EmailInput from '../inputs/email'
@@ -27,94 +29,101 @@ export default class InfoStep extends React.Component{
 				{({ step }, { infoHeader, infoFooter }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
-							<form data-form='info'>
-								{!!infoHeader && (
-									<div>{infoHeader}</div>
-								)}
-								<StepsHeader step='info' />
-								<SimpleSummary />
-								<div className='zygoteInfoSection'>
-									<Header>Let's get started</Header>
-									<NameInput
-										name='infoName'
-										autoComplete='shipping name'
-										step='info'
-									/>
-									<EmailInput
-										name='infoEmail'
-										autoComplete='shipping email'
-										step='info'
-									/>
-									<PhoneInput
-										name='infoPhone'
-										autoComplete='shipping tel'
-										step='info'
-									/>
-								</div>
-								{showShipping() && (
-									<div className='zygoteInfoSection'>
-										<Header>Where should we deliver?</Header>
-										<AddressInput
-											name='shippingAddress1'
-											autoComplete='shipping address-line1'
-											step='info'
-										/>
-										<div className='zygoteInfoExtra'>
-											<div>
-												<Address2Input
-													name='shippingAddress2'
-													autoComplete='shipping address-line2'
-													step='info'
-												/>
-											</div>
-											<div>
-												<CompanyName
-													name='shippingCompany'
-													autoComplete='shipping org'
-													step='info'
-												/>
-											</div>
+							<Formik
+								handleChange={(e) => console.log(e)}
+								render={({ handleChange }) => (
+									<Form data-form='info'>
+										{!!infoHeader && (
+											<div>{infoHeader}</div>
+										)}
+										<StepsHeader step='info' />
+										<SimpleSummary />
+										<div className='zygoteInfoSection'>
+											<Header>Let's get started</Header>
+											<NameInput
+												name='infoName'
+												autoComplete='shipping name'
+												step='info'
+											/>
+											<EmailInput
+												name='infoEmail'
+												autoComplete='shipping email'
+												step='info'
+											/>
+											<PhoneInput
+												name='infoPhone'
+												autoComplete='shipping tel'
+												step='info'
+											/>
 										</div>
-										<div className='zygoteInfoCityState'>
-											<div>
-												<City
-													name='shippingCity'
-													autoComplete='shipping address-level2'
+										{showShipping() && (
+											<div className='zygoteInfoSection'>
+												<Header>Where should we deliver?</Header>
+												<AddressInput
+													name='shippingAddress1'
+													autoComplete='shipping address-line1'
+													step='info'
+													track={true}
+													onChange={handleChange}
+												/>
+												<div className='zygoteInfoExtra'>
+													<div>
+														<Address2Input
+															name='shippingAddress2'
+															autoComplete='shipping address-line2'
+															step='info'
+														/>
+													</div>
+													<div>
+														<CompanyName
+															name='shippingCompany'
+															autoComplete='shipping org'
+															step='info'
+														/>
+													</div>
+												</div>
+												<div className='zygoteInfoCityState'>
+													<div>
+														<City
+															name='shippingCity'
+															autoComplete='shipping address-level2'
+															step='info'
+														/>
+													</div>
+													<div>
+														<State
+															name='shippingState'
+															autoComplete='shipping address-level1'
+															step='info'
+														/>
+													</div>
+												</div>
+												<Zip
+													name='shippingZip'
+													autoComplete='shipping postal-code'
 													step='info'
 												/>
 											</div>
-											<div>
-												<State
-													name='shippingState'
-													autoComplete='shipping address-level1'
-													step='info'
-												/>
-											</div>
+										)}
+										<div className='zygoteInfoCoupon'>
+											<Coupon />
 										</div>
-										<Zip
-											name='shippingZip'
-											autoComplete='shipping postal-code'
-											step='info'
-										/>
-									</div>
-								)}
-								<div className='zygoteInfoCoupon'>
-									<Coupon />
-								</div>
-								<div className='zygoteInfoBtn'>
-									<Button onClick={attemptSubmitInfo}>
-										Next Step
-									</Button>
-								</div>
-								<div className='zygoteInfoLink'>
-									<Button className='zygoteBtn' secondary={true} onClick={previousStep}>
-										Previous Step
-									</Button>
-								</div>
-								{!!infoFooter && (
-									<div>{infoFooter}</div>
-								)}
-							</form>
+										<div className='zygoteInfoBtn'>
+											<Button onClick={attemptSubmitInfo}>
+												Next Step
+											</Button>
+										</div>
+										<div className='zygoteInfoLink'>
+											<Button className='zygoteBtn' secondary={true} onClick={previousStep}>
+												Previous Step
+											</Button>
+										</div>
+										{!!infoFooter && (
+											<div>{infoFooter}</div>
+										)}
+									</Form>
+								)} 
+							/> 
 						)}
 					</Fragment>
 				)}
