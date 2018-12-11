@@ -25,9 +25,9 @@ export async function handler({ body }) {
 		order = await stripe.orders.create({
 			currency: `usd`,
 			email: body.infoEmail,
-			items: body.products.map(({ id, quantity }) => {
+			items: body.products.map(({ id, quantity, type }) => {
 				return {
-					type: `sku`,
+					type: type || `sku`,
 					parent: id,
 					quantity,
 				}

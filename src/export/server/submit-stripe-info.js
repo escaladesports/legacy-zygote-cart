@@ -13,7 +13,6 @@ export default async function submitStripeInfo({ stripeApiSecret, body, verbose 
 		body = JSON.parse(body)
 	}
 
-
 	log(`submitStripeInfo received from invoke:`, body)
 
 	// Create empty result object to be sent later
@@ -27,15 +26,30 @@ export default async function submitStripeInfo({ stripeApiSecret, body, verbose 
 
 	// Create stripe order
 	let order
+	let orderType = `order`
 	try {
 		const obj = {
 			currency: `usd`,
 			email: body.infoEmail,
-			items: body.products.map(({ id, quantity }) => {
-				return {
-					type: `sku`,
-					parent: id,
-					quantity,
+			items: body.products.map(({ id, quantity, type }) => {
+				switch (type) {
+
+				case `plan`:
+					if (!body.customer)
+						throw new Error(`You must sign in to purchase this subscription.`)
+					orderType = `subscription`
+					return {
+						customer: body.customer,
+						plan: id,
+						quantity,
+					}
+				case `sku`:		
+				default:
+					return {
+						type: type || `sku`,
+						parent: id,
+						quantity,
+					}
 				}
 			}),
 			shipping: {
@@ -52,7 +66,19 @@ export default async function submitStripeInfo({ stripeApiSecret, body, verbose 
 		if (body.coupon) {
 			obj.coupon = body.coupon
 		}
-		order = await stripe.orders.create(obj)
+		// Determine if we are subscribing to plans, or placing an order
+		switch (orderType) {
+
+		case `subscription`:
+			order = await stripe.subscriptions.create(obj)
+			break
+		
+		case `order`:
+		default:
+			order = await stripe.orders.create(obj)
+			break
+		}
+
 		res.success = true
 		log(`submitStripeInfo received from Stripe:`, order)
 	}

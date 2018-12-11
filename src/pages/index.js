@@ -14,6 +14,7 @@ const exposeSettings = [
 export default class HomePage extends React.Component {
 	render() {
 		let products = this.props.data.allStripeSku.edges.map(edge => edge.node)
+		let plans = this.props.data.allStripePlan.edges.map(edge => edge.node)
 		return (
 			<div>
 				<div>
@@ -26,8 +27,8 @@ export default class HomePage extends React.Component {
 						image: `https://images.salsify.com/image/upload/s--5scl3VX0--/w_75,h_75,c_pad/g8gkpmmhuhqzrqxu6boh.jpg`,
 						description: `Beautiful and refined, the 8' Minnesota Fats Covington Pool Table with Dur-A-Bond play bed will make a stunning centerpiece for your game room. Carved...`,
 						price: products[0].price,
-						stock: typeof products[0].inventory.quantity === `number`
-							? products[0].inventory.quantity
+						stock: typeof products[1].inventory.quantity === `number`
+							? products[1].inventory.quantity
 							: null,
 					})}>Add to Cart A</button>
 				</div>
@@ -38,12 +39,23 @@ export default class HomePage extends React.Component {
 						image: `https://images.salsify.com/image/upload/s--7evRfexQ--/w_75,h_75,c_pad/qdppgggttnkespgpupdz.jpg`,
 						description: `A short description.`,
 						price: products[1].price,
-						stock: typeof products[0].inventory.quantity === `number`
-							? products[0].inventory.quantity
+						stock: typeof products[1].inventory.quantity === `number`
+							? products[1].inventory.quantity
 							: null,
 					})}>Add to Cart B</button>
 				</div>
-
+				<div>
+					<button onClick={() => addToCart({
+						id: plans[0].id,
+						type: `plan`,
+						name: `STIGA Emoji One-Star Table Tennis Balls - Monthly Subscription`,
+						image: `https://images.salsify.com/image/upload/s--ibaII9O1--/w_75,h_75,c_pad/tcuv43grz2uec6z5twln.jpg`,
+						description: `Every month, you will recieve fresh emoji faces.`,
+						price: plans[0].amount,
+						stock: 2,
+					})}>Add to Cart Plan A</button>
+				</div>
+				
 				<div className={styles.editControls}>
 					<Subscribe to={settingsState}>
 						{state => {
@@ -78,11 +90,11 @@ export default class HomePage extends React.Component {
 					cartHeader={<div className={styles.header}>With FREE shipping!</div>}
 					cartFooter={<div className={styles.footer}>* Free shipping, except Alaska and Hawaii</div>}
 
-					//stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
+					stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
 					paypalAppId='ATP-SVtvHjAfyOGdr_8RRXgizsofojJV32mMt3WRmf5ignVi1TZkA67UYwm5sAitwETQuEigH91w70_6'
 					paypalEnv='sandbox'
-					infoWebhook='/.netlify/functions/info'
-					orderWebhook='/.netlify/functions/order'
+					infoWebhook='/.netlify/functions/info-stripe'
+					orderWebhook='/.netlify/functions/order-stripe'
 
 					totalModifications={[
 						{
@@ -138,7 +150,7 @@ const styles = {
 
 export const query = graphql`
 	query HomePage {
-		allStripeSku{
+		allStripeSku {
 			edges{
 				node{
 					id
@@ -147,6 +159,14 @@ export const query = graphql`
 						quantity
 					}
 					price
+				}
+			}
+		}
+		allStripePlan {
+			edges {
+				node {
+					id
+					amount
 				}
 			}
 		}

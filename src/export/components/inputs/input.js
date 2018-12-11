@@ -22,7 +22,17 @@ export default class Input extends React.Component{
 		if(this.props.onChange){
 			this.props.onChange(e)
 		}
-		this.setState({ value: this.input.value })
+		if (this.input.type === `checkbox`) {
+			if (this.input.checked) {
+				this.setState({ value: this.input.value })
+			}
+			else {
+				this.setState({ value: `` })
+			}
+		}
+		else {
+			this.setState({ value: this.input.value })
+		}
 	}
 	handleFocus(e) {
 		if (this.props.onFocus) {
@@ -77,6 +87,7 @@ export default class Input extends React.Component{
 			autoComplete,
 			name,
 			inputRef,
+			checked,
 		} = this.props
 		return (
 			<label
@@ -132,6 +143,7 @@ export default class Input extends React.Component{
 						onChange={this.handleChange}
 						onFocus={this.handleFocus}
 						onBlur={this.validate}
+						checked={checked}
 					/>
 				)}
 				{error && (
