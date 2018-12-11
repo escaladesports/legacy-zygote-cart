@@ -89,6 +89,7 @@ export default class PaymentStep extends React.Component{
 											name='sameBilling'
 											checked={this.state.sameBilling}
 											onChange={this.toggleBilling}
+											value={true}
 										/>
 										<div>Same Billing and Shipping Address</div>
 									</label>

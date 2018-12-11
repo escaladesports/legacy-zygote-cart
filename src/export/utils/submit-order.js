@@ -37,15 +37,23 @@ export default async function submitOrder({ type, token }) {
 		}
 		else {
 			// Get token from payment inputs
-			let { token } = await window.zygoteStripeInstance
-				.createToken({
+			const { token } = await (body.sameBilling // If shipping is the same as billing, use it instead
+				? window.zygoteStripeInstance.createToken({
+					name: body.infoName,
+					address_line1: body.shippingAddress1,
+					address_line2: body.shippingAddress2,
+					address_city: body.shippingCity,
+					address_state: body.shippingState,
+					address_zip: body.shippingZip,
+				})
+				: window.zygoteStripeInstance.createToken({
 					name: body.billingName,
 					address_line1: body.billingAddress1,
 					address_line2: body.billingAddress2,
 					address_city: body.billingCity,
 					address_state: body.billingState,
 					address_zip: body.billingZip,
-				})
+				}))
 			body.payment = token
 		}
 		body.paymentType = `stripe`
