@@ -15,6 +15,7 @@ export default class NameInput extends React.Component {
 			required,
 			name,
 			step,
+			value,
 		} = this.props
 		return (
 			<Input
@@ -23,6 +24,7 @@ export default class NameInput extends React.Component {
 				required={required}
 				name={name}
 				step={step}
+				value={value}
 			/>
 		)
 	}

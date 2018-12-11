@@ -7,7 +7,7 @@ export default class Select extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			value: ``,
+			value: props.value || ``,
 			focus: false,
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -64,6 +64,7 @@ export default class Select extends React.Component{
 			children,
 			inputRef,
 			name,
+			value: defaultValue,
 		} = this.props
 		return (
 			<label
@@ -76,7 +77,7 @@ export default class Select extends React.Component{
 				<span
 					className={classNames(
 						`zygoteSelectLabel`,
-						(value || focus) && `zygoteSelectLabelMoved`,
+						(defaultValue || value || focus) && `zygoteSelectLabelMoved`,
 					)}
 				>
 					{label}
@@ -88,7 +89,7 @@ export default class Select extends React.Component{
 						this.select = el
 						if(inputRef) inputRef(el)
 					}}
-					value={value}
+					value={defaultValue || value}
 					onChange={this.handleChange}
 					onFocus={this.handleFocus}
 					onBlur={this.validate}

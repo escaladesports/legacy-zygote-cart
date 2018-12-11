@@ -16,6 +16,7 @@ export default class StateInput extends React.Component {
 			required,
 			name,
 			step,
+			value,
 		} = this.props
 		return (
 			<Select
@@ -24,6 +25,7 @@ export default class StateInput extends React.Component {
 				autoComplete={autoComplete}
 				name={name}
 				step={step}
+				value={value}
 			>
 				{states.map((state, index) => (
 					<option

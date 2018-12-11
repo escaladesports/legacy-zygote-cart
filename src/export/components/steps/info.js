@@ -24,8 +24,9 @@ export default class InfoStep extends React.Component{
 	render() {
 		return (
 			<Subscribe to={[stepState, settingsState]}>
-				{({ step }, { infoHeader, infoFooter }) => (
+				{({ step, vals }, { infoHeader, infoFooter }) => (
 					<Fragment>
+						{console.log(vals)}
 						{(step === `info` || step === `shipping` || step === `payment`) && (
 							<form data-form='info'>
 								{!!infoHeader && (
@@ -39,16 +40,19 @@ export default class InfoStep extends React.Component{
 										name='infoName'
 										autoComplete='shipping name'
 										step='info'
+										value={vals.infoName ? vals.infoName : ``}
 									/>
 									<EmailInput
 										name='infoEmail'
 										autoComplete='shipping email'
 										step='info'
+										value={vals.infoEmail ? vals.infoEmail : ``}
 									/>
 									<PhoneInput
 										name='infoPhone'
 										autoComplete='shipping tel'
 										step='info'
+										value={vals.infoPhone ? vals.infoPhone : ``}
 									/>
 								</div>
 								{showShipping() && (
@@ -58,6 +62,7 @@ export default class InfoStep extends React.Component{
 											name='shippingAddress1'
 											autoComplete='shipping address-line1'
 											step='info'
+											value={vals.shippingAddress1 ? vals.shippingAddress1 : ``}
 										/>
 										<div className='zygoteInfoExtra'>
 											<div>
@@ -65,6 +70,7 @@ export default class InfoStep extends React.Component{
 													name='shippingAddress2'
 													autoComplete='shipping address-line2'
 													step='info'
+													value={vals.shippingAddress2 ? vals.shippingAddress2 : ``}
 												/>
 											</div>
 											<div>
@@ -72,6 +78,7 @@ export default class InfoStep extends React.Component{
 													name='shippingCompany'
 													autoComplete='shipping org'
 													step='info'
+													value={vals.shippingCompany ? vals.shippingCompany : ``}
 												/>
 											</div>
 										</div>
@@ -81,6 +88,7 @@ export default class InfoStep extends React.Component{
 													name='shippingCity'
 													autoComplete='shipping address-level2'
 													step='info'
+													value={vals.shippingCity ? vals.shippingCity : ``}
 												/>
 											</div>
 											<div>
@@ -88,6 +96,7 @@ export default class InfoStep extends React.Component{
 													name='shippingState'
 													autoComplete='shipping address-level1'
 													step='info'
+													value={vals.shippingState ? vals.shippingState : ``}
 												/>
 											</div>
 										</div>
@@ -95,6 +104,7 @@ export default class InfoStep extends React.Component{
 											name='shippingZip'
 											autoComplete='shipping postal-code'
 											step='info'
+											value={vals.shippingZip ? vals.shippingZip : ``}
 										/>
 									</div>
 								)}

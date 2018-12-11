@@ -95,6 +95,17 @@ export default async function submitStripeInfo({ stripeApiSecret, body, verbose 
 			if (body.products[item]) {
 				res.step = `cart`
 				res.messages.error.push(`Sorry! "${body.products[item].name}" is out of stock. Please lower the quantity or remove this product from your cart.`)
+				const stock = await stripe.products.retrieve(body.products[item].id)
+				let quantity = 999999
+				stock.skus.data.forEach(sku => { // Scan for least quantity in product
+					console.log(`sku:`, sku)
+					quantity = sku.inventory && sku.inventory.quantity < quantity
+						? sku.inventory.quantity
+						: quantity
+				})
+				res.quantityModifications = [
+					{ id: body.products[item].id, availble: quantity },
+				]
 			}
 		}
 		else if (err.message) {

@@ -30,6 +30,7 @@ export default class CompanyNameInput extends React.Component {
 			required,
 			name,
 			step,
+			value,
 		} = this.props
 		return (
 			<Fragment>
@@ -46,6 +47,7 @@ export default class CompanyNameInput extends React.Component {
 						required={required}
 						name={name}
 						step={step}
+						value={value}
 					/>
 				</div>
 			</Fragment>

@@ -23,6 +23,7 @@ export default class PhoneInput extends React.Component {
 			mask,
 			name,
 			step,
+			value,
 		} = this.props
 		return (
 			<Input
@@ -34,6 +35,7 @@ export default class PhoneInput extends React.Component {
 				validators={[this.validate]}
 				name={name}
 				step={step}
+				value={value}
 			/>
 		)
 	}
