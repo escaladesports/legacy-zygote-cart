@@ -30,10 +30,10 @@ export default async function submitInfo() {
 				displayError(settingsState.state.infoSubmitError)
 			}
 			if (data.returnTo) {
-				stepState.setState({ step: data.returnTo })
+				stepState.setState({ step: data.returnTo, vals })
 			}
 			else {
-				stepState.setState({ step: `info` })
+				stepState.setState({ step: `info`, vals })
 			}
 		}
 

@@ -28,6 +28,7 @@ export default class CompanyNameInput extends React.Component {
 			step,
 			apply,
 			name,
+			value,
 		} = this.props
 		return (
 			<Fragment>
@@ -46,6 +47,7 @@ export default class CompanyNameInput extends React.Component {
 							label={label}
 							name={name}
 							step={step}
+							value={value}
 						/>
 					</div>
 					{apply && (

@@ -11,7 +11,7 @@ export default class Input extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			value: ``,
+			value: props.value || ``,
 			focus: false,
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -88,6 +88,7 @@ export default class Input extends React.Component{
 			name,
 			inputRef,
 			checked,
+			value: defaultVal,
 		} = this.props
 		return (
 			<label
@@ -101,7 +102,7 @@ export default class Input extends React.Component{
 				<span
 					className={classNames(
 						`zygoteInputLabel`,
-						(value || focus) && `zygoteInputLabelMoved`,
+						(defaultVal || value || focus) && `zygoteInputLabelMoved`,
 					)}
 				>
 					{label}
@@ -112,7 +113,7 @@ export default class Input extends React.Component{
 						onChange={this.handleChange}
 						onFocus={this.handleFocus}
 						onBlur={this.validate}
-						value={value}
+						value={defaultVal || value}
 					>
 						{(inputProps) => (
 							<input
@@ -137,7 +138,7 @@ export default class Input extends React.Component{
 							this.input = input
 							inputRef(input)
 						}}
-						value={this.props.value || value}
+						value={defaultVal || value}
 						name={name}
 						className='zygoteInput'
 						onChange={this.handleChange}
