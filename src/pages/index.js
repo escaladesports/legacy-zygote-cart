@@ -27,8 +27,8 @@ export default class HomePage extends React.Component {
 						image: `https://images.salsify.com/image/upload/s--5scl3VX0--/w_75,h_75,c_pad/g8gkpmmhuhqzrqxu6boh.jpg`,
 						description: `Beautiful and refined, the 8' Minnesota Fats Covington Pool Table with Dur-A-Bond play bed will make a stunning centerpiece for your game room. Carved...`,
 						price: products[0].price,
-						stock: typeof products[1].inventory.quantity === `number`
-							? products[1].inventory.quantity
+						stock: typeof products[0].inventory.quantity === `number`
+							? products[0].inventory.quantity
 							: null,
 					})}>Add to Cart A</button>
 				</div>
@@ -39,8 +39,8 @@ export default class HomePage extends React.Component {
 						image: `https://images.salsify.com/image/upload/s--7evRfexQ--/w_75,h_75,c_pad/qdppgggttnkespgpupdz.jpg`,
 						description: `A short description.`,
 						price: products[1].price,
-						stock: typeof products[1].inventory.quantity === `number`
-							? products[1].inventory.quantity
+						stock: typeof products[0].inventory.quantity === `number`
+							? products[0].inventory.quantity
 							: null,
 					})}>Add to Cart B</button>
 				</div>
@@ -93,8 +93,8 @@ export default class HomePage extends React.Component {
 					stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
 					paypalAppId='ATP-SVtvHjAfyOGdr_8RRXgizsofojJV32mMt3WRmf5ignVi1TZkA67UYwm5sAitwETQuEigH91w70_6'
 					paypalEnv='sandbox'
-					infoWebhook='/.netlify/functions/info'
-					orderWebhook='/.netlify/functions/order'
+					infoWebhook='/.netlify/functions/info-stripe'
+					orderWebhook='/.netlify/functions/order-stripe'
 
 					totalModifications={[
 						{

@@ -200,6 +200,27 @@ export default class Input extends React.Component{
 			fontSize: `.75em`,
 			right: 0,
 			top: 42,
+			':before': {
+				content: `''`,
+				width: `100%`,
+				position: `absolute`,
+				height: `100%`,
+				borderRadius: `10px`,
+				animation: `pulse 1.3s`,
+			},
+		},
+		'@keyframes pulse': {
+			'0%': {
+				boxShadow: `0 0 0 0 #ff040066`,
+				background: `#ff040066`,
+			},
+			'70%': {
+				boxShadow: `0 0 0 10px #cc2c2c00`,
+				background: `#cc2c2c00`,
+			},
+			'100%': {
+				boxShadow: `0 0 0 0 #cc2c2c00`,
+			},
 		},
 	})
 }
