@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
+
 import stepState from '../../state/step'
 import NameInput from '../inputs/name'
 import EmailInput from '../inputs/email'

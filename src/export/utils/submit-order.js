@@ -101,7 +101,7 @@ export default async function submitOrder({ type, token }) {
 			products: [...productsState.state.products],
 			meta: {...metaState.state.meta},
 		})
-		stepState.setState({ step: `success` })
+		stepState.setState({ step: `success`, vals: {} })
 		totalsState.reset()
 		productsState.reset()
 		metaState.reset()

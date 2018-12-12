@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
 import classNames from 'classnames'
+
 import openState from '../state/open'
 import closeCart from '../utils/close-cart'
 import stepState from '../state/step'
@@ -14,6 +15,7 @@ import Processing from './processing'
 import Errors from './errors'
 import Info from './info'
 import capitalize from '../utils/capitalize'
+import Login from './auth0'
 
 export default class Cart extends React.Component {
 	render() {
@@ -30,7 +32,9 @@ export default class Cart extends React.Component {
 								)}
 							>
 								<div className='zygoteBg' onClick={closeCart} />
-								<div className='zygoteCart'>
+								<div id='zygoteCartLoginPanel' />
+								<div id='zygoteCart' className='zygoteCart'>
+									<Login />
 									<button
 										role='button'
 										className='zygoteCloseButton'
@@ -111,7 +115,7 @@ export default class Cart extends React.Component {
 			transition: `transform .3s`,
 			boxShadow: `-3px 0 4px rgba(0, 0, 0, 0.2)`,
 			padding: 20,
-			paddingTop: 40,
+			paddingTop: 30,
 		},
 		'.zygoteCloseButton': {
 			background: `transparent`,

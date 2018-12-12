@@ -95,6 +95,19 @@ export default class HomePage extends React.Component {
 					paypalEnv='sandbox'
 					infoWebhook='/.netlify/functions/info-stripe'
 					orderWebhook='/.netlify/functions/order-stripe'
+					
+					auth0ClientID='Wweg1YAs6kJquv9DcLSpmSNpaY6XPaX8'
+					auth0Logout='http://localhost:8000/'
+					auth0Domain='zygote-cart.auth0.com'
+					auth0Theme={{
+						primaryColor: `#00cfff`,
+					}}
+					auth0Options={{
+						rememberLastLogin: false,
+						auth: {
+							redirect: false,
+						},
+					}}
 
 					totalModifications={[
 						{

@@ -49,6 +49,12 @@ export default class Button extends React.Component {
 				},
 			},
 		},
+		'.zygoteBtnSmall': {
+			width: `auto`,
+			margin: `5px 0 0 0`,
+			fontSize: `12px`,
+			padding: `5px 10px`,
+		},
 		'.zygotePrimaryBtn': {
 			backgroundColor: primaryColor,
 			color: backgroundColor,
