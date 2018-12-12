@@ -36,6 +36,8 @@
     ]
   },
   "dependencies": {
+    "auth0-js": "^9.8.2",
+    "auth0-lock": "^11.12.1",
     "babel-runtime": "^6.26.0",
     "better-react-spinkit": "^2.0.4",
     "classnames": "^2.2.6",
