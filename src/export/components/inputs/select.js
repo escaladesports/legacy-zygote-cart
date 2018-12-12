@@ -139,6 +139,14 @@ export default class Select extends React.Component{
 			fontSize: `.75em`,
 			right: 0,
 			bottom: -18,
+			':before': {
+				content: `''`,
+				width: `100%`,
+				position: `absolute`,
+				height: `100%`,
+				borderRadius: `10px`,
+				animation: `pulse 1.3s`,
+			},
 		},
 		'.zygoteSelectLabel': {
 			position: `absolute`,
