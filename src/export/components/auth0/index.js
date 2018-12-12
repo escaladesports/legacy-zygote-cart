@@ -68,6 +68,7 @@ export default class Login extends React.Component {
 	}
 
 	render() {
+		console.log(customerState.state)
 		return (
 			<Subscribe to={customerState}>
 				{({ customer }) => (
