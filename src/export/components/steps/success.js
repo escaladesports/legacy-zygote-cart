@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
+
+import { FaPrint } from 'react-icons/fa'
 import ProductList from '../product-list'
 import Totals from '../totals'
 import successState from '../../state/success'
@@ -31,6 +33,7 @@ export default class SuccessStep extends React.Component{
 						<ProductList products={products} editable={false} />
 						<Totals totals={totals} />
 						<div className='zygoteSuccessBtn'>
+							<Button secondary={true} onClick={() => window.print()}>Print Receipt&nbsp;&nbsp;&nbsp;<FaPrint /></Button>
 							<Button onClick={closeCart}>Close Cart</Button>
 						</div>
 						{!!successFooter &&

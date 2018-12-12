@@ -24,3 +24,9 @@ html, body {
 img{
 	max-width: 100%;
 }
+
+@media print {
+	body.zygoteOpen {
+		visibility: hidden;
+	}
+}

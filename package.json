@@ -50,6 +50,7 @@
     "react-async-script-loader": "^0.3.0",
     "react-credit-card-primitives": "^1.5.1",
     "react-html-email": "^3.0.0",
+    "react-icons": "^3.2.2",
     "react-input-mask": "^2.0.3",
     "react-stripe-elements": "^2.0.1",
     "sparkpost": "^2.1.2",

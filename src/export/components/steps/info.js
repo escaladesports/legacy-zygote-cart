@@ -26,7 +26,6 @@ export default class InfoStep extends React.Component{
 			<Subscribe to={[stepState, settingsState]}>
 				{({ step, vals }, { infoHeader, infoFooter }) => (
 					<Fragment>
-						{console.log(vals)}
 						{(step === `info` || step === `shipping` || step === `payment`) && (
 							<form data-form='info'>
 								{!!infoHeader && (

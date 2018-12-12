@@ -31,5 +31,6 @@ export default function openCart(product){
 	else{
 		addedToCartState.setState({ addedToCart: false })
 	}
+	document.body.classList.add(`zygoteOpen`)
 	triggerEvent(`open`)
 }
