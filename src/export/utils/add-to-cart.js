@@ -1,4 +1,5 @@
 import productState from '../state/products'
+import stepState from '../state/step'
 import addedToCartState from '../state/products'
 import openCart from './open-cart'
 import calculateTotals from './calculate-totals'
@@ -10,6 +11,7 @@ export default function addToCart(newProduct){
 		newProduct.quantity = 1
 	}
 	let alreadyInCart = false
+	let shippable = false
 	for (let i = products.length; i--;){
 		const product = products[i]
 		if (product.id === newProduct.id) {
@@ -19,6 +21,7 @@ export default function addToCart(newProduct){
 				quantity: products[i].quantity + newProduct.quantity,
 			}
 		}
+		shippable = (shippable || product.shippable || newProduct.shippable)
 	}
 	if(!alreadyInCart){
 		products.push(newProduct)
@@ -26,7 +29,17 @@ export default function addToCart(newProduct){
 	if(!newProduct.noOpen){
 		openCart(true)
 	}
-	productState.setState({ products })
+	productState.setState({ products, shippable })
+	if (!shippable) {
+		stepState.setState({ skip: { ...stepState.state.skip, shipping: true } })
+		console.log(`skip:`,{ ...stepState.state.skip, shipping: true })
+	}
+	else {
+		let skip = stepState.state.skip
+		delete skip[`shipping`]
+		stepState.setState({ skip })
+		console.log(`skip:`,skip)
+	}
 	calculateTotals()
 	addedToCartState.setState({ addedToCart: true })
 	triggerEvent(`addProduct`, newProduct)
