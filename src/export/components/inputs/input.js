@@ -1,6 +1,7 @@
 import React from 'react'
 import InputMask from 'react-input-mask'
 import classNames from 'classnames'
+
 import registerInput from '../../utils/register-input'
 import unregisterInput from '../../utils/unregister-input'
 
@@ -46,13 +47,13 @@ export default class Input extends React.Component{
 		}
 		this.validate()
 	}
-	validate(){
-		this.setState({ focus: false })
+	validate(focus = false){
 		const { value } = this.input
 
 		// Required message
 		if (this.props.required && !value){
-			return this.setState({ error: `This field is required` })
+			this.setState({ error: `This field is required`, focus })
+			return false
 		}
 
 		// Run validation functions
@@ -61,12 +62,14 @@ export default class Input extends React.Component{
 			for (let i = 0; i < validators.length; i++) {
 				const error = validators[i](value)
 				if (error) {
-					return this.setState({ error })
+					this.setState({ error, focus })
+					return false
 				}
 			}
 		}
 
-		this.setState({ error: false })
+		this.setState({ error: false, focus: false })
+		return true
 	}
 	componentDidMount(){
 		registerInput(this)
