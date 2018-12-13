@@ -22,27 +22,42 @@ export default class HomePage extends React.Component {
 				</div>
 				<div>
 					<button onClick={() => addToCart({
-						id: products[0].id,
+						id: products[1].id,
 						name: `7.5' Covington Billiard Table`,
 						image: `https://images.salsify.com/image/upload/s--5scl3VX0--/w_75,h_75,c_pad/g8gkpmmhuhqzrqxu6boh.jpg`,
 						description: `Beautiful and refined, the 8' Minnesota Fats Covington Pool Table with Dur-A-Bond play bed will make a stunning centerpiece for your game room. Carved...`,
-						price: products[0].price,
-						stock: typeof products[0].inventory.quantity === `number`
-							? products[0].inventory.quantity
+						price: products[1].price,
+						shippable: products[1].product.shippable,
+						stock: typeof products[1].inventory.quantity === `number`
+							? products[1].inventory.quantity
 							: null,
 					})}>Add to Cart A</button>
 				</div>
 				<div>
 					<button onClick={() => addToCart({
-						id: products[1].id,
+						id: products[2].id,
 						name: `Raptor Table Tennis Racket`,
 						image: `https://images.salsify.com/image/upload/s--7evRfexQ--/w_75,h_75,c_pad/qdppgggttnkespgpupdz.jpg`,
 						description: `A short description.`,
-						price: products[1].price,
+						price: products[2].price,
+						shippable: products[2].product.shippable,
+						stock: typeof products[2].inventory.quantity === `number`
+							? products[2].inventory.quantity
+							: null,
+					})}>Add to Cart B</button>
+				</div>
+				<div>
+					<button onClick={() => addToCart({
+						id: products[0].id,
+						name: `$20.00 Red Cross Donation`,
+						image: `https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_the_Red_Cross.svg`,
+						description: `A short description.`,
+						shippable: products[0].product.shippable,
+						price: products[0].price,
 						stock: typeof products[0].inventory.quantity === `number`
 							? products[0].inventory.quantity
 							: null,
-					})}>Add to Cart B</button>
+					})}>Add to Cart C</button>
 				</div>
 				<div>
 					<button onClick={() => addToCart({
@@ -164,14 +179,17 @@ const styles = {
 export const query = graphql`
 	query HomePage {
 		allStripeSku {
-			edges{
-				node{
+			edges {
+				node {
 					id
-					inventory{
+					inventory {
 						type
 						quantity
 					}
 					price
+					product {
+						shippable
+					}
 				}
 			}
 		}

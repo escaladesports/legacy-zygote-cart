@@ -2,6 +2,7 @@ import { State } from 'statable'
 
 const defaults = {
 	products: [],
+	shippable: true,
 }
 
 const productsState = new State({...defaults}, {

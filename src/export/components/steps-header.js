@@ -1,47 +1,54 @@
 import React from 'react'
 import classNames from 'classnames'
+import { Subscribe } from 'statable'
+
 import changeStep from '../utils/change-step'
+import stepState from '../state/step'
 
 export default class StepsHeader extends React.Component {
 	render() {
 		const { step } = this.props
 		return (
-			<ul className='zygoteStepsHeader'>
-				<li
-					role='button'
-					className={classNames(
-						`zygoteStepLink`,
-						step === `info` && `zygoteActiveStepLink`,
-						step !== `info` && `zygoteClickableStepLink`,
-					)}
-					onClick={step === `info` ? null : () => changeStep(`info`)}
-				>
-					Details
-				</li>
-				<li
-					role='button'
-					className={classNames(
-						`zygoteStepLink`,
-						step === `shipping` && `zygoteActiveStepLink`,
-						step === `payment` && `zygoteClickableStepLink`,
-					)}
-					onClick={
-						step === `payment`
-							? () => changeStep(`shipping`)
-							: null
-					}
-				>
-					Shipping
-				</li>
-				<li
-					className={classNames(
-						`zygoteStepLink`,
-						step === `payment` && `zygoteActiveStepLink`,
-					)}
-				>
-					Payment
-				</li>
-			</ul>
+			<Subscribe to={stepState}>
+				{({ skip }) => (
+					<ul className='zygoteStepsHeader'>
+						<li
+							role='button'
+							className={classNames(
+								`zygoteStepLink`,
+								step === `info` && `zygoteActiveStepLink`,
+								step !== `info` && `zygoteClickableStepLink`,
+							)}
+							onClick={step === `info` ? null : () => changeStep(`info`)}
+						>
+							Details
+						</li>
+						{!skip.shipping && <li
+							role='button'
+							className={classNames(
+								`zygoteStepLink`,
+								step === `shipping` && `zygoteActiveStepLink`,
+								step === `payment` && `zygoteClickableStepLink`,
+							)}
+							onClick={
+								step === `payment`
+									? () => changeStep(`shipping`)
+									: null
+							}
+						>
+							Shipping
+						</li>}
+						<li
+							className={classNames(
+								`zygoteStepLink`,
+								step === `payment` && `zygoteActiveStepLink`,
+							)}
+						>
+							Payment
+						</li>
+					</ul>
+				)}
+			</Subscribe>
 		)
 	}
 	static styles = ({ primaryColor }) => ({
