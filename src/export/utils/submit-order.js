@@ -12,6 +12,7 @@ import displayError from './display-error'
 import metaState from '../state/meta'
 import shippingState from '../state/shipping'
 import successState from '../state/success'
+import config from '../zygote.config'
 
 export default async function submitOrder({ type, token }) {
 	clearMessages()
@@ -31,7 +32,7 @@ export default async function submitOrder({ type, token }) {
 		body.paymentType = `paypal`
 		body.payment = token
 	}
-	else if (settingsState.state.stripeApiKey) {
+	else if (settingsState.state.stripeApiKey && window.zygoteStripeInstance) {
 		if(token && type === `stripe`){
 			body.payment = token
 		}
@@ -58,6 +59,9 @@ export default async function submitOrder({ type, token }) {
 		}
 		body.paymentType = `stripe`
 	}
+	else {
+		body.paymentType = `standard`
+	}
 
 	body.products = productsState.state.products
 	const {
@@ -76,7 +80,7 @@ export default async function submitOrder({ type, token }) {
 
 	let data
 	try {
-		data = await fetch(settingsState.state.orderWebhook, body)
+		data = await fetch(settingsState.state.orderWebhook, body, config.plugins.preOrder, config.plugins.postOrder)
 		console.log(`Received from API:`, data)
 	}
 	catch(err){

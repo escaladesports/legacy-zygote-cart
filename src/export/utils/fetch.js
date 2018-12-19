@@ -11,7 +11,7 @@ import setShipping from './set-shipping'
 import triggerEvent from './trigger-event'
 import stepState from '../state/step'
 
-export default async function fetchWebhook(path, body) {
+export default async function fetchWebhook(path, body, preFetchPlugins = [], postFetchPlugins = []) {
 	if(body.event){
 		triggerEvent(`${body.event}Attempt`, body)
 	}
@@ -24,12 +24,22 @@ export default async function fetchWebhook(path, body) {
 			totals: totalsState.state,
 			meta: metaState.state.meta,
 		})
+
+		preFetchPlugins.forEach(plugin => {
+			console.log(plugin)
+			// plugin(jsonBody)
+		})
+
 		console.log(`Sending to API:`, jsonBody)
 		data = await fetch(path, {
 			method: `post`,
 			body: jsonBody,
 		})
 		data = await data.json()
+		
+		postFetchPlugins.forEach(plugin => {
+			plugin(data)
+		})
 
 		console.log(`Received from API:`, data)
 	}
