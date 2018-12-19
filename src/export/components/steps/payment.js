@@ -19,11 +19,9 @@ import CompanyName from '../inputs/company-name'
 import City from '../inputs/city'
 import State from '../inputs/state'
 import Zip from '../inputs/zip'
-import CreditCard from '../inputs/credit-card'
-import Expiration from '../inputs/expiration'
-import Cvc from '../inputs/cvc'
 import Paypal from '../paypal'
 import previousStep from '../../utils/previous-step'
+import config from '../../zygote.config'
 
 export default class PaymentStep extends React.Component{
 	constructor(props){
@@ -67,21 +65,11 @@ export default class PaymentStep extends React.Component{
 									{!!paypalAppId && (
 										<Paypal id={paypalAppId} />
 									)}
-									{!!stripeApiKey && (
+
+									{config.plugins.billing && config.plugins.billing.map((Plgin, key) => <Plgin key={key} />)}
+
+									{!config.plugins.billing && !!stripeApiKey && (
 										<StripePayment />
-									)}
-									{!stripeApiKey && (
-										<Fragment>
-											<CreditCard step='billing' />
-											<div className='zygotePaymentExpCVC'>
-												<div>
-													<Expiration step='billing' />
-												</div>
-												<div>
-													<Cvc step='billing' />
-												</div>
-											</div>
-										</Fragment>
 									)}
 
 									<label className='zygotePaymentSame'>

@@ -6,6 +6,7 @@ import shippingState from '../state/shipping'
 import stepState from '../state/step'
 import messagesState from '../state/status-messages'
 import displayError from './display-error'
+import config from '../zygote.config'
 
 export default async function submitInfo() {
 	const { infoWebhook } = settingsState.state
@@ -17,7 +18,7 @@ export default async function submitInfo() {
 
 		let data
 		try {
-			data = await fetch(infoWebhook, vals)
+			data = await fetch(infoWebhook, vals, config.plugins.preInfo, config.plugins.postInfo)
 			console.log(`Received from API:`, data)
 		}
 		catch (err) {

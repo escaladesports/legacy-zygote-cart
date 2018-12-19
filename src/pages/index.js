@@ -109,7 +109,7 @@ export default class HomePage extends React.Component {
 					paypalAppId='ATP-SVtvHjAfyOGdr_8RRXgizsofojJV32mMt3WRmf5ignVi1TZkA67UYwm5sAitwETQuEigH91w70_6'
 					paypalEnv='sandbox'
 					infoWebhook='/.netlify/functions/info-stripe'
-					orderWebhook='/.netlify/functions/order-stripe'
+					orderWebhook='/.netlify/functions/order'
 					
 					auth0ClientID='Wweg1YAs6kJquv9DcLSpmSNpaY6XPaX8'
 					auth0Logout='http://localhost:8000/'
