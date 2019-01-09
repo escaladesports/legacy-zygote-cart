@@ -33,6 +33,7 @@ export default class PaymentStep extends React.Component{
 		this.setState({ sameBilling: !this.state.sameBilling })
 	}
 	render() {
+		let altPayment = false
 		return (
 			<Subscribe to={[stepState, shippingState, settingsState]}>
 				{({
@@ -66,9 +67,14 @@ export default class PaymentStep extends React.Component{
 										<Paypal id={paypalAppId} />
 									)}
 
-									{config.plugins.billing && config.plugins.billing.map((Plgin, key) => <Plgin key={key} />)}
+									{config.plugins && config.plugins.map((Payment, key) => {
+										if (typeof Payment === `function`) {
+											altPayment = true
+											return <Payment key={key} />
+										}
+									})}
 
-									{!config.plugins.billing && !!stripeApiKey && (
+									{!altPayment && !!stripeApiKey && (
 										<StripePayment />
 									)}
 

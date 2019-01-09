@@ -11,7 +11,7 @@ export default function addToCart(newProduct){
 		newProduct.quantity = 1
 	}
 	let alreadyInCart = false
-	let shippable = false
+	let shippable = products.length ? false : newProduct.shippable
 	for (let i = products.length; i--;){
 		const product = products[i]
 		if (product.id === newProduct.id) {
@@ -32,13 +32,11 @@ export default function addToCart(newProduct){
 	productState.setState({ products, shippable })
 	if (!shippable) {
 		stepState.setState({ skip: { ...stepState.state.skip, shipping: true } })
-		console.log(`skip:`,{ ...stepState.state.skip, shipping: true })
 	}
 	else {
 		let skip = stepState.state.skip
 		delete skip[`shipping`]
 		stepState.setState({ skip })
-		console.log(`skip:`,skip)
 	}
 	calculateTotals()
 	addedToCartState.setState({ addedToCart: true })

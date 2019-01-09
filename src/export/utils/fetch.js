@@ -10,25 +10,29 @@ import addQuantityModification from './quantity-modifications'
 import setShipping from './set-shipping'
 import triggerEvent from './trigger-event'
 import stepState from '../state/step'
+import config from '../zygote.config'
 
-export default async function fetchWebhook(path, body, preFetchPlugins = [], postFetchPlugins = []) {
+export default async function fetchWebhook(path, body) {
 	if(body.event){
 		triggerEvent(`${body.event}Attempt`, body)
 	}
-	let data
+	let data, reqData, apiData
 	try {
-		const jsonBody = JSON.stringify({
+		reqData = {
 			...body,
 			products: productsState.state.products,
 			selectedShippingMethod: shippingState.state.selected,
 			totals: totalsState.state,
 			meta: metaState.state.meta,
-		})
+		}
 
-		preFetchPlugins.forEach(plugin => {
-			console.log(plugin)
-			// plugin(jsonBody)
-		})
+		apiData = reqData
+		for (let i = 0; i < config.plugins.length; i++) {
+			apiData = await (body.event == `info` && typeof config.plugins[i].preInfo === `function` ? config.plugins[i].preInfo({apiData, reqData}) : apiData)
+			apiData = await (body.event == `order` && typeof config.plugins[i].preOrder === `function` ? config.plugins[i].preOrder({apiData, reqData}) : apiData)
+		}
+
+		const jsonBody = JSON.stringify(apiData)
 
 		console.log(`Sending to API:`, jsonBody)
 		data = await fetch(path, {
@@ -37,9 +41,10 @@ export default async function fetchWebhook(path, body, preFetchPlugins = [], pos
 		})
 		data = await data.json()
 		
-		postFetchPlugins.forEach(plugin => {
-			plugin(data)
-		})
+		for (let i = 0; i < config.plugins.length; i++) {
+			data = await (body.event == `info` && typeof config.plugins[i].postInfo === `function` ? config.plugins[i].postInfo({data, reqData, apiData}) : data)
+			data = await (body.event == `order` && typeof config.plugins[i].postOrder === `function` ? config.plugins[i].postOrder({data, reqData, apiData}) : data)
+		}
 
 		console.log(`Received from API:`, data)
 	}
@@ -88,6 +93,20 @@ export default async function fetchWebhook(path, body, preFetchPlugins = [], pos
 				selected: selectedShippingMethod,
 			})
 			setShipping(selectedShippingMethod)
+		}
+		else {
+			for (let i = 0; i < config.plugins.length; i++) {
+				const ship = await (typeof config.plugins[i].getShippingMethods === `function` ? config.plugins[i].getShippingMethods({data, reqData, apiData}) : {})
+				if (ship && ship.methods && ship.methods.length) {
+					shippingState.setState({
+						methods: ship.methods,
+						selected: ship.selected ? ship.selected : selectedShippingMethod,
+					})
+					if (ship.selected) {
+						setShipping(ship.selected)
+					}
+				}
+			}
 		}
 		if (step) {
 			stepState.setState({ step })

@@ -47,16 +47,11 @@ export default class Totals extends React.Component{
 		const { totals } = this.props
 		return (
 			<ul className='zygoteTotals'>
-				{totals && (
-					<TotalsList totals={totals} />
-				)}
-				{!totals && (
-					<Subscribe to={totalsState}>
-						{totals => (
-							<TotalsList totals={totals} />
-						)}
-					</Subscribe>
-				)}
+				<Subscribe to={totalsState}>
+					{totalsS => (
+						<TotalsList totals={totals ? totals : totalsS} />
+					)}
+				</Subscribe>
 			</ul>
 		)
 	}

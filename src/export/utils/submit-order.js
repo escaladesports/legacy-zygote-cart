@@ -12,7 +12,6 @@ import displayError from './display-error'
 import metaState from '../state/meta'
 import shippingState from '../state/shipping'
 import successState from '../state/success'
-import config from '../zygote.config'
 
 export default async function submitOrder({ type, token }) {
 	clearMessages()
@@ -80,7 +79,7 @@ export default async function submitOrder({ type, token }) {
 
 	let data
 	try {
-		data = await fetch(settingsState.state.orderWebhook, body, config.plugins.preOrder, config.plugins.postOrder)
+		data = await fetch(settingsState.state.orderWebhook, body)
 		console.log(`Received from API:`, data)
 	}
 	catch(err){

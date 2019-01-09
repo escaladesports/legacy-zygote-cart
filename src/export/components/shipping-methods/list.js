@@ -19,7 +19,7 @@ export default class ShippingMethodsList extends React.Component {
 		} = this.props
 		return (
 			<ul className='zygoteShipList'>
-				{methods && methods.map(({ id, description, value }) =>
+				{methods && methods.map(({ id, description, value, addInfo }) =>
 					<li key={`shipping${id}`}>
 						<label className='zygoteShipLabel'>
 							<div>
@@ -31,7 +31,10 @@ export default class ShippingMethodsList extends React.Component {
 									onChange={this.handleChange}
 								/>
 							</div>
-							<div>{description}</div>
+							<div>
+								<div>{description}</div>
+								{addInfo && <div>{addInfo}</div>}
+							</div>
 							<div>{formatUsd(value)}</div>
 						</label>
 					</li>

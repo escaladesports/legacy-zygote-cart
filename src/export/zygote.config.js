@@ -1,14 +1,9 @@
 /* eslint-disable */
 "use strict";
 
-var exports = module.exports;
-
-exports.plugins = {
-	billing: [
+module.exports = {
+	plugins: [
 		require('./plugins/zygote-plugin-standard-billing'),
+		require('../../../zygote-plugin-esca-api/src'),
 	],
-	preInfo: [],
-	postInfo: [],
-	preOrder: [],
-	postOrder: [],
-};
+}

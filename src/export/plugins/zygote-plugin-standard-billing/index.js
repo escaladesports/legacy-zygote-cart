@@ -4,7 +4,7 @@ import CreditCard from '../../components/inputs/credit-card'
 import Expiration from '../../components/inputs/expiration'
 import Cvc from '../../components/inputs/cvc'
 
-export default class StandardBilling extends React.Component {
+export default class Payment extends React.Component {
 	render() {
 		return (
 			<Fragment>

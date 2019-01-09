@@ -4260,6 +4260,11 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.0.0"
     whatwg-url "^6.4.0"
 
+datasets-us-states-names-abbr@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/datasets-us-states-names-abbr/-/datasets-us-states-names-abbr-1.0.0.tgz#d65ca12d67c98cb04cce92ba6fe71effaca57de2"
+  integrity sha1-1lyhLWfJjLBMzpK6b+ce/6ylfeI=
+
 datasets-us-states-names@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/datasets-us-states-names/-/datasets-us-states-names-1.0.0.tgz#f2b55cd08472ba46d8d71b1dc002322b86370f15"
