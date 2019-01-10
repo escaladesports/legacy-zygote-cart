@@ -1,7 +1,19 @@
 {
-  "name": "zygote-cart",
-  "version": "0.0.0",
+  "name": "@escaladesports/zygote-cart",
+  "version": "3.0.0",
   "author": "Kennedy Rose <krose@escaladesports.com>",
+  "contributors": [
+    {
+      "name": "Taylor Austin",
+      "email": "taustin@escaladesports.com",
+      "url": "https://github.com/tbaustin"
+    },
+    {
+      "name": "Matt Suhay",
+      "email": "matthew.suhay@gmail.com",
+      "url": "https://github.com/suhay"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "build": "npm run build:module",

@@ -1,3 +1,5 @@
+import table from 'datasets-us-states-names-abbr'
+
 import fetch from './fetch'
 import stepState from '../state/step'
 import settingsState from '../state/settings'
@@ -26,6 +28,7 @@ export default async function submitOrder({ type, token }) {
 	stepState.setState({ processing: true })
 
 	const body = getFormValues()
+	body.billingStateAbbr = body.sameBilling ? table[body.shippingState] : table[body.billingState]
 
 	if(type === `paypal`){
 		body.paymentType = `paypal`
@@ -75,12 +78,9 @@ export default async function submitOrder({ type, token }) {
 	}
 	body.event = `order`
 
-	console.log(`Sending to API:`, body)
-
 	let data
 	try {
 		data = await fetch(settingsState.state.orderWebhook, body)
-		console.log(`Received from API:`, data)
 	}
 	catch(err){
 		data = {}

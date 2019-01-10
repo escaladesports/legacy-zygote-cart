@@ -3,7 +3,7 @@
 
 module.exports = {
 	plugins: [
-		require('./plugins/zygote-plugin-standard-billing'),
-		require('../../../zygote-plugin-esca-api/src'),
+		// require('./plugins/zygote-plugin-standard-billing'), // Turn on the standard billing plugin to replace stripe's input
+		// require('@escaladesports/zygote-plugin-esca-api/src'), // Working example plugin
 	],
 }

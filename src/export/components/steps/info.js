@@ -20,6 +20,7 @@ import productsState from '../../state/products'
 import settingsState from '../../state/settings'
 import SimpleSummary from '../simple-summary'
 import Coupon from '../inputs/coupon'
+import config from '../../zygote.config'
 
 export default class InfoStep extends React.Component{
 	render() {
@@ -111,6 +112,11 @@ export default class InfoStep extends React.Component{
 								<div className='zygoteInfoCoupon'>
 									<Coupon />
 								</div>
+								{config.plugins && config.plugins.map(({ Info }, key) => {
+									if (typeof Info === `function`) {
+										return <Info key={key} />
+									}
+								})}
 								<div className='zygoteInfoBtn'>
 									<Button onClick={attemptSubmitInfo}>
 										Next Step

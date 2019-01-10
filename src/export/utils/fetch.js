@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+
 import metaState from '../state/meta'
 import shippingState from '../state/shipping'
 import productsState from '../state/products'
@@ -16,9 +17,9 @@ export default async function fetchWebhook(path, body) {
 	if(body.event){
 		triggerEvent(`${body.event}Attempt`, body)
 	}
-	let data, reqData, apiData
+	let response, info, preFetchData
 	try {
-		reqData = {
+		info = {
 			...body,
 			products: productsState.state.products,
 			selectedShippingMethod: shippingState.state.selected,
@@ -26,40 +27,40 @@ export default async function fetchWebhook(path, body) {
 			meta: metaState.state.meta,
 		}
 
-		apiData = reqData
+		preFetchData = info
 		for (let i = 0; i < config.plugins.length; i++) {
-			apiData = await (body.event == `info` && typeof config.plugins[i].preInfo === `function` ? config.plugins[i].preInfo({apiData, reqData}) : apiData)
-			apiData = await (body.event == `order` && typeof config.plugins[i].preOrder === `function` ? config.plugins[i].preOrder({apiData, reqData}) : apiData)
+			preFetchData = await (body.event == `info` && typeof config.plugins[i].preInfo === `function` ? config.plugins[i].preInfo({preFetchData, info}) : preFetchData)
+			preFetchData = await (body.event == `order` && typeof config.plugins[i].preOrder === `function` ? config.plugins[i].preOrder({preFetchData, info}) : preFetchData)
 		}
 
-		const jsonBody = JSON.stringify(apiData)
+		const jsonBody = JSON.stringify(preFetchData)
 
 		console.log(`Sending to API:`, jsonBody)
-		data = await fetch(path, {
+		response = await fetch(path, {
 			method: `post`,
 			body: jsonBody,
 		})
-		data = await data.json()
+		response = await response.json()
 		
 		for (let i = 0; i < config.plugins.length; i++) {
-			data = await (body.event == `info` && typeof config.plugins[i].postInfo === `function` ? config.plugins[i].postInfo({data, reqData, apiData}) : data)
-			data = await (body.event == `order` && typeof config.plugins[i].postOrder === `function` ? config.plugins[i].postOrder({data, reqData, apiData}) : data)
+			response = await (body.event == `info` && typeof config.plugins[i].postInfo === `function` ? config.plugins[i].postInfo({response, info, preFetchData}) : response)
+			response = await (body.event == `order` && typeof config.plugins[i].postOrder === `function` ? config.plugins[i].postOrder({response, info, preFetchData}) : response)
 		}
 
-		console.log(`Received from API:`, data)
+		console.log(`Received from API:`, response)
 	}
 	catch(err){
 		console.error(err)
 		triggerEvent(`error`, err)
-		data = {}
+		response = {}
 	}
 	try {
 		if (body.event) {
 			const eventData = {
 				...body,
-				...data,
+				...response,
 			}
-			if (data.success === true) {
+			if (response.success === true) {
 				triggerEvent(`${body.event}`, eventData)
 			}
 			else {
@@ -75,10 +76,10 @@ export default async function fetchWebhook(path, body) {
 				? shippingState.state.selected
 				: 0,
 			step,
-		} = data
+		} = response
 
-		addTotalModification(data.modifications)
-		addQuantityModification(data.quantityModifications)
+		addTotalModification(response.modifications)
+		addQuantityModification(response.quantityModifications)
 
 		if (typeof meta === `object`) {
 			metaState.setState({ meta })
@@ -92,11 +93,16 @@ export default async function fetchWebhook(path, body) {
 				methods: shippingMethods,
 				selected: selectedShippingMethod,
 			})
-			setShipping(selectedShippingMethod)
+			if (typeof selectedShippingMethod == `object` && Object.keys(selectedShippingMethod).length > 0) {
+				Object.keys(selectedShippingMethod).map(shipid => setShipping(selectedShippingMethod[shipid], shipid))
+			}
+			else {
+				setShipping(selectedShippingMethod)
+			}
 		}
 		else {
 			for (let i = 0; i < config.plugins.length; i++) {
-				const ship = await (typeof config.plugins[i].getShippingMethods === `function` ? config.plugins[i].getShippingMethods({data, reqData, apiData}) : {})
+				const ship = await (typeof config.plugins[i].getShippingMethods === `function` ? config.plugins[i].getShippingMethods({response, info, preFetchData}) : {})
 				if (ship && ship.methods && ship.methods.length) {
 					shippingState.setState({
 						methods: ship.methods,
@@ -116,5 +122,5 @@ export default async function fetchWebhook(path, body) {
 		console.error(err)
 	}
 
-	return data
+	return response
 }

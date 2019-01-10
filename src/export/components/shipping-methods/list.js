@@ -33,7 +33,7 @@ export default class ShippingMethodsList extends React.Component {
 							</div>
 							<div>
 								<div>{description}</div>
-								{addInfo && <div>{addInfo}</div>}
+								{addInfo && <div className='zygoteShippingAdditionalInfo'>{addInfo}</div>}
 							</div>
 							<div>{formatUsd(value)}</div>
 						</label>
@@ -50,6 +50,11 @@ export default class ShippingMethodsList extends React.Component {
 			li: {
 				marginTop: 10,
 			},
+		},
+		'.zygoteShippingAdditionalInfo': {
+			fontSize: `14px`,
+			color: `#03cfff`,
+			fontWeight: `bold`,
 		},
 		'.zygoteShipLabel': {
 			display: `flex`,

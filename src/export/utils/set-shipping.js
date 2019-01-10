@@ -1,4 +1,4 @@
-import shippingState from '../state/shipping'
+import shippingState, { findShippingMethod } from '../state/shipping'
 import totalsState from '../state/totals'
 import addTotalModification from './add-total-modification'
 import config from '../zygote.config'
@@ -21,12 +21,17 @@ export default function setShipping(selected, setId) {
 		displayValue: method.displayValue,
 		value: method.value,
 	})
+
+	const totalShippingCost = totalsState.state.modifications
+		.filter(mod => mod.id.startsWith(`shipping`))
+		.reduce((total, mod) => total.value ? total.value + mod.value : total + mod.value)
+
 	config.plugins.forEach(plugin => {
 		if (typeof plugin.calculateTax === `function` ) {
 			plugin.calculateTax({
 				shippingAddress: shippingState.state.address,
 				subtotal: totalsState.state.subtotal,
-				shipping: method.value,
+				shipping: totalShippingCost.value ? totalShippingCost.value : totalShippingCost,
 				discounts: 0,
 			})
 				.then(tax => {
@@ -38,23 +43,3 @@ export default function setShipping(selected, setId) {
 	totalsState.setState({ loading: false })
 }
 
-function findShippingMethod(id){
-	const { methods } = shippingState.state
-	for (let i = methods.length; i--;){
-		const method = methods[i]
-		if (method.shippingMethods){
-			for(let i = method.shippingMethods.length; i--;){
-				const innerMethod = method.shippingMethods[i]
-				if (innerMethod.id === id) {
-					return innerMethod
-				}
-			}
-		}
-		else {
-			if (method.id === id) {
-				return method
-			}
-		}
-	}
-	return false
-}

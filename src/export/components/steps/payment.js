@@ -67,7 +67,7 @@ export default class PaymentStep extends React.Component{
 										<Paypal id={paypalAppId} />
 									)}
 
-									{config.plugins && config.plugins.map((Payment, key) => {
+									{config.plugins && config.plugins.map(({ Payment }, key) => {
 										if (typeof Payment === `function`) {
 											altPayment = true
 											return <Payment key={key} />
