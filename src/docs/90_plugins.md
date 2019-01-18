@@ -2,18 +2,18 @@
 
 ```javascript
 export { 
-	preInfo, // Fires before fetching the 'infoWebhook'
-	postInfo, // Fires after fetching the 'infoWebhook'
-	calculateTax, // Fires on the 'Shipping' step 
-	getShippingMethods, // Fires on the 'Shipping' step 
-	preOrder, // Fires before fetching the 'orderWebhook'
-	postOrder // Fires after fetching the 'orderWebhook'
+  preInfo, // Fires before fetching the 'infoWebhook'
+  postInfo, // Fires after fetching the 'infoWebhook'
+  calculateTax, // Fires on the 'Shipping' step 
+  getShippingMethods, // Fires on the 'Shipping' step 
+  preOrder, // Fires before fetching the 'orderWebhook'
+  postOrder // Fires after fetching the 'orderWebhook'
 }
 
 export { 
-	Info, // React component injected into the 'Details' step
-	Shipping, // React component injected into the 'Shipping' step
-	Payment // React component injected into the 'Payment' step
+  Info, // React component injected into the 'Details' step
+  Shipping, // React component injected into the 'Shipping' step
+  Payment // React component injected into the 'Payment' step
 }
 ```
 
@@ -31,9 +31,9 @@ You can take advantage of the fact that you are an adult and that you can not on
 
 ```javascript
 const preInfo = async ({ info }) => {
-	return {
-		skus: info.products ? info.products.map(function(product) { return product.id }) : []
-	}
+  return {
+    skus: info.products ? info.products.map(function(product) { return product.id }) : []
+  }
 }
 ```
 Fires **before** fetching the `infoWebhook`
@@ -42,37 +42,37 @@ Fires **before** fetching the `infoWebhook`
 
 ```javascript
 const postInfo = async ({ response, info, preFetchData }) => {
-	const { inventory } = response
-	const quantityModifications = Object.keys(inventory).map(id => {
-		return {
-			id: id,
-			available: inventory[id].stock || 0,
-		}
-	})
+  const { inventory } = response
+  const quantityModifications = Object.keys(inventory).map(id => {
+    return {
+      id: id,
+      available: inventory[id].stock || 0,
+    }
+  })
 
-	let shippingMethods = {}, selectedShippingMethod = {}
-	await fetch(`https://products-test.escsportsapi.com/shipping`, { // Get packing dimensions
-		method: `post`,
-		body: JSON.stringify(preFetchData),
-		headers: headers,
-	})
-		.then(response => response.json())
-		.catch(error => console.log(`Request failed`, error))
+  let shippingMethods = {}, selectedShippingMethod = {}
+  await fetch(`https://products-test.escsportsapi.com/shipping`, { // Get packing dimensions
+    method: `post`,
+    body: JSON.stringify(preFetchData),
+    headers: headers,
+  })
+    .then(response => response.json())
+    .catch(error => console.log(`Request failed`, error))
 
-	return {
-		success: inventory && shippingMethods ? true : false,
-		modifications: [
-			{
-				id: `january-sale`,
-				description: `January Sale`,
-				value: -2000,
-			},
-			shippingMethods[Object.keys(shippingMethods)[0]].tax,
-		],
-		shippingMethods: Object.keys(shippingMethods).map(ship => shippingMethods[ship]),
-		selectedShippingMethod: Object.keys(selectedShippingMethod).length == 1 ? selectedShippingMethod[Object.keys(selectedShippingMethod)[0]] : selectedShippingMethod,
-		quantityModifications: quantityModifications,
-	}
+  return {
+    success: inventory && shippingMethods ? true : false,
+    modifications: [
+      {
+        id: `january-sale`,
+        description: `January Sale`,
+        value: -2000,
+      },
+      shippingMethods[Object.keys(shippingMethods)[0]].tax,
+    ],
+    shippingMethods: Object.keys(shippingMethods).map(ship => shippingMethods[ship]),
+    selectedShippingMethod: Object.keys(selectedShippingMethod).length == 1 ? selectedShippingMethod[Object.keys(selectedShippingMethod)[0]] : selectedShippingMethod,
+    quantityModifications: quantityModifications,
+  }
 }
 ```
 Fires **after** fetching the `infoWebhook`
@@ -81,31 +81,31 @@ Fires **after** fetching the `infoWebhook`
 
 ```javascript
 const calculateTax = async ({ shippingAddress, subtotal = 0, shipping = 0, discount = 0 }) => {
-	if (!shippingAddress.shippingStateAbbr) return {}
-	let checkTax = {
-		state: shippingAddress.shippingStateAbbr,
-		subtotal: (subtotal / 100).toFixed(2),
-		shipping: (shipping / 100).toFixed(2),
-		discount: ((discount < 0 ? discount * -1 : discount) / 100).toFixed(2),
-	}
+  if (!shippingAddress.shippingStateAbbr) return {}
+  let checkTax = {
+    state: shippingAddress.shippingStateAbbr,
+    subtotal: (subtotal / 100).toFixed(2),
+    shipping: (shipping / 100).toFixed(2),
+    discount: ((discount < 0 ? discount * -1 : discount) / 100).toFixed(2),
+  }
 
-	return await fetch(`https://taxes-test.escsportsapi.com/calculate`, { // Get taxes
-		method: `post`,
-		body: JSON.stringify(checkTax),
-		headers: headers,
-	})
-		.then(response => response.json())
-		.then(jsonBody => {
-			if (jsonBody.errors) {
-				throw Error(jsonBody.errors)
-			}
-			return {
-				id: `tax`,
-				description: jsonBody.tax.label,
-				value: parseInt(jsonBody.tax.value.toString().replace(/\./g, ''), 10),
-			}
-		})
-		.catch(error => console.log('Failed to calculate taxes', error))
+  return await fetch(`https://taxes-test.escsportsapi.com/calculate`, { // Get taxes
+    method: `post`,
+    body: JSON.stringify(checkTax),
+    headers: headers,
+  })
+    .then(response => response.json())
+    .then(jsonBody => {
+      if (jsonBody.errors) {
+        throw Error(jsonBody.errors)
+      }
+      return {
+        id: `tax`,
+        description: jsonBody.tax.label,
+        value: parseInt(jsonBody.tax.value.toString().replace(/\./g, ''), 10),
+      }
+    })
+    .catch(error => console.log('Failed to calculate taxes', error))
 }
 ```
 
@@ -137,35 +137,35 @@ const postOrder = async ({ response, info, preFetchData }) => {
 
 ```javascript
 export class Info extends React.Component {
-	render() {
-		return (
-			<Fragment>
-				<Fragment>
-					<NameInput
-						name='billingFirstName'
-						autoComplete='first name'
-						step='billing'
-						label='First Name'
-					/>
-					<NameInput
-						name='billingLastName'
-						autoComplete='last name'
-						step='billing'
-						label='Last Name'
-					/>
-				</Fragment>
-				<CreditCard step='billing' />
-				<div className='zygotePaymentExpCVC'>
-					<div>
-						<Expiration step='billing' />
-					</div>
-					<div>
-						<Cvc step='billing' />
-					</div>
-				</div>
-			</Fragment>
-		)
-	}
+  render() {
+    return (
+      <Fragment>
+        <Fragment>
+          <NameInput
+            name='billingFirstName'
+            autoComplete='first name'
+            step='billing'
+            label='First Name'
+          />
+          <NameInput
+            name='billingLastName'
+            autoComplete='last name'
+            step='billing'
+            label='Last Name'
+          />
+        </Fragment>
+        <CreditCard step='billing' />
+        <div className='zygotePaymentExpCVC'>
+          <div>
+            <Expiration step='billing' />
+          </div>
+          <div>
+            <Cvc step='billing' />
+          </div>
+        </div>
+      </Fragment>
+    )
+  }
 }
 ```
 
@@ -173,35 +173,35 @@ export class Info extends React.Component {
 
 ```javascript
 export class Shipping extends React.Component {
-	render() {
-		return (
-			<Fragment>
-				<Fragment>
-					<NameInput
-						name='billingFirstName'
-						autoComplete='first name'
-						step='billing'
-						label='First Name'
-					/>
-					<NameInput
-						name='billingLastName'
-						autoComplete='last name'
-						step='billing'
-						label='Last Name'
-					/>
-				</Fragment>
-				<CreditCard step='billing' />
-				<div className='zygotePaymentExpCVC'>
-					<div>
-						<Expiration step='billing' />
-					</div>
-					<div>
-						<Cvc step='billing' />
-					</div>
-				</div>
-			</Fragment>
-		)
-	}
+  render() {
+    return (
+      <Fragment>
+        <Fragment>
+          <NameInput
+            name='billingFirstName'
+            autoComplete='first name'
+            step='billing'
+            label='First Name'
+          />
+          <NameInput
+            name='billingLastName'
+            autoComplete='last name'
+            step='billing'
+            label='Last Name'
+          />
+        </Fragment>
+        <CreditCard step='billing' />
+        <div className='zygotePaymentExpCVC'>
+          <div>
+            <Expiration step='billing' />
+          </div>
+          <div>
+            <Cvc step='billing' />
+          </div>
+        </div>
+      </Fragment>
+    )
+  }
 }
 ```
 
@@ -209,34 +209,34 @@ export class Shipping extends React.Component {
 
 ```javascript
 export class Payment extends React.Component {
-	render() {
-		return (
-			<Fragment>
-				<Fragment>
-					<NameInput
-						name='billingFirstName'
-						autoComplete='first name'
-						step='billing'
-						label='First Name'
-					/>
-					<NameInput
-						name='billingLastName'
-						autoComplete='last name'
-						step='billing'
-						label='Last Name'
-					/>
-				</Fragment>
-				<CreditCard step='billing' />
-				<div className='zygotePaymentExpCVC'>
-					<div>
-						<Expiration step='billing' />
-					</div>
-					<div>
-						<Cvc step='billing' />
-					</div>
-				</div>
-			</Fragment>
-		)
-	}
+  render() {
+    return (
+      <Fragment>
+        <Fragment>
+          <NameInput
+            name='billingFirstName'
+            autoComplete='first name'
+            step='billing'
+            label='First Name'
+          />
+          <NameInput
+            name='billingLastName'
+            autoComplete='last name'
+            step='billing'
+            label='Last Name'
+          />
+        </Fragment>
+        <CreditCard step='billing' />
+        <div className='zygotePaymentExpCVC'>
+          <div>
+            <Expiration step='billing' />
+          </div>
+          <div>
+            <Cvc step='billing' />
+          </div>
+        </div>
+      </Fragment>
+    )
+  }
 }
 ```

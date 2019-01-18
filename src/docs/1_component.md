@@ -2,40 +2,28 @@
 
 ```javascript
 <Cart
-	header={<img className={styles.logo} src={logo} />}
-	cartHeader={<div className={styles.header}>With FREE shipping!</div>}
-	cartFooter={<div className={styles.footer}>* Free shipping, except Alaska and Hawaii</div>}
-	infoWebhook=''
-	orderWebhook=''
-	totalModifications={[
-		{
-			id: `shipping`,
-			description: `Shipping`,
-			displayValue: `-`,
-		},
-		{
-			id: `tax`,
-			description: `Tax`,
-			displayValue: `-`,
-		},
-	]}
+  header={<img className={styles.logo} src={logo} />}
+  cartHeader={<div className={styles.header}>With FREE shipping!</div>}
+  cartFooter={<div className={styles.footer}>* Free shipping, except Alaska and Hawaii</div>}
 />
 ```
 
-Some areas can contain custom components like header and footer areas.
+Some parts of the cart can contain custom components like the header and footer.
 
 Custom component properties:
 
-- `header`: Appears at the top of all stages of the cart
-- `footer`: Appears at the bottom of all stages of the cart
-- `cartHeader`: Appears at the top of the initial cart stage
-- `cartFooter`: Appears at the bottom of the initial cart stage
-- `infoHeader`: Appears at the top of the info stage
-- `infoFooter`: Appears at the bottom of the info stage
-- `paymentHeader`: Appears at the top of the payment stage
-- `paymentFooter`: Appears at the bottom of the payment stage
-- `successHeader`: Appears at the top of the success stage
-- `successFooter`: Appears at the bottom of the success stage
+| Attribute | Function |
+|:---------:|:--------:|
+| `header` | Appears at the **top of all stages** of the cart |
+| `footer` | Appears at the **bottom of all stages** of the cart |
+| `cartHeader` | Appears at the **top of the initial cart** stage |
+| `cartFooter` | Appears at the **bottom of the initial cart** stage |
+| `infoHeader` | Appears at the **top of the info** stage |
+| `infoFooter` | Appears at the **bottom of the info** stage |
+| `paymentHeader` | Appears at the **top of the payment** stage |
+| `paymentFooter` | Appears at the **bottom of the payment** stage |
+| `successHeader` | Appears at the **top of the success** stage |
+| `successFooter` | Appears at the **bottom of the success** stage |
 
 ## Event Hooks
 
@@ -55,13 +43,23 @@ Custom component properties:
 
 If you need to run client side code when something happens, Zygote comes with a set of event hooks you can use
 
+- `onOpen`
+- `onClose`
+- `onAddProduct`
+- `onRemoveProduct`
+- `onError`
+- `onInfoAttempt`
+- `onInfo`
+- `onOrderAttempt`
+- `onOrder`
+
 ## Google Analytics Integration
 
 ```jsx
 <Cart googleAnalytics={false} />
 ```
 
-By default, Zygote will send cart events to Analytics if Analytics are found on the site. It will also send ecommerce order information. To disable this, set the `googleAnalytics` property to `false`:
+By default, Zygote will send cart events to Google Analytics if Google Analytics is found on the site. It will also send e-commerce order information. To disable this feature, set the `googleAnalytics` property to `false`.
 
 ## Google Tag Manager Integration
 
@@ -71,17 +69,17 @@ By default, Zygote will send cart events to Analytics if Analytics are found on 
 
 By default, Zygote will send cart data and events to Google Tag Manager if GTM is found on the site. The event IDs that will be sent:
 
-- zygoteOpen
-- zygoteClose
-- zygoteAdd
-- zygoteRemove
-- zygoteError
-- zygoteAttemptInfo
-- zygoteInfo
-- zygoteAttemptOrder
-- zygoteOrder
+- `zygoteOpen`
+- `zygoteClose`
+- `zygoteAdd`
+- `zygoteRemove`
+- `zygoteError`
+- `zygoteAttemptInfo`
+- `zygoteInfo`
+- `zygoteAttemptOrder`
+- `zygoteOrder`
 
-To disable this, set the `googleTagManager` property to `false`:
+To disable this, set the `googleTagManager` property to `false`.
 
 ## Optional Shipping
 
@@ -97,7 +95,9 @@ import { addToCart } from 'zygote-cart';
 })}>Add to Cart</button>
 ```
 
-For items like digital goods or services that don't require shipping, you can pass a `shippable` property. If all the items in the cart have the `shippable` property, then shipping will not be required during checkout.
+For items like digital goods or services that don't require shipping, you can pass a `shippable` property. If all the items in the cart have the `shippable` property set to false, then shipping will not be required during checkout. If at least one item in the cart requires shipping, the digital goods will be included in the checkout as expected, but there will also be a shipping step for those items still requiring it.
+
+So you can have both in the same cart.
 
 ## Starting Total Modifications
 
@@ -113,14 +113,27 @@ For items like digital goods or services that don't require shipping, you can pa
     {
       id: `tax`,
       description: `Tax`,
-      value: 0,
+      value: 325,
       displayValue: `Calculated at checkout`,
+    },
+    {
+      id: `sale-1`,
+      description: `Super Sale!`,
+      value: -2000,
     },
   ]}
 />
 ```
 
 The webhooks can pass modifications to the total, but if you need some modifications to show immediately once the cart is opened, you can use the `totalModifications` prop in the `<Cart />` component.
+
+| Attribute | Function |
+|:--------------:|:--------:|
+| `id`           | A unique ID for each modification. `tax` is reserved for any sales tax being applied and all shipping modifications must start with the word `shipping` |
+| `description`  | Displayed in the subtotals list |
+| `value`        | The amount the modification is changing the total by. This value should be te amount, in dollars, x10 to prevent rounding issues ($10.00 = 1000). Negative numbers are also valid if you are applying a discount |
+| `displayValue` &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| If you wish to display something other than `value` in the subtotal list (ie. Free, Calculated at checkout) |
+
 
 ## Customize Default Error Messages
 
@@ -130,3 +143,10 @@ The webhooks can pass modifications to the total, but if you need some modificat
   orderSubmitError='There was an error with the server. Your information was not placed. Please try again later.'
 />
 ```
+
+There are two error events that we've exposed to allow you to enter your own custom messages.
+
+| Attribute | Function |
+|:---------:|:--------:|
+| `infoSubmitError` | When an error occurs between the `Details` stage and the `Shipping` stage |
+| `orderSubmitError` | When an error occurs while trying to submit the order to your webhook, or when trying to pay |

@@ -65,7 +65,17 @@ There are two URLs that can be passed as properties to send the cart information
       "value": 4999
     }
   ],
-  "selectedShippingMethod": "ship-0"
+  "selectedShippingMethod": "ship-0",
+  "quantityModifications": [
+    {
+      "id": "TESTA",
+      "available": "5",
+    },
+    {
+      "id": "TESTB",
+      "available": "2",
+    },
+  ],
 }
 ```
 

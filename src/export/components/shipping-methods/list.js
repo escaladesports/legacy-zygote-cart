@@ -42,7 +42,7 @@ export default class ShippingMethodsList extends React.Component {
 			</ul>
 		)
 	}
-	static styles = () => ({
+	static styles = ({ primaryColor }) => ({
 		'.zygoteShipList': {
 			listStyleType: `none`,
 			margin: 0,
@@ -53,7 +53,7 @@ export default class ShippingMethodsList extends React.Component {
 		},
 		'.zygoteShippingAdditionalInfo': {
 			fontSize: `14px`,
-			color: `#03cfff`,
+			color: primaryColor,
 			fontWeight: `bold`,
 		},
 		'.zygoteShipLabel': {

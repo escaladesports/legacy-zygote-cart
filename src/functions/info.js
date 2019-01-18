@@ -37,11 +37,11 @@ export async function handler({ body }) {
 		quantityModifications: [
 			{
 				id: `TESTA`,
-				availble: `5`,
+				available: `5`,
 			},
 			{
 				id: `TESTB`,
-				availble: `2`,
+				available: `2`,
 			},
 		],
 	}

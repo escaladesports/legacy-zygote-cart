@@ -1,5 +1,5 @@
 # Stripe Integration
 
 ```
-	stripeApiKey=''
+  stripeApiKey=''
 ```

@@ -104,7 +104,7 @@ export default async function submitStripeInfo({ stripeApiSecret, body, verbose 
 						: quantity
 				})
 				res.quantityModifications = [
-					{ id: body.products[item].id, availble: quantity },
+					{ id: body.products[item].id, available: quantity },
 				]
 			}
 		}

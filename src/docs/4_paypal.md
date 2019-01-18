@@ -1,6 +1,6 @@
 # PayPal Integration
 
 ```
-	paypalAppId=''
-	paypalEnv='sandbox'
+  paypalAppId=''
+  paypalEnv='sandbox'
 ```

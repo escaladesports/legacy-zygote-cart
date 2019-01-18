@@ -7,19 +7,19 @@ export default function addQuantityModification(newModification) {
 	/*
 	{
 		id: `TESTA`,
-		availble: `5`,
+		available: `5`,
 	}
 	*/
 	if(!newModification) return
 	productsState.state.products.forEach(({ id, quantity, name }) => {
 		const mod = search(id, newModification)
 		if (mod) {
-			if (mod.availble == 0) {
+			if (mod.available == 0) {
 				removeFromCart(id)
 				displayInfo(`"${name}" is no longer available for purchase and has been removed from your cart.`)
 			}
-			else if (mod.availble < quantity) {
-				decreaseQuantity(id, quantity - mod.availble, true)
+			else if (mod.available < quantity) {
+				decreaseQuantity(id, quantity - mod.available, true)
 			}
 		}
 	})
