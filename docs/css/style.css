@@ -1,0 +1,9 @@
+img.logo {
+	padding: 10px;
+	width: 150px;
+	margin: 0 auto;
+}
+
+.tocify-wrapper .tocify-focus {
+	background-color: #b98af5;
+}

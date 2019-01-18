@@ -7,7 +7,7 @@ export default function validateAllInputs(step){
 			continue
 		}
 		if (inputs[i].validate) {
-			console.log(inputs[i])
+			// console.log(inputs[i])
 			if (!inputs[i].validate(firstFocus) && inputs[i].input && firstFocus) {
 				document.querySelector(`[name="${inputs[i].input.name}"]`).focus()
 				firstFocus = false

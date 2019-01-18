@@ -1,0 +1,672 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation | Zygote Cart</title>
+
+    <link href="css/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="css/print.css" rel="stylesheet" type="text/css" media="print" />
+    <link href="css/highlight-monokai.css" rel="stylesheet" type="text/css" media="screen, print" />
+    
+      <link href="css/style.css" rel="stylesheet" type="text/css" media="screen, print" />
+    
+    <script src="js/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="" data-languages="[&#34;javascript&#34;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img alt="" class="" src="images/navbar.png">
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img alt="" class="logo" src="images/logo.png">
+      
+        <div class="lang-selector">
+          
+            <a href="#" data-language-name="javascript">javascript</a>
+          
+        </div>
+      
+      
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      
+      <div id="toc">
+      </div>
+      
+        <ul class="toc-footer">
+          
+            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+          
+        </ul>
+      
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        
+          <h1 id="introduction---zygote-cart">Introduction - Zygote Cart</h1>
+<pre class="highlight bash"><code>npm install --save zygote-cart</code></pre><pre class="highlight bash"><code>yarn add zygote-cart</code></pre><p>Welcome to the Zygote Cart API Documentation! Zygote is a drop-in e-commerce front end built in React. It takes a &quot;bring your own back-end&quot; approach so it can work with any payment processor or order fulfillment system. Out of the box it works very well with Stripe.</p>
+<p><strong>Note:</strong> At the moment Zygote only works with React. However there will be a universal option in the future.</p>
+<h2 id="usage">Usage</h2>
+<pre class="highlight jsx"><code><span class="hljs-keyword">import</span> { Cart, addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'zygote-cart'</span>;
+
+
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> addToCart({
+  id: `TESTID`,
+  name: `Billiard Table`,
+  image: `https://via.placeholder.com/75x75`,
+  description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit...`,
+  price: 29999,
+})}&gt;
+  Add to Cart!
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+
+
+
+
+
+
+
+
+
+&lt;Cart
+  stripeApiKey=<span class="hljs-string">'pk_test_12345'</span>
+  orderWebhook=<span class="hljs-string">'/api/place-order'</span>
+/&gt;</code></pre><p>There are only two main functions of the application that you need to use in order to get the default behavior.</p>
+<h3 id="add-to-cart-button">Add to cart button</h3>
+<p>The button needs to be added to any and all products that you wish to sell on your site.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Attribute</th>
+<th align="center">Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>id</code></td>
+<td align="center">Must be unique between all products. If you are using Stripe, this must match the product ID.</td>
+</tr>
+<tr>
+<td align="center"><code>name</code></td>
+<td align="center">Human readable product name, displays in cart when item is added.</td>
+</tr>
+<tr>
+<td align="center"><code>image</code></td>
+<td align="center">Image of product used when displaying added item in cart.</td>
+</tr>
+<tr>
+<td align="center"><code>description</code></td>
+<td align="center">Quick description of the product used when displaying added item in cart.</td>
+</tr>
+<tr>
+<td align="center"><code>price</code></td>
+<td align="center">The price of the item x10 in order to reduce rounding errors ($299.99 = 29999)</td>
+</tr>
+</tbody></table>
+<h3 id="cart-component">Cart component</h3>
+<p>There are only two required attributes for the <code>&lt;Cart&gt;</code> component. More on optional attributes later. The <code>&lt;Cart&gt;</code> component should only be placed once within your application and should be placed at the highest point possible in the chain such as a template or within a component that is rendered on every page like a header.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Attribute</th>
+<th align="center">Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>stripeApiKey</code></td>
+<td align="center"><a href="https://stripe.com/docs/keys">Publishable API key</a> given by Stripe (only required if using Stripe).</td>
+</tr>
+<tr>
+<td align="center"><code>orderWebhook</code></td>
+<td align="center">The endpoint that will handle your ordering process (serverless function, Zapier workflow, etc.)</td>
+</tr>
+</tbody></table>
+<h2 id="styling">Styling</h2>
+<blockquote>
+<p>Editable style variables</p>
+</blockquote>
+<pre class="highlight jsx"><code>&lt;Cart
+  style={{
+    <span class="hljs-attr">fontColor</span>: <span class="hljs-string">`#333`</span>,
+    <span class="hljs-attr">borderColor</span>: <span class="hljs-string">`#c0bfbf`</span>,
+    <span class="hljs-attr">primaryColor</span>: <span class="hljs-string">`#B98AF8`</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">`#fff`</span>,
+    <span class="hljs-attr">overlayColor</span>: <span class="hljs-string">`rgba(185,138,245,0.7)`</span>,
+    <span class="hljs-attr">fontFamily</span>: <span class="hljs-string">`Roboto`</span>,
+  }}
+/&gt;</code></pre><blockquote>
+<p>Removing styles</p>
+</blockquote>
+<pre class="highlight jsx"><code>&lt;Cart style={<span class="hljs-literal">false</span>} /&gt;</code></pre><p>There&#39;s two options for styling. You can either add in  colors and fonts as a property. Or you can turn off the auto styling and supply your own by targeting the classes in the cart.</p>
+<p>Ultimately, the look and feel should be left up to the user.</p>
+
+        
+          <h1 id="using-the-component---react">Using the Component - React</h1>
+<pre class="highlight javascript"><code>&lt;Cart
+  header={&lt;img className={styles.logo} src={logo} /&gt;}
+  cartHeader={&lt;div className={styles.header}&gt;With FREE shipping!&lt;/div&gt;}
+  cartFooter={&lt;div className={styles.footer}&gt;* Free shipping, except Alaska and Hawaii&lt;/div&gt;}
+/&gt;</code></pre><p>Some parts of the cart can contain custom components like the header and footer.</p>
+<p>Custom component properties:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Attribute</th>
+<th align="center">Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>header</code></td>
+<td align="center">Appears at the <strong>top of all stages</strong> of the cart</td>
+</tr>
+<tr>
+<td align="center"><code>footer</code></td>
+<td align="center">Appears at the <strong>bottom of all stages</strong> of the cart</td>
+</tr>
+<tr>
+<td align="center"><code>cartHeader</code></td>
+<td align="center">Appears at the <strong>top of the initial cart</strong> stage</td>
+</tr>
+<tr>
+<td align="center"><code>cartFooter</code></td>
+<td align="center">Appears at the <strong>bottom of the initial cart</strong> stage</td>
+</tr>
+<tr>
+<td align="center"><code>infoHeader</code></td>
+<td align="center">Appears at the <strong>top of the info</strong> stage</td>
+</tr>
+<tr>
+<td align="center"><code>infoFooter</code></td>
+<td align="center">Appears at the <strong>bottom of the info</strong> stage</td>
+</tr>
+<tr>
+<td align="center"><code>paymentHeader</code></td>
+<td align="center">Appears at the <strong>top of the payment</strong> stage</td>
+</tr>
+<tr>
+<td align="center"><code>paymentFooter</code></td>
+<td align="center">Appears at the <strong>bottom of the payment</strong> stage</td>
+</tr>
+<tr>
+<td align="center"><code>successHeader</code></td>
+<td align="center">Appears at the <strong>top of the success</strong> stage</td>
+</tr>
+<tr>
+<td align="center"><code>successFooter</code></td>
+<td align="center">Appears at the <strong>bottom of the success</strong> stage</td>
+</tr>
+</tbody></table>
+<h2 id="event-hooks">Event Hooks</h2>
+<pre class="highlight jsx"><code>&lt;Cart
+  onOpen={() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Cart opened`</span>)}
+  onClose={() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Cart closed`</span>)}
+  onAddProduct={product =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Added product`</span>, product)}
+  onRemoveProduct={product =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Removed product`</span>, product)}
+  onError={err =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Error caught`</span>, err)}
+  onInfoAttempt={info =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Info attempt`</span>, info)}
+  onInfo={info =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Info submit`</span>, info)}
+  onOrderAttempt={order =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Order attempt`</span>, order)}
+  onOrder={order =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Order submit`</span>, order)}
+/&gt;</code></pre><p>If you need to run client side code when something happens, Zygote comes with a set of event hooks you can use</p>
+<ul>
+<li><code>onOpen</code></li>
+<li><code>onClose</code></li>
+<li><code>onAddProduct</code></li>
+<li><code>onRemoveProduct</code></li>
+<li><code>onError</code></li>
+<li><code>onInfoAttempt</code></li>
+<li><code>onInfo</code></li>
+<li><code>onOrderAttempt</code></li>
+<li><code>onOrder</code></li>
+</ul>
+<h2 id="google-analytics-integration">Google Analytics Integration</h2>
+<pre class="highlight jsx"><code>&lt;Cart googleAnalytics={<span class="hljs-literal">false</span>} /&gt;</code></pre><p>By default, Zygote will send cart events to Google Analytics if Google Analytics is found on the site. It will also send e-commerce order information. To disable this feature, set the <code>googleAnalytics</code> property to <code>false</code>.</p>
+<h2 id="google-tag-manager-integration">Google Tag Manager Integration</h2>
+<pre class="highlight jsx"><code>&lt;Cart googleTagManager={<span class="hljs-literal">false</span>} /&gt;</code></pre><p>By default, Zygote will send cart data and events to Google Tag Manager if GTM is found on the site. The event IDs that will be sent:</p>
+<ul>
+<li><code>zygoteOpen</code></li>
+<li><code>zygoteClose</code></li>
+<li><code>zygoteAdd</code></li>
+<li><code>zygoteRemove</code></li>
+<li><code>zygoteError</code></li>
+<li><code>zygoteAttemptInfo</code></li>
+<li><code>zygoteInfo</code></li>
+<li><code>zygoteAttemptOrder</code></li>
+<li><code>zygoteOrder</code></li>
+</ul>
+<p>To disable this, set the <code>googleTagManager</code> property to <code>false</code>.</p>
+<h2 id="optional-shipping">Optional Shipping</h2>
+<pre class="highlight jsx"><code><span class="hljs-keyword">import</span> { addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'zygote-cart'</span>;
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{addToCart({</span>
+  <span class="hljs-attr">id:</span> `<span class="hljs-attr">DIS82</span>`,
+  <span class="hljs-attr">name:</span> `<span class="hljs-attr">EBook</span>`,
+  <span class="hljs-attr">image:</span> `<span class="hljs-attr">https:</span>//<span class="hljs-attr">via.placeholder.com</span>/<span class="hljs-attr">75x75</span>`,
+  <span class="hljs-attr">price:</span> <span class="hljs-attr">1050</span>,
+  <span class="hljs-attr">shippable:</span> <span class="hljs-attr">false</span>,
+})}&gt;</span>Add to Cart<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span></code></pre><p>For items like digital goods or services that don&#39;t require shipping, you can pass a <code>shippable</code> property. If all the items in the cart have the <code>shippable</code> property set to false, then shipping will not be required during checkout. If at least one item in the cart requires shipping, the digital goods will be included in the checkout as expected, but there will also be a shipping step for those items still requiring it.</p>
+<p>So you can have both in the same cart.</p>
+<h2 id="starting-total-modifications">Starting Total Modifications</h2>
+<pre class="highlight jsx"><code>&lt;Cart
+  totalModifications={[
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">`shipping`</span>,
+      <span class="hljs-attr">description</span>: <span class="hljs-string">`Shipping`</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">displayValue</span>: <span class="hljs-string">`Free`</span>,
+    },
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">`tax`</span>,
+      <span class="hljs-attr">description</span>: <span class="hljs-string">`Tax`</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-number">325</span>,
+      <span class="hljs-attr">displayValue</span>: <span class="hljs-string">`Calculated at checkout`</span>,
+    },
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">`sale-1`</span>,
+      <span class="hljs-attr">description</span>: <span class="hljs-string">`Super Sale!`</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-number">-2000</span>,
+    },
+  ]}
+/&gt;</code></pre><p>The webhooks can pass modifications to the total, but if you need some modifications to show immediately once the cart is opened, you can use the <code>totalModifications</code> prop in the <code>&lt;Cart /&gt;</code> component.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Attribute</th>
+<th align="center">Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>id</code></td>
+<td align="center">A unique ID for each modification. <code>tax</code> is reserved for any sales tax being applied and all shipping modifications must start with the word <code>shipping</code></td>
+</tr>
+<tr>
+<td align="center"><code>description</code></td>
+<td align="center">Displayed in the subtotals list</td>
+</tr>
+<tr>
+<td align="center"><code>value</code></td>
+<td align="center">The amount the modification is changing the total by. This value should be te amount, in dollars, x10 to prevent rounding issues ($10.00 = 1000). Negative numbers are also valid if you are applying a discount</td>
+</tr>
+<tr>
+<td align="center"><code>displayValue</code> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+<td align="center">If you wish to display something other than <code>value</code> in the subtotal list (ie. Free, Calculated at checkout)</td>
+</tr>
+</tbody></table>
+<h2 id="customize-default-error-messages">Customize Default Error Messages</h2>
+<pre class="highlight jsx"><code>&lt;Cart
+  infoSubmitError=<span class="hljs-string">'There was an error with the server. Your order was not placed. Please try again later.'</span>
+  orderSubmitError=<span class="hljs-string">'There was an error with the server. Your information was not placed. Please try again later.'</span>
+/&gt;</code></pre><p>There are two error events that we&#39;ve exposed to allow you to enter your own custom messages.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Attribute</th>
+<th align="center">Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>infoSubmitError</code></td>
+<td align="center">When an error occurs between the <code>Details</code> stage and the <code>Shipping</code> stage</td>
+</tr>
+<tr>
+<td align="center"><code>orderSubmitError</code></td>
+<td align="center">When an error occurs while trying to submit the order to your webhook, or when trying to pay</td>
+</tr>
+</tbody></table>
+
+        
+          <h1 id="webhooks">Webhooks</h1>
+<p>There are two URLs that can be passed as properties to send the cart information to your server:</p>
+<ul>
+<li><code>infoWebhook</code>: Not required. Product and shipping information will be sent to this endpoing once the first section checkout has been completed. Useful for returning tax and shipping methods with this webhook.</li>
+<li><code>orderWebhook</code>: Required. Product, payment, and shipping information will be sent to this webhook once the order has been completed.</li>
+</ul>
+<h2 id="infowebhook">infoWebhook</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"infoName"</span>: <span class="hljs-string">"John Doe"</span>,
+  <span class="hljs-attr">"infoEmail"</span>: <span class="hljs-string">"johndoe@gmail.com"</span>,
+  <span class="hljs-attr">"infoPhone"</span>: <span class="hljs-string">"555-555-1234"</span>,
+  <span class="hljs-attr">"shippingAddress1"</span>: <span class="hljs-string">"123 Some Street"</span>,
+  <span class="hljs-attr">"shippingAddress2"</span>: <span class="hljs-string">"Apt. 5F"</span>,
+  <span class="hljs-attr">"shippingCity"</span>: <span class="hljs-string">"Kansas City"</span>,
+  <span class="hljs-attr">"shippingState"</span>: <span class="hljs-string">"Missouri"</span>,
+  <span class="hljs-attr">"shippingZip"</span>: <span class="hljs-string">"64030"</span>,
+  <span class="hljs-attr">"products"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTID"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Billiard Table"</span>,
+      <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">29999</span>
+    }
+  ]
+}</code></pre><blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"modifications"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"january-sale"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"January Sale"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">-2000</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Sales Tax"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">899</span>
+    },
+  ],
+  <span class="hljs-attr">"shippingMethods"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-0"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Standard Shipping"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">0</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-1"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Express Shipping"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">1150</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-2"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Overnight Shipping"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">4999</span>
+    }
+  ],
+  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-string">"ship-0"</span>,
+  <span class="hljs-attr">"quantityModifications"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
+      <span class="hljs-attr">"available"</span>: <span class="hljs-string">"5"</span>,
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
+      <span class="hljs-attr">"available"</span>: <span class="hljs-string">"2"</span>,
+    },
+  ],
+}</code></pre><blockquote>
+<p>Example Error</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"error"</span>: <span class="hljs-string">"Your shipping address is incorrect."</span>,
+  <span class="hljs-attr">"step"</span>: <span class="hljs-string">"info"</span>
+}</code></pre><h2 id="orderwebhook">orderWebhook</h2>
+
+        
+          <h1 id="configurations">Configurations</h1>
+<blockquote>
+<p>zygote.config.js</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-comment">// Split first name into 2 fields (first name, last name) {true},</span>
+  <span class="hljs-comment">// or use one single name field {false !default}</span>
+  splitName: <span class="hljs-literal">true</span>, 
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-comment">// Turn on the standard billing plugin to replace stripe's input</span>
+    <span class="hljs-built_in">require</span>(<span class="hljs-string">'./plugins/zygote-plugin-standard-billing'</span>), 
+
+    <span class="hljs-comment">// Working example plugin</span>
+    <span class="hljs-built_in">require</span>(<span class="hljs-string">'@escaladesports/zygote-plugin-esca-api/src'</span>), 
+  ],
+}</code></pre>
+        
+          <h1 id="auth0-integration">Auth0 Integration</h1>
+<pre class="highlight "><code>  <span class="hljs-attr">auth0ClientID</span>=<span class="hljs-string">''</span>
+  <span class="hljs-attr">auth0Logout</span>=<span class="hljs-string">''</span>
+  <span class="hljs-attr">auth0Domain</span>=<span class="hljs-string">'z'</span>
+  <span class="hljs-attr">auth0Theme</span>=<span class="hljs-string">{{</span>
+    <span class="hljs-attr">primaryColor</span>: <span class="hljs-string">`#00cfff`,</span>
+  <span class="hljs-attr">}}</span>
+  <span class="hljs-attr">auth0Options</span>=<span class="hljs-string">{{</span>
+    <span class="hljs-attr">rememberLastLogin</span>: <span class="hljs-string">false,</span>
+    <span class="hljs-attr">auth</span>: <span class="hljs-string">{</span>
+      <span class="hljs-attr">redirect</span>: <span class="hljs-string">false,</span>
+    <span class="hljs-attr">},</span>
+  <span class="hljs-attr">}}</span></code></pre>
+        
+          <h1 id="paypal-integration">PayPal Integration</h1>
+<pre class="highlight "><code>  <span class="hljs-attribute">paypalAppId</span>=<span class="hljs-string">''</span>
+  <span class="hljs-attribute">paypalEnv</span>=<span class="hljs-string">'sandbox'</span></code></pre>
+        
+          <h1 id="stripe-integration">Stripe Integration</h1>
+<pre class="highlight "><code><span class="hljs-attribute">  stripeApiKey</span>=<span class="hljs-string">''</span></code></pre>
+        
+          <h1 id="plugin-api">Plugin API</h1>
+<pre class="highlight javascript"><code><span class="hljs-keyword">export</span> { 
+  preInfo, <span class="hljs-comment">// Fires before fetching the 'infoWebhook'</span>
+  postInfo, <span class="hljs-comment">// Fires after fetching the 'infoWebhook'</span>
+  calculateTax, <span class="hljs-comment">// Fires on the 'Shipping' step </span>
+  getShippingMethods, <span class="hljs-comment">// Fires on the 'Shipping' step </span>
+  preOrder, <span class="hljs-comment">// Fires before fetching the 'orderWebhook'</span>
+  postOrder <span class="hljs-comment">// Fires after fetching the 'orderWebhook'</span>
+}
+
+<span class="hljs-keyword">export</span> { 
+  Info, <span class="hljs-comment">// React component injected into the 'Details' step</span>
+  Shipping, <span class="hljs-comment">// React component injected into the 'Shipping' step</span>
+  Payment <span class="hljs-comment">// React component injected into the 'Payment' step</span>
+}</code></pre><p>Does the cart not collect fields that you need? Are your endpoints expecting something different? Are your endpoints not delivered out of the box?</p>
+<p>Neat.</p>
+<p>Well, we could make you fill out an issue in the repository where we can officially ignore it. Or even send you to a chat client where we can also officaly ignore it.</p>
+<p>OR!</p>
+<p>You can take advantage of the fact that you are an adult and that you can not only eat gummybears for breakfast because nobody can tell you no, but that you can also write your own plugins for form fields, tax calculations, order manipulation, and more! We have exposed several programming hooks where you can inject whatever you need and do whatever you want.</p>
+<h2 id="preinfo">preInfo</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> preInfo = <span class="hljs-keyword">async</span> ({ info }) =&gt; {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">skus</span>: info.products ? info.products.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">product</span>) </span>{ <span class="hljs-keyword">return</span> product.id }) : []
+  }
+}</code></pre><p>Fires <strong>before</strong> fetching the <code>infoWebhook</code></p>
+<h2 id="postinfo">postInfo</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> postInfo = <span class="hljs-keyword">async</span> ({ response, info, preFetchData }) =&gt; {
+  <span class="hljs-keyword">const</span> { inventory } = response
+  <span class="hljs-keyword">const</span> quantityModifications = <span class="hljs-built_in">Object</span>.keys(inventory).map(<span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">id</span>: id,
+      <span class="hljs-attr">available</span>: inventory[id].stock || <span class="hljs-number">0</span>,
+    }
+  })
+
+  <span class="hljs-keyword">let</span> shippingMethods = {}, selectedShippingMethod = {}
+  <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://products-test.escsportsapi.com/shipping`</span>, { <span class="hljs-comment">// Get packing dimensions</span>
+    method: <span class="hljs-string">`post`</span>,
+    <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(preFetchData),
+    <span class="hljs-attr">headers</span>: headers,
+  })
+    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+    .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Request failed`</span>, error))
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">success</span>: inventory &amp;&amp; shippingMethods ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">modifications</span>: [
+      {
+        <span class="hljs-attr">id</span>: <span class="hljs-string">`january-sale`</span>,
+        <span class="hljs-attr">description</span>: <span class="hljs-string">`January Sale`</span>,
+        <span class="hljs-attr">value</span>: <span class="hljs-number">-2000</span>,
+      },
+      shippingMethods[<span class="hljs-built_in">Object</span>.keys(shippingMethods)[<span class="hljs-number">0</span>]].tax,
+    ],
+    <span class="hljs-attr">shippingMethods</span>: <span class="hljs-built_in">Object</span>.keys(shippingMethods).map(<span class="hljs-function"><span class="hljs-params">ship</span> =&gt;</span> shippingMethods[ship]),
+    <span class="hljs-attr">selectedShippingMethod</span>: <span class="hljs-built_in">Object</span>.keys(selectedShippingMethod).length == <span class="hljs-number">1</span> ? selectedShippingMethod[<span class="hljs-built_in">Object</span>.keys(selectedShippingMethod)[<span class="hljs-number">0</span>]] : selectedShippingMethod,
+    <span class="hljs-attr">quantityModifications</span>: quantityModifications,
+  }
+}</code></pre><p>Fires <strong>after</strong> fetching the <code>infoWebhook</code></p>
+<h2 id="calculatetax">calculateTax</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> calculateTax = <span class="hljs-keyword">async</span> ({ shippingAddress, subtotal = <span class="hljs-number">0</span>, shipping = <span class="hljs-number">0</span>, discount = <span class="hljs-number">0</span> }) =&gt; {
+  <span class="hljs-keyword">if</span> (!shippingAddress.shippingStateAbbr) <span class="hljs-keyword">return</span> {}
+  <span class="hljs-keyword">let</span> checkTax = {
+    <span class="hljs-attr">state</span>: shippingAddress.shippingStateAbbr,
+    <span class="hljs-attr">subtotal</span>: (subtotal / <span class="hljs-number">100</span>).toFixed(<span class="hljs-number">2</span>),
+    <span class="hljs-attr">shipping</span>: (shipping / <span class="hljs-number">100</span>).toFixed(<span class="hljs-number">2</span>),
+    <span class="hljs-attr">discount</span>: ((discount &lt; <span class="hljs-number">0</span> ? discount * <span class="hljs-number">-1</span> : discount) / <span class="hljs-number">100</span>).toFixed(<span class="hljs-number">2</span>),
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://taxes-test.escsportsapi.com/calculate`</span>, { <span class="hljs-comment">// Get taxes</span>
+    method: <span class="hljs-string">`post`</span>,
+    <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(checkTax),
+    <span class="hljs-attr">headers</span>: headers,
+  })
+    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+    .then(<span class="hljs-function"><span class="hljs-params">jsonBody</span> =&gt;</span> {
+      <span class="hljs-keyword">if</span> (jsonBody.errors) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(jsonBody.errors)
+      }
+      <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">id</span>: <span class="hljs-string">`tax`</span>,
+        <span class="hljs-attr">description</span>: jsonBody.tax.label,
+        <span class="hljs-attr">value</span>: <span class="hljs-built_in">parseInt</span>(jsonBody.tax.value.toString().replace(<span class="hljs-regexp">/\./g</span>, <span class="hljs-string">''</span>), <span class="hljs-number">10</span>),
+      }
+    })
+    .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Failed to calculate taxes'</span>, error))
+}</code></pre><h2 id="getshippingmethods">getShippingMethods</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> getShippingMethods = <span class="hljs-keyword">async</span> ({ response, info, preFetchData }) =&gt; {
+
+}</code></pre><h2 id="preorder">preOrder</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> preOrder = <span class="hljs-keyword">async</span> ({ info }) =&gt; {
+
+}</code></pre><h2 id="postorder">postOrder</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> postOrder = <span class="hljs-keyword">async</span> ({ response, info, preFetchData }) =&gt; {
+
+}</code></pre><h2 id="info">Info</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Info</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      &lt;Fragment&gt;
+        &lt;Fragment&gt;
+          &lt;NameInput
+            name='billingFirstName'
+            autoComplete='first name'
+            step='billing'
+            label='First Name'
+          /&gt;
+          &lt;NameInput
+            name='billingLastName'
+            autoComplete='last name'
+            step='billing'
+            label='Last Name'
+          /&gt;
+        &lt;/Fragment&gt;
+        &lt;CreditCard step='billing' /&gt;
+        &lt;div className='zygotePaymentExpCVC'&gt;
+          &lt;div&gt;
+            &lt;Expiration step='billing' /&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;Cvc step='billing' /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/Fragment&gt;
+    )
+  }
+}</code></pre><h2 id="shipping">Shipping</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Shipping</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      &lt;Fragment&gt;
+        &lt;Fragment&gt;
+          &lt;NameInput
+            name='billingFirstName'
+            autoComplete='first name'
+            step='billing'
+            label='First Name'
+          /&gt;
+          &lt;NameInput
+            name='billingLastName'
+            autoComplete='last name'
+            step='billing'
+            label='Last Name'
+          /&gt;
+        &lt;/Fragment&gt;
+        &lt;CreditCard step='billing' /&gt;
+        &lt;div className='zygotePaymentExpCVC'&gt;
+          &lt;div&gt;
+            &lt;Expiration step='billing' /&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;Cvc step='billing' /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/Fragment&gt;
+    )
+  }
+}</code></pre><h2 id="payment">Payment</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Payment</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      &lt;Fragment&gt;
+        &lt;Fragment&gt;
+          &lt;NameInput
+            name='billingFirstName'
+            autoComplete='first name'
+            step='billing'
+            label='First Name'
+          /&gt;
+          &lt;NameInput
+            name='billingLastName'
+            autoComplete='last name'
+            step='billing'
+            label='Last Name'
+          /&gt;
+        &lt;/Fragment&gt;
+        &lt;CreditCard step='billing' /&gt;
+        &lt;div className='zygotePaymentExpCVC'&gt;
+          &lt;div&gt;
+            &lt;Expiration step='billing' /&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;Cvc step='billing' /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/Fragment&gt;
+    )
+  }
+}</code></pre>
+        
+          <h1 id="input-api">Input API</h1>
+<h2 id="address">Address</h2>
+<h2 id="checkbox">Checkbox</h2>
+<h2 id="city">City</h2>
+<h2 id="company-name">Company Name</h2>
+<h2 id="coupon">Coupon</h2>
+<h2 id="credit-card">Credit Card</h2>
+<h2 id="cvc">CVC</h2>
+<h2 id="email">Email</h2>
+<h2 id="expiration">Expiration</h2>
+<h2 id="input">Input</h2>
+<h2 id="name">Name</h2>
+<h2 id="phone">Phone</h2>
+<h2 id="radio">Radio</h2>
+<h2 id="select">Select</h2>
+<h2 id="state">State</h2>
+<h2 id="toggle">Toggle</h2>
+<h2 id="zip">Zip</h2>
+
+        
+      </div>
+      <div class="dark-box">
+        
+          <div class="lang-selector">
+            
+              <a href="#" data-language-name="javascript">javascript</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </body>
+</html>

@@ -9,3 +9,11 @@
 [[redirects]]
 	from = "/admin"
 	to = "/admin/"
+
+## COMMENT: This rule redirects to an external api
+[[redirects]]
+  from = "/api/info"
+  to = "https://inventory-test.escsportsapi.com/load"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+	headers = {Content-Type = "application/json", ESC-API-Key = "ESCA_API_KEY", ESC-API-Context = "ESCA_API_SITE"}

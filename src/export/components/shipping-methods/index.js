@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
+
 import shippingState from '../../state/shipping'
 import LoadingAnimation from '../loading-animation'
 import setShipping from '../../utils/set-shipping'
@@ -24,7 +25,7 @@ export default class ShippingMethods extends React.Component {
 						{!loading && !!methods.length && (
 							<div className='zygoteShipMethods'>
 								<h2>Shipping Options</h2>
-
+								{methods[0].shippingMethods && <h3>{`This order will arrive in ${methods.length} seperate shippments`}</h3>}
 								{methods[0].shippingMethods && (
 									methods.map(({
 										id,
@@ -32,7 +33,7 @@ export default class ShippingMethods extends React.Component {
 										shippingMethods,
 									}) => (
 										<div key={`shippingMethodSet${id}`}>
-											<div className='zygoteShipMethodsSetDesc'>{description}</div>
+											<div className='zygoteShipMethodsSetDesc'><span>Items from this order:</span> {description}</div>
 											<ShippingMethodsList
 												setId={id}
 												methods={shippingMethods}
@@ -65,6 +66,9 @@ export default class ShippingMethods extends React.Component {
 		'.zygoteShipMethodsSetDesc': {
 			fontWeight: `bold`,
 			margin: `30px 0 15px 0`,
+			span: {
+				fontWeight: `normal`,
+			},
 		},
 	})
 }

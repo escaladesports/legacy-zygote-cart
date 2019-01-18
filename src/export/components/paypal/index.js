@@ -56,9 +56,6 @@ export default class Paypal extends React.Component {
 
 					transaction.amount.details.subtotal = (transaction.amount.details.subtotal / 100).toFixed(2)
 
-					console.log(transaction)
-
-
 					return (
 						<PaypalExpressBtn
 							client={{

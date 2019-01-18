@@ -21,6 +21,7 @@ export default class HomePage extends React.Component {
 					<button onClick={openCart} >Open Cart</button>
 				</div>
 				<div>
+
 					<button onClick={() => addToCart({
 						id: products[1].id,
 						name: `7.5' Covington Billiard Table`,
@@ -31,7 +32,7 @@ export default class HomePage extends React.Component {
 						stock: typeof products[1].inventory.quantity === `number`
 							? products[1].inventory.quantity
 							: null,
-					})}>Add to Cart A</button>
+					})}>7.5' Covington Billiard Table</button>
 				</div>
 				<div>
 					<button onClick={() => addToCart({
@@ -44,7 +45,7 @@ export default class HomePage extends React.Component {
 						stock: typeof products[2].inventory.quantity === `number`
 							? products[2].inventory.quantity
 							: null,
-					})}>Add to Cart B</button>
+					})}>Raptor Table Tennis Racket</button>
 				</div>
 				<div>
 					<button onClick={() => addToCart({
@@ -57,7 +58,7 @@ export default class HomePage extends React.Component {
 						stock: typeof products[0].inventory.quantity === `number`
 							? products[0].inventory.quantity
 							: null,
-					})}>Add to Cart C</button>
+					})}>$20.00 Red Cross Donation</button>
 				</div>
 				<div>
 					<button onClick={() => addToCart({
@@ -68,7 +69,27 @@ export default class HomePage extends React.Component {
 						description: `Every month, you will recieve fresh emoji faces.`,
 						price: plans[0].amount,
 						stock: 2,
-					})}>Add to Cart Plan A</button>
+					})}>STIGA Emoji One-Star Table Tennis Balls - Monthly Subscription</button>
+				</div>
+				<div>
+					<button onClick={() => addToCart({
+						id: `35-7090-2`,
+						name: `Microfiber Bean Bags with Tub`,
+						image: `https://images.salsify.com/image/upload/s--ibaII9O1--/w_75,h_75,c_pad/tcuv43grz2uec6z5twln.jpg`,
+						description: `Microfiber Bean Bags with Tub.`,
+						price: 3499,
+						shippable: true,
+					})}>Microfiber Bean Bags with Tub</button>
+				</div>
+				<div>
+					<button onClick={() => addToCart({
+						id: `A08108`,
+						name: `Safetyglass Arrows – 28"`,
+						image: `https://images.salsify.com/image/upload/s--ibaII9O1--/w_75,h_75,c_pad/tcuv43grz2uec6z5twln.jpg`,
+						description: `Safetyglass Arrows – 28".`,
+						price: 32400,
+						shippable: true,
+					})}>Safetyglass Arrows – 28"</button>
 				</div>
 				
 				<div className={styles.editControls}>
@@ -108,8 +129,8 @@ export default class HomePage extends React.Component {
 					stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
 					paypalAppId='ATP-SVtvHjAfyOGdr_8RRXgizsofojJV32mMt3WRmf5ignVi1TZkA67UYwm5sAitwETQuEigH91w70_6'
 					paypalEnv='sandbox'
-					infoWebhook='/.netlify/functions/info-stripe'
-					orderWebhook='/.netlify/functions/order'
+					infoWebhook='https://inventory-test.escsportsapi.com/load'
+					orderWebhook=''
 					
 					auth0ClientID='Wweg1YAs6kJquv9DcLSpmSNpaY6XPaX8'
 					auth0Logout='http://localhost:8000/'
@@ -128,7 +149,7 @@ export default class HomePage extends React.Component {
 						{
 							id: `shipping`,
 							description: `Shipping`,
-							displayValue: `FREE`,
+							displayValue: `-`,
 						},
 						{
 							id: `tax`,

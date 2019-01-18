@@ -1,0 +1,5 @@
+# Stripe Integration
+
+```
+  stripeApiKey=''
+```

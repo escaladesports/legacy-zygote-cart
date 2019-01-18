@@ -19,7 +19,7 @@ export default class ShippingMethodsList extends React.Component {
 		} = this.props
 		return (
 			<ul className='zygoteShipList'>
-				{methods && methods.map(({ id, description, value }) =>
+				{methods && methods.map(({ id, description, value, addInfo }) =>
 					<li key={`shipping${id}`}>
 						<label className='zygoteShipLabel'>
 							<div>
@@ -31,7 +31,10 @@ export default class ShippingMethodsList extends React.Component {
 									onChange={this.handleChange}
 								/>
 							</div>
-							<div>{description}</div>
+							<div>
+								<div>{description}</div>
+								{addInfo && <div className='zygoteShippingAdditionalInfo'>{addInfo}</div>}
+							</div>
 							<div>{formatUsd(value)}</div>
 						</label>
 					</li>
@@ -39,7 +42,7 @@ export default class ShippingMethodsList extends React.Component {
 			</ul>
 		)
 	}
-	static styles = () => ({
+	static styles = ({ primaryColor }) => ({
 		'.zygoteShipList': {
 			listStyleType: `none`,
 			margin: 0,
@@ -47,6 +50,11 @@ export default class ShippingMethodsList extends React.Component {
 			li: {
 				marginTop: 10,
 			},
+		},
+		'.zygoteShippingAdditionalInfo': {
+			fontSize: `14px`,
+			color: primaryColor,
+			fontWeight: `bold`,
 		},
 		'.zygoteShipLabel': {
 			display: `flex`,
