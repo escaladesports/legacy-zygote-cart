@@ -26,13 +26,18 @@ export default function setShipping(selected, setId) {
 		.filter(mod => mod.id.startsWith(`shipping`))
 		.reduce((total, mod) => total.value ? total.value + mod.value : total + mod.value)
 
+	let discount = 0
+	totalsState.state.modifications.filter(mod => !mod.id.startsWith(`tax`) && !mod.id.startsWith(`shipping`)).forEach(mod => {
+		discount += mod.value
+	})
+
 	config.plugins.forEach(plugin => {
 		if (typeof plugin.calculateTax === `function` ) {
 			plugin.calculateTax({
 				shippingAddress: shippingState.state.address,
 				subtotal: totalsState.state.subtotal,
 				shipping: totalShippingCost.value ? totalShippingCost.value : totalShippingCost,
-				discounts: 0,
+				discount,
 			})
 				.then(tax => {
 					if (tax.id) addTotalModification(tax)

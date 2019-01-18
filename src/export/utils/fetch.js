@@ -36,11 +36,23 @@ export default async function fetchWebhook(path, body) {
 		const jsonBody = JSON.stringify(preFetchData)
 
 		console.log(`Sending to API:`, jsonBody)
-		response = await fetch(path, {
-			method: `post`,
-			body: jsonBody,
-		})
-		response = await response.json()
+		if (path) {
+			response = await fetch(path, {
+				method: `post`,
+				body: jsonBody,
+				headers: {
+					"Access-Control-Request-Headers": `ESC-API-Key,ESC-API-Context`,
+					"Content-Type": `application/json`,
+					"ESC-API-Key": `r2SrwgHJm5RQuE5CKcYGEnO9VU21M06AXnv/RMf4w9k`,
+					"ESC-API-Context": `ecatalog`,
+				},
+			})
+			response = await response.json()
+		}
+		else {
+			console.warn(`No 'path' was provided for event '${body.event}'. Please fix this, unless the call is handled via a plugin.`)
+			response = preFetchData
+		}
 		
 		for (let i = 0; i < config.plugins.length; i++) {
 			response = await (body.event == `info` && typeof config.plugins[i].postInfo === `function` ? config.plugins[i].postInfo({response, info, preFetchData}) : response)
@@ -76,11 +88,16 @@ export default async function fetchWebhook(path, body) {
 				? shippingState.state.selected
 				: 0,
 			step,
+			modifications,
+			quantityModifications,
 		} = response
 
-		addTotalModification(response.modifications)
-		addQuantityModification(response.quantityModifications)
-
+		if (modifications) {
+			addTotalModification(modifications)
+		}
+		if (quantityModifications) {
+			addQuantityModification(quantityModifications)
+		}
 		if (typeof meta === `object`) {
 			metaState.setState({ meta })
 		}

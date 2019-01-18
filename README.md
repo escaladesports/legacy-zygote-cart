@@ -312,14 +312,3 @@ export async function handler({ body }, _, callback) {
 
 }
 ```
-
-
-
-
-
-
-Exposed plugin hooks:
-
-preInfo, postInfo, getShippingMethods, calculateTax, preOrder, postOrder
-
-Info, Shipping, Payment

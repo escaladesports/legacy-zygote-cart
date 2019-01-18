@@ -37,12 +37,30 @@ export default class InfoStep extends React.Component{
 								<SimpleSummary />
 								<div className='zygoteInfoSection'>
 									<Header>Let's get started</Header>
-									<NameInput
+									{config.splitName &&
+										<Fragment>
+											<NameInput
+												name='infoFirstName'
+												autoComplete='first name'
+												step='info'
+												label='First Name'
+												value={vals.infoFirstName ? vals.infoFirstName : ``}
+											/>
+											<NameInput
+												name='infoLastName'
+												autoComplete='last name'
+												step='info'
+												label='Last Name'
+												value={vals.infoLastName ? vals.infoLastName : ``}
+											/>
+										</Fragment>
+									}
+									{!config.splitName && <NameInput
 										name='infoName'
 										autoComplete='shipping name'
 										step='info'
 										value={vals.infoName ? vals.infoName : ``}
-									/>
+									/>}
 									<EmailInput
 										name='infoEmail'
 										autoComplete='shipping email'

@@ -16,7 +16,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "npm run build:module",
+    "build": "npm run build:module && npm run docs",
     "build:lambda": "netlify-lambda build src/functions",
     "build:gatsby": "npm run patch && npm run build:lambda && NODE_ENV=production gatsby build",
     "build:module": "rm -rf dist && mkdir dist && babel src/export --out-dir dist",
@@ -39,7 +39,9 @@
     "serve": "gatsby serve --open",
     "test": "npm run test:module",
     "test:module": "npm run build:module && jest",
-    "travis": "opn https://travis-ci.org/escaladesports/zygote-cart/branches"
+    "travis": "opn https://travis-ci.org/escaladesports/zygote-cart/branches",
+    "docs": "slate-cli build",
+    "docs:serve": "slate-cli serve"
   },
   "lint-staged": {
     "**/*.js": [
@@ -131,6 +133,7 @@
     "lint-staged": "^7.2.0",
     "netlify-cms": "^1.9.3",
     "netlify-lambda": "^0.4.0",
+    "node-slate-cli": "^1.1.0",
     "npm-run-all": "^4.1.3",
     "object-hash": "^1.3.0",
     "opn-cli": "^3.1.0",
