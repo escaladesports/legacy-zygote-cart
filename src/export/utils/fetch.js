@@ -40,12 +40,6 @@ export default async function fetchWebhook(path, body) {
 			response = await fetch(path, {
 				method: `post`,
 				body: jsonBody,
-				headers: {
-					"Access-Control-Request-Headers": `ESC-API-Key,ESC-API-Context`,
-					"Content-Type": `application/json`,
-					"ESC-API-Key": `r2SrwgHJm5RQuE5CKcYGEnO9VU21M06AXnv/RMf4w9k`,
-					"ESC-API-Context": `ecatalog`,
-				},
 			})
 			response = await response.json()
 		}
