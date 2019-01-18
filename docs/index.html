@@ -87,8 +87,8 @@
 <table>
 <thead>
 <tr>
-<th align="center">Attribute</th>
-<th align="center">Function</th>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -117,8 +117,8 @@
 <table>
 <thead>
 <tr>
-<th align="center">Attribute</th>
-<th align="center">Function</th>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -160,8 +160,8 @@
 <table>
 <thead>
 <tr>
-<th align="center">Attribute</th>
-<th align="center">Function</th>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -206,7 +206,7 @@
 </tr>
 </tbody></table>
 <h2 id="event-hooks">Event Hooks</h2>
-<pre class="highlight jsx"><code>&lt;Cart
+<pre class="highlight javascript"><code>&lt;Cart
   onOpen={() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Cart opened`</span>)}
   onClose={() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Cart closed`</span>)}
   onAddProduct={product =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Added product`</span>, product)}
@@ -229,9 +229,9 @@
 <li><code>onOrder</code></li>
 </ul>
 <h2 id="google-analytics-integration">Google Analytics Integration</h2>
-<pre class="highlight jsx"><code>&lt;Cart googleAnalytics={<span class="hljs-literal">false</span>} /&gt;</code></pre><p>By default, Zygote will send cart events to Google Analytics if Google Analytics is found on the site. It will also send e-commerce order information. To disable this feature, set the <code>googleAnalytics</code> property to <code>false</code>.</p>
+<pre class="highlight javascript"><code>&lt;Cart googleAnalytics={<span class="hljs-literal">false</span>} /&gt;</code></pre><p>By default, Zygote will send cart events to Google Analytics if Google Analytics is found on the site. It will also send e-commerce order information. To disable this feature, set the <code>googleAnalytics</code> property to <code>false</code>.</p>
 <h2 id="google-tag-manager-integration">Google Tag Manager Integration</h2>
-<pre class="highlight jsx"><code>&lt;Cart googleTagManager={<span class="hljs-literal">false</span>} /&gt;</code></pre><p>By default, Zygote will send cart data and events to Google Tag Manager if GTM is found on the site. The event IDs that will be sent:</p>
+<pre class="highlight javascript"><code>&lt;Cart googleTagManager={<span class="hljs-literal">false</span>} /&gt;</code></pre><p>By default, Zygote will send cart data and events to Google Tag Manager if GTM is found on the site. The event IDs that will be sent:</p>
 <ul>
 <li><code>zygoteOpen</code></li>
 <li><code>zygoteClose</code></li>
@@ -245,7 +245,7 @@
 </ul>
 <p>To disable this, set the <code>googleTagManager</code> property to <code>false</code>.</p>
 <h2 id="optional-shipping">Optional Shipping</h2>
-<pre class="highlight jsx"><code><span class="hljs-keyword">import</span> { addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'zygote-cart'</span>;
+<pre class="highlight javascript"><code><span class="hljs-keyword">import</span> { addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'zygote-cart'</span>;
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{addToCart({</span>
   <span class="hljs-attr">id:</span> `<span class="hljs-attr">DIS82</span>`,
@@ -256,7 +256,7 @@
 })}&gt;</span>Add to Cart<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span></code></pre><p>For items like digital goods or services that don&#39;t require shipping, you can pass a <code>shippable</code> property. If all the items in the cart have the <code>shippable</code> property set to false, then shipping will not be required during checkout. If at least one item in the cart requires shipping, the digital goods will be included in the checkout as expected, but there will also be a shipping step for those items still requiring it.</p>
 <p>So you can have both in the same cart.</p>
 <h2 id="starting-total-modifications">Starting Total Modifications</h2>
-<pre class="highlight jsx"><code>&lt;Cart
+<pre class="highlight javascript"><code>&lt;Cart
   totalModifications={[
     {
       <span class="hljs-attr">id</span>: <span class="hljs-string">`shipping`</span>,
@@ -280,8 +280,8 @@
 <table>
 <thead>
 <tr>
-<th align="center">Attribute</th>
-<th align="center">Function</th>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -302,15 +302,15 @@
 </tr>
 </tbody></table>
 <h2 id="customize-default-error-messages">Customize Default Error Messages</h2>
-<pre class="highlight jsx"><code>&lt;Cart
+<pre class="highlight javascript"><code>&lt;Cart
   infoSubmitError=<span class="hljs-string">'There was an error with the server. Your order was not placed. Please try again later.'</span>
   orderSubmitError=<span class="hljs-string">'There was an error with the server. Your information was not placed. Please try again later.'</span>
 /&gt;</code></pre><p>There are two error events that we&#39;ve exposed to allow you to enter your own custom messages.</p>
 <table>
 <thead>
 <tr>
-<th align="center">Attribute</th>
-<th align="center">Function</th>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -414,38 +414,115 @@
 <pre class="highlight javascript"><code><span class="hljs-meta">"use strict"</span>;
 
 <span class="hljs-built_in">module</span>.exports = {
-  <span class="hljs-comment">// Split first name into 2 fields (first name, last name) {true},</span>
-  <span class="hljs-comment">// or use one single name field {false !default}</span>
-  splitName: <span class="hljs-literal">true</span>, 
+  <span class="hljs-attr">splitName</span>: <span class="hljs-literal">true</span>, 
   <span class="hljs-attr">plugins</span>: [
-    <span class="hljs-comment">// Turn on the standard billing plugin to replace stripe's input</span>
     <span class="hljs-built_in">require</span>(<span class="hljs-string">'./plugins/zygote-plugin-standard-billing'</span>), 
-
-    <span class="hljs-comment">// Working example plugin</span>
     <span class="hljs-built_in">require</span>(<span class="hljs-string">'@escaladesports/zygote-plugin-esca-api/src'</span>), 
   ],
-}</code></pre>
+}</code></pre><p>The <code>zygote.config.js</code> file, in the root of your project, allows you to inject plugins and alter a limited number of features about the application.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>splitName</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="center">This option controls whether the name field on the info page is one single <code>name</code> input (false), or two separate fields <code>firstName</code> and <code>lastName</code> (true)</td>
+</tr>
+<tr>
+<td align="center"><code>plugins</code></td>
+<td align="center">An array of required packages that are scanned for expected hooks and then are executed at the hook&#39;s firing point</td>
+</tr>
+</tbody></table>
+
         
           <h1 id="auth0-integration">Auth0 Integration</h1>
-<pre class="highlight "><code>  <span class="hljs-attr">auth0ClientID</span>=<span class="hljs-string">''</span>
-  <span class="hljs-attr">auth0Logout</span>=<span class="hljs-string">''</span>
-  <span class="hljs-attr">auth0Domain</span>=<span class="hljs-string">'z'</span>
-  <span class="hljs-attr">auth0Theme</span>=<span class="hljs-string">{{</span>
-    <span class="hljs-attr">primaryColor</span>: <span class="hljs-string">`#00cfff`,</span>
-  <span class="hljs-attr">}}</span>
-  <span class="hljs-attr">auth0Options</span>=<span class="hljs-string">{{</span>
-    <span class="hljs-attr">rememberLastLogin</span>: <span class="hljs-string">false,</span>
-    <span class="hljs-attr">auth</span>: <span class="hljs-string">{</span>
-      <span class="hljs-attr">redirect</span>: <span class="hljs-string">false,</span>
-    <span class="hljs-attr">},</span>
-  <span class="hljs-attr">}}</span></code></pre>
+<pre class="highlight javascript"><code>&lt;Cart
+  auth0ClientID=<span class="hljs-string">'public_id'</span>
+  auth0Logout=<span class="hljs-string">'https://www.example.com/logout'</span>
+  auth0Domain=<span class="hljs-string">'https://example.auth0.com'</span>
+  auth0Theme={{
+    <span class="hljs-attr">primaryColor</span>: <span class="hljs-string">'#00cfff'</span>,
+  }}
+  auth0Options={{
+    <span class="hljs-attr">rememberLastLogin</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">auth</span>: {
+      <span class="hljs-attr">redirect</span>: <span class="hljs-literal">false</span>,
+    },
+  }}
+/&gt;</code></pre><p>The <a href="https://auth0.com/docs/quickstarts">auth0 integration</a> gives you an out-of-the-box solution for user logins. If you have no need for it, then you may omit these attributes and the login button will just... go away!</p>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>auth0ClientID</code></td>
+<td align="center">The client ID is provided from the <a href="https://auth0.com/docs/quickstarts">auth0 application</a> when you first set it up</td>
+</tr>
+<tr>
+<td align="center"><code>auth0Logout</code></td>
+<td align="center">The allowed logout path you supplied for your auth0 application</td>
+</tr>
+<tr>
+<td align="center"><code>auth0Domain</code></td>
+<td align="center">The authentication domain given to your auth0 application</td>
+</tr>
+<tr>
+<td align="center"><code>auth0Theme</code></td>
+<td align="center">All <a href="https://auth0.com/docs/libraries/lock/v11/configuration#theming">theming options</a> made available by the auth0 Lock component are valid</td>
+</tr>
+<tr>
+<td align="center"><code>auth0Options</code></td>
+<td align="center">All <a href="https://auth0.com/docs/libraries/lock/v11/configuration#display">display options</a> made available by the auth0 Lock component are valid</td>
+</tr>
+</tbody></table>
+
         
           <h1 id="paypal-integration">PayPal Integration</h1>
-<pre class="highlight "><code>  <span class="hljs-attribute">paypalAppId</span>=<span class="hljs-string">''</span>
-  <span class="hljs-attribute">paypalEnv</span>=<span class="hljs-string">'sandbox'</span></code></pre>
+<pre class="highlight javascript"><code>&lt;Cart
+  paypalAppId=<span class="hljs-string">''</span>
+  paypalEnv=<span class="hljs-string">'sandbox'</span>
+/&gt;</code></pre><p>By default, if a PayPal App ID is provided, the express checkout button will be made available in the payment stage. Omitting these attributes will hide the button.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>paypalAppId</code></td>
+<td align="center">The application ID given to you while registering a new <a href="https://developer.paypal.com/docs/api-basics/#">PayPal application</a></td>
+</tr>
+<tr>
+<td align="center"><code>paypalEnv</code></td>
+<td align="center">The environment you wish to run the button in</td>
+</tr>
+</tbody></table>
+
         
           <h1 id="stripe-integration">Stripe Integration</h1>
-<pre class="highlight "><code><span class="hljs-attribute">  stripeApiKey</span>=<span class="hljs-string">''</span></code></pre>
+<pre class="highlight javascript"><code>&lt;Cart
+  stripeApiKey=<span class="hljs-string">''</span>
+/&gt;</code></pre><p>When a Stripe API Key is provided, the billing fields requesting the credit card information will be delivered by and sent to Stripe. <strong>[Note]</strong> if you have a <code>&lt;Payment /&gt;</code> component plugin currently enabled, the credit card fields will be overwritten by that plugin regardless of supplying a Stripe key or not.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>stripeApiKey</code></td>
+<td align="center">The publishable key given to you while registering a new <a href="https://stripe.com/docs/keys">Stripe application</a></td>
+</tr>
+</tbody></table>
+
         
           <h1 id="plugin-api">Plugin API</h1>
 <pre class="highlight javascript"><code><span class="hljs-keyword">export</span> { 
@@ -542,7 +619,7 @@
 }</code></pre><h2 id="postorder">postOrder</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">const</span> postOrder = <span class="hljs-keyword">async</span> ({ response, info, preFetchData }) =&gt; {
 
-}</code></pre><h2 id="info">Info</h2>
+}</code></pre><h2 id="info-">&lt;Info /&gt;</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Info</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
@@ -573,7 +650,7 @@
       &lt;/Fragment&gt;
     )
   }
-}</code></pre><h2 id="shipping">Shipping</h2>
+}</code></pre><h2 id="shipping-">&lt;Shipping /&gt;</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Shipping</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
@@ -604,7 +681,7 @@
       &lt;/Fragment&gt;
     )
   }
-}</code></pre><h2 id="payment">Payment</h2>
+}</code></pre><h2 id="payment-">&lt;Payment /&gt;</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Payment</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (

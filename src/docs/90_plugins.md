@@ -133,7 +133,7 @@ const postOrder = async ({ response, info, preFetchData }) => {
 }
 ```
 
-## Info
+## \<Info />
 
 ```javascript
 export class Info extends React.Component {
@@ -169,7 +169,7 @@ export class Info extends React.Component {
 }
 ```
 
-## Shipping
+## \<Shipping />
 
 ```javascript
 export class Shipping extends React.Component {
@@ -205,7 +205,7 @@ export class Shipping extends React.Component {
 }
 ```
 
-## Payment
+## \<Payment />
 
 ```javascript
 export class Payment extends React.Component {

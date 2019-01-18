@@ -12,7 +12,7 @@ Some parts of the cart can contain custom components like the header and footer.
 
 Custom component properties:
 
-| Attribute | Function |
+| Parameter Name | Description |
 |:---------:|:--------:|
 | `header` | Appears at the **top of all stages** of the cart |
 | `footer` | Appears at the **bottom of all stages** of the cart |
@@ -27,7 +27,7 @@ Custom component properties:
 
 ## Event Hooks
 
-```jsx
+```javascript
 <Cart
   onOpen={() => console.log(`Cart opened`)}
   onClose={() => console.log(`Cart closed`)}
@@ -55,7 +55,7 @@ If you need to run client side code when something happens, Zygote comes with a 
 
 ## Google Analytics Integration
 
-```jsx
+```javascript
 <Cart googleAnalytics={false} />
 ```
 
@@ -63,7 +63,7 @@ By default, Zygote will send cart events to Google Analytics if Google Analytics
 
 ## Google Tag Manager Integration
 
-```jsx
+```javascript
 <Cart googleTagManager={false} />
 ```
 
@@ -83,7 +83,7 @@ To disable this, set the `googleTagManager` property to `false`.
 
 ## Optional Shipping
 
-```jsx
+```javascript
 import { addToCart } from 'zygote-cart';
 
 <button onClick={addToCart({
@@ -101,7 +101,7 @@ So you can have both in the same cart.
 
 ## Starting Total Modifications
 
-```jsx
+```javascript
 <Cart
   totalModifications={[
     {
@@ -127,7 +127,7 @@ So you can have both in the same cart.
 
 The webhooks can pass modifications to the total, but if you need some modifications to show immediately once the cart is opened, you can use the `totalModifications` prop in the `<Cart />` component.
 
-| Attribute | Function |
+| Parameter Name | Description |
 |:--------------:|:--------:|
 | `id`           | A unique ID for each modification. `tax` is reserved for any sales tax being applied and all shipping modifications must start with the word `shipping` |
 | `description`  | Displayed in the subtotals list |
@@ -137,7 +137,7 @@ The webhooks can pass modifications to the total, but if you need some modificat
 
 ## Customize Default Error Messages
 
-```jsx
+```javascript
 <Cart
   infoSubmitError='There was an error with the server. Your order was not placed. Please try again later.'
   orderSubmitError='There was an error with the server. Your information was not placed. Please try again later.'
@@ -146,7 +146,7 @@ The webhooks can pass modifications to the total, but if you need some modificat
 
 There are two error events that we've exposed to allow you to enter your own custom messages.
 
-| Attribute | Function |
+| Parameter Name | Description |
 |:---------:|:--------:|
 | `infoSubmitError` | When an error occurs between the `Details` stage and the `Shipping` stage |
 | `orderSubmitError` | When an error occurs while trying to submit the order to your webhook, or when trying to pay |
