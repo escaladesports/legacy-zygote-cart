@@ -49,7 +49,7 @@ There are only two main functions of the application that you need to use in ord
 
 The button needs to be added to any and all products that you wish to sell on your site.
 
-| Attribute | Function |
+| Parameter Name | Description |
 |:---------:|:--------:|
 | `id` | Must be unique between all products. If you are using Stripe, this must match the product ID. |
 | `name` | Human readable product name, displays in cart when item is added. |
@@ -62,7 +62,7 @@ The button needs to be added to any and all products that you wish to sell on yo
 
 There are only two required attributes for the `<Cart>` component. More on optional attributes later. The `<Cart>` component should only be placed once within your application and should be placed at the highest point possible in the chain such as a template or within a component that is rendered on every page like a header.
 
-| Attribute | Function |
+| Parameter Name | Description |
 |:---------:|:--------:|
 | `stripeApiKey` | [Publishable API key](https://stripe.com/docs/keys) given by Stripe (only required if using Stripe). |
 | `orderWebhook` | The endpoint that will handle your ordering process (serverless function, Zapier workflow, etc.) |
