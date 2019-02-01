@@ -13,6 +13,13 @@ import triggerEvent from './trigger-event'
 import stepState from '../state/step'
 import config from '../zygote.config'
 
+let headers = {}
+try {
+	headers = require(`../../../headers`)
+} catch (e) {
+	// no headers, no problem
+}
+
 export default async function fetchWebhook(path, body) {
 	if(body.event){
 		triggerEvent(`${body.event}Attempt`, body)
@@ -33,6 +40,10 @@ export default async function fetchWebhook(path, body) {
 			preFetchData = await (body.event == `order` && typeof config.plugins[i].preOrder === `function` ? config.plugins[i].preOrder({preFetchData, info}) : preFetchData)
 		}
 
+		if (preFetchData.billingCardNumber) {
+			preFetchData = preFetchData.replace(` `, ``)
+		}
+
 		const jsonBody = JSON.stringify(preFetchData)
 
 		console.log(`Sending to API:`, jsonBody)
@@ -40,6 +51,7 @@ export default async function fetchWebhook(path, body) {
 			response = await fetch(path, {
 				method: `post`,
 				body: jsonBody,
+				headers: headers,
 			})
 			response = await response.json()
 		}
@@ -52,7 +64,6 @@ export default async function fetchWebhook(path, body) {
 			response = await (body.event == `info` && typeof config.plugins[i].postInfo === `function` ? config.plugins[i].postInfo({response, info, preFetchData}) : response)
 			response = await (body.event == `order` && typeof config.plugins[i].postOrder === `function` ? config.plugins[i].postOrder({response, info, preFetchData}) : response)
 		}
-
 		console.log(`Received from API:`, response)
 	}
 	catch(err){

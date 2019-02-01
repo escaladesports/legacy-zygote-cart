@@ -25,7 +25,7 @@ export default class ShippingMethods extends React.Component {
 						{!loading && !!methods.length && (
 							<div className='zygoteShipMethods'>
 								<h2>Shipping Options</h2>
-								{methods[0].shippingMethods && <h3>{`This order will arrive in ${methods.length} seperate shippments`}</h3>}
+								{methods.length > 1 && methods[0].shippingMethods && <h3>{`This order will arrive in ${methods.length} seperate shippments`}</h3>}
 								{methods[0].shippingMethods && (
 									methods.map(({
 										id,
@@ -33,11 +33,11 @@ export default class ShippingMethods extends React.Component {
 										shippingMethods,
 									}) => (
 										<div key={`shippingMethodSet${id}`}>
-											<div className='zygoteShipMethodsSetDesc'><span>Items from this order:</span> {description}</div>
+											{methods.length > 1 && methods[0].shippingMethods && <div className='zygoteShipMethodsSetDesc'><span>Items from this order:</span> {description}</div>}
 											<ShippingMethodsList
 												setId={id}
 												methods={shippingMethods}
-												selected={selected[id]}
+												selected={selected[id] ? selected[id] : selected}
 											/>
 										</div>
 									))

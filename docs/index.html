@@ -297,7 +297,7 @@
 <td align="center">The amount the modification is changing the total by. This value should be te amount, in dollars, x10 to prevent rounding issues ($10.00 = 1000). Negative numbers are also valid if you are applying a discount</td>
 </tr>
 <tr>
-<td align="center"><code>displayValue</code> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+<td align="center"><code>displayValue</code></td>
 <td align="center">If you wish to display something other than <code>value</code> in the subtotal list (ie. Free, Calculated at checkout)</td>
 </tr>
 </tbody></table>
@@ -340,63 +340,81 @@
   <span class="hljs-attr">"infoPhone"</span>: <span class="hljs-string">"555-555-1234"</span>,
   <span class="hljs-attr">"shippingAddress1"</span>: <span class="hljs-string">"123 Some Street"</span>,
   <span class="hljs-attr">"shippingAddress2"</span>: <span class="hljs-string">"Apt. 5F"</span>,
+  <span class="hljs-attr">"shippingCompany"</span>: <span class="hljs-string">""</span>,
   <span class="hljs-attr">"shippingCity"</span>: <span class="hljs-string">"Kansas City"</span>,
   <span class="hljs-attr">"shippingState"</span>: <span class="hljs-string">"Missouri"</span>,
+  <span class="hljs-attr">"shippingStateAbbr"</span>: <span class="hljs-string">"MO"</span>,
   <span class="hljs-attr">"shippingZip"</span>: <span class="hljs-string">"64030"</span>,
-  <span class="hljs-attr">"products"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTID"</span>,
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Billiard Table"</span>,
-      <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
-      <span class="hljs-attr">"price"</span>: <span class="hljs-number">29999</span>
-    }
-  ]
+  <span class="hljs-attr">"coupon"</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">"event"</span>: <span class="hljs-string">"info"</span>,
+  <span class="hljs-attr">"products"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Microfiber Bean Bags with Tub"</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">3499</span>,
+    <span class="hljs-attr">"shippable"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">1</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Safetyglass Arrows – 28\""</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">32400</span>,
+    <span class="hljs-attr">"shippable"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">1</span>
+  }],
+  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"totals"</span>: {
+    <span class="hljs-attr">"subtotal"</span>: <span class="hljs-number">35899</span>,
+    <span class="hljs-attr">"modifications"</span>: [{
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Shipping"</span>,
+      <span class="hljs-attr">"displayValue"</span>: <span class="hljs-string">"-"</span>
+    }, {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Tax"</span>,
+      <span class="hljs-attr">"displayValue"</span>: <span class="hljs-string">"-"</span>
+    }],
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">35899</span>,
+    <span class="hljs-attr">"loading"</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">"meta"</span>: {}
 }</code></pre><blockquote>
 <p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code>{
   <span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"modifications"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"january-sale"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"January Sale"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">-2000</span>
-    },
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Sales Tax"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">899</span>
-    },
-  ],
-  <span class="hljs-attr">"shippingMethods"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-0"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Standard Shipping"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">0</span>
-    },
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-1"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Express Shipping"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">1150</span>
-    },
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-2"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Overnight Shipping"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">4999</span>
-    }
-  ],
-  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-string">"ship-0"</span>,
-  <span class="hljs-attr">"quantityModifications"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
-      <span class="hljs-attr">"available"</span>: <span class="hljs-string">"5"</span>,
-    },
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
-      <span class="hljs-attr">"available"</span>: <span class="hljs-string">"2"</span>,
-    },
-  ],
+  <span class="hljs-attr">"modifications"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"january-sale"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"January Sale"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">-2000</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Sales Tax"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">899</span>
+  }],
+  <span class="hljs-attr">"shippingMethods"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping-0"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Standard Shipping"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">0</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping-1"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Express Shipping"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">1150</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping-2"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Overnight Shipping"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">4999</span>
+  }],
+  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-string">"shipping-0"</span>,
+  <span class="hljs-attr">"quantityModifications"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
+    <span class="hljs-attr">"available"</span>: <span class="hljs-string">"5"</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
+    <span class="hljs-attr">"available"</span>: <span class="hljs-string">"2"</span>
+  }]
 }</code></pre><blockquote>
 <p>Example Error</p>
 </blockquote>
@@ -404,7 +422,293 @@
   <span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"error"</span>: <span class="hljs-string">"Your shipping address is incorrect."</span>,
   <span class="hljs-attr">"step"</span>: <span class="hljs-string">"info"</span>
-}</code></pre><h2 id="orderwebhook">orderWebhook</h2>
+}</code></pre><h3 id="example-request">Example Request</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>infoName</code></td>
+<td align="center">If <strong>splitName</strong> is set within the configuration, this will be replaced by <code>infoFirstName</code> and <code>infoLastName</code></td>
+</tr>
+<tr>
+<td align="center"><code>infoEmail</code></td>
+<td align="center">Order&#39;s email</td>
+</tr>
+<tr>
+<td align="center"><code>infoPhone</code></td>
+<td align="center">Order&#39;s phone number</td>
+</tr>
+<tr>
+<td align="center"><code>shippingAddress1</code></td>
+<td align="center">Order&#39;s shipping address</td>
+</tr>
+<tr>
+<td align="center"><code>shippingAddress2</code></td>
+<td align="center">Order&#39;s shipping apartment, office, etc</td>
+</tr>
+<tr>
+<td align="center"><code>shippingCompany</code></td>
+<td align="center">Order&#39;s company (if applicable)</td>
+</tr>
+<tr>
+<td align="center"><code>shippingCity</code></td>
+<td align="center">Order&#39;s shipping city</td>
+</tr>
+<tr>
+<td align="center"><code>shippingState</code></td>
+<td align="center">Order&#39;s shipping state</td>
+</tr>
+<tr>
+<td align="center"><code>shippingStateAbbr</code></td>
+<td align="center">Order&#39;s shipping state abbreviation</td>
+</tr>
+<tr>
+<td align="center"><code>shippingZip</code></td>
+<td align="center">Order&#39;s shipping zip</td>
+</tr>
+<tr>
+<td align="center"><code>coupon</code></td>
+<td align="center">Any entered coupons, should be used to validate</td>
+</tr>
+<tr>
+<td align="center"><code>event</code></td>
+<td align="center">Which step the user is currently on</td>
+</tr>
+<tr>
+<td align="center"><code>products</code></td>
+<td align="center">Array of products being purchased including their <code>id</code>, <code>price</code>, <code>quantity</code>, and if the item is <code>shippable</code> {true} or a digital good {false}</td>
+</tr>
+<tr>
+<td align="center"><code>selectedShippingMethod</code></td>
+<td align="center">If the order has a pre-selected shipping method</td>
+</tr>
+<tr>
+<td align="center"><code>totals</code></td>
+<td align="center">The order totals including any pre order modifications such as promotions or taxes</td>
+</tr>
+</tbody></table>
+<h3 id="example-response">Example Response</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>success</code></td>
+<td align="center">Whether or not the action was successful</td>
+</tr>
+<tr>
+<td align="center"><code>modifications</code></td>
+<td align="center">Array of modification objects containing a unique <code>id</code>, human readable <code>description</code>, and calculated <code>value</code></td>
+</tr>
+<tr>
+<td align="center"><code>shippingMethods</code></td>
+<td align="center">An array of shipping methods objects containing a unique <code>id</code>, human readable <code>description</code>, and calculated <code>value</code></td>
+</tr>
+<tr>
+<td align="center"><code>selectedShippingMethod</code></td>
+<td align="center">The default selected shipping method&#39;s <code>id</code>. Leave blank to not preselect an option</td>
+</tr>
+<tr>
+<td align="center"><code>quantityModifications</code></td>
+<td align="center">An array of available inventory for each item in the order. This will be used to alter the order on behalf of the user if their order exceeds the available amount of product. The object should include the item&#39;s <code>id</code> and the number <code>available</code>. This is not required. If more product is ordered than available, the order will proceed normally</td>
+</tr>
+</tbody></table>
+<h3 id="example-error">Example Error</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>success</code></td>
+<td align="center">Whether or not the action was successful</td>
+</tr>
+<tr>
+<td align="center"><code>error</code></td>
+<td align="center">The error message to display to the user</td>
+</tr>
+<tr>
+<td align="center"><code>step</code></td>
+<td align="center">The step to return to upon failure (<code>cart</code>, <code>info</code>, <code>shipping</code>, <code>payment</code>, <code>success</code>)</td>
+</tr>
+</tbody></table>
+<h3 id="multiple-shipping-options">Multiple shipping options</h3>
+<p>In the case that an order needs to be shipped from multiple locations (ie. <code>TESTA</code> is shipping from Florida, where <code>TESTB</code> is shipping from Indiana) the <code>shippingMethods</code> key will be altered slightly to accommodate this:</p>
+<p><code>{
+  shippingMethods: [
+    {
+      id: &#39;shipping1&#39;,
+      description: &#39;Pickleball paddle, Basketball&#39;,
+      shippingMethods: [
+        {
+          id: &#39;shipping1-method1&#39;,
+          value: 0,
+          description: &#39;Standard shipping&#39;
+        },
+        {
+          id: &#39;shipping1-method2&#39;,
+          value: 1500,
+          description: &#39;Express shipping&#39;
+        }
+      ]
+    },
+    {
+      id: &#39;shipping2&#39;,
+      description: &#39;Crossbow&#39;,
+      shippingMethods: [
+        {
+          id: &#39;shipping2-method1&#39;,
+          value: 1000,
+          description: &#39;Standard shipping&#39;
+        },
+        {
+          id: &#39;shipping2-method2&#39;,
+          value: 5000,
+          description: &#39;Express shipping&#39;
+        }
+      ]
+    }
+  ],
+  selectedShippingMethod: {
+    shipping1: &#39;shipping1-method1&#39;,
+    shipping2: &#39;shipping2-method2&#39;,
+  }
+}</code></p>
+<p>This will alert the user that the order will arrive in multiple shipments, list the items in each via the description field, and then allow them to select their desired shipping method on each.</p>
+<h2 id="orderwebhook">orderWebhook</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"infoName"</span>: <span class="hljs-string">"John Doe"</span>,
+  <span class="hljs-attr">"infoEmail"</span>: <span class="hljs-string">"johndoe@gmail.com"</span>,
+  <span class="hljs-attr">"infoPhone"</span>: <span class="hljs-string">"555-555-1234"</span>,
+  <span class="hljs-attr">"shippingAddress1"</span>: <span class="hljs-string">"123 Some Street"</span>,
+  <span class="hljs-attr">"shippingAddress2"</span>: <span class="hljs-string">"Apt. 5F"</span>,
+  <span class="hljs-attr">"shippingCompany"</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">"shippingCity"</span>: <span class="hljs-string">"Kansas City"</span>,
+  <span class="hljs-attr">"shippingState"</span>: <span class="hljs-string">"Missouri"</span>,
+  <span class="hljs-attr">"shippingZip"</span>: <span class="hljs-string">"64030"</span>,
+  <span class="hljs-attr">"coupon"</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">"billingName"</span>: <span class="hljs-string">"John Doe"</span>,
+  <span class="hljs-attr">"billingCardNumber"</span>: <span class="hljs-string">"4111111111111111"</span>,
+  <span class="hljs-attr">"billingCardExpiration"</span>: <span class="hljs-string">"10 / 28"</span>,
+  <span class="hljs-attr">"billingCardCVC"</span>: <span class="hljs-string">"900"</span>,
+  <span class="hljs-attr">"sameBilling"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"billingStateAbbr"</span>: <span class="hljs-string">"MO"</span>,
+  <span class="hljs-attr">"paymentType"</span>: <span class="hljs-string">"standard"</span>,
+  <span class="hljs-attr">"products"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Microfiber Bean Bags with Tub"</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">3499</span>,
+    <span class="hljs-attr">"shippable"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">1</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Safetyglass Arrows – 28\""</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">32400</span>,
+    <span class="hljs-attr">"shippable"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">1</span>
+  }],
+  <span class="hljs-attr">"totals"</span>: {
+    <span class="hljs-attr">"subtotal"</span>: <span class="hljs-number">35899</span>,
+    <span class="hljs-attr">"modifications"</span>: [{
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"january-sale"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"January Sale"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">-2000</span>
+    }, {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Sales Tax"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">899</span>
+    }, {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Express Shipping"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">1150</span>
+    }],
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">35948</span>,
+    <span class="hljs-attr">"loading"</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">"event"</span>: <span class="hljs-string">"order"</span>,
+  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-string">"shipping-1"</span>,
+  <span class="hljs-attr">"meta"</span>: {}
+}</code></pre><blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>,
+}</code></pre><blockquote>
+<p>Example Error</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"error"</span>: <span class="hljs-string">"Payment was rejected."</span>,
+  <span class="hljs-attr">"step"</span>: <span class="hljs-string">"order"</span>
+}</code></pre><h3 id="example-request-1">Example Request</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>infoName</code></td>
+<td align="center">If <strong>splitName</strong> is set within the configuration, this will be replaced by <code>infoFirstName</code> and <code>infoLastName</code></td>
+</tr>
+<tr>
+<td align="center"><code>infoEmail</code></td>
+<td align="center">Order&#39;s email</td>
+</tr>
+<tr>
+<td align="center"><code>infoPhone</code></td>
+<td align="center">Order&#39;s phone number</td>
+</tr>
+<tr>
+<td align="center"><code>shippingAddress1</code></td>
+<td align="center">Order&#39;s shipping address</td>
+</tr>
+<tr>
+<td align="center"><code>shippingAddress2</code></td>
+<td align="center">Order&#39;s shipping apartment, office, etc</td>
+</tr>
+<tr>
+<td align="center"><code>shippingCompany</code></td>
+<td align="center">Order&#39;s company (if applicable)</td>
+</tr>
+<tr>
+<td align="center"><code>shippingCity</code></td>
+<td align="center">Order&#39;s shipping city</td>
+</tr>
+<tr>
+<td align="center"><code>shippingState</code></td>
+<td align="center">Order&#39;s shipping state</td>
+</tr>
+<tr>
+<td align="center"><code>shippingZip</code></td>
+<td align="center">Order&#39;s shipping zip</td>
+</tr>
+<tr>
+<td align="center"><code>coupon</code></td>
+<td align="center">Any entered coupons, should be used to validate</td>
+</tr>
+</tbody></table>
+<p>| <code>event</code> | Which step the user is currently on |
+| <code>products</code> | Array of products being purchased including their <code>id</code>, <code>price</code>, <code>quantity</code>, and if the item is <code>shippable</code> {true} or a digital good {false} |
+| <code>selectedShippingMethod</code> | If the order has a pre-selected shipping method |
+| <code>totals</code> | The order totals including any pre order modifications such as promotions or taxes |</p>
 
         
           <h1 id="configurations">Configurations</h1>
@@ -428,7 +732,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><code>splitName</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="center"><code>splitName</code></td>
 <td align="center">This option controls whether the name field on the info page is one single <code>name</code> input (false), or two separate fields <code>firstName</code> and <code>lastName</code> (true)</td>
 </tr>
 <tr>
@@ -522,6 +826,9 @@
 <td align="center">The publishable key given to you while registering a new <a href="https://stripe.com/docs/keys">Stripe application</a></td>
 </tr>
 </tbody></table>
+
+        
+          <h1 id="coupons">Coupons</h1>
 
         
           <h1 id="plugin-api">Plugin API</h1>

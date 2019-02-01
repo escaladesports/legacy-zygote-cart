@@ -132,7 +132,7 @@ The webhooks can pass modifications to the total, but if you need some modificat
 | `id`           | A unique ID for each modification. `tax` is reserved for any sales tax being applied and all shipping modifications must start with the word `shipping` |
 | `description`  | Displayed in the subtotals list |
 | `value`        | The amount the modification is changing the total by. This value should be te amount, in dollars, x10 to prevent rounding issues ($10.00 = 1000). Negative numbers are also valid if you are applying a discount |
-| `displayValue` &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| If you wish to display something other than `value` in the subtotal list (ie. Free, Calculated at checkout) |
+| `displayValue` | If you wish to display something other than `value` in the subtotal list (ie. Free, Calculated at checkout) |
 
 
 ## Customize Default Error Messages

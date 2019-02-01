@@ -127,7 +127,7 @@ export default class HomePage extends React.Component {
 					cartFooter={<div className={styles.footer}>* Free shipping, except Alaska and Hawaii</div>}
 
 					stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
-					paypalAppId='ATP-SVtvHjAfyOGdr_8RRXgizsofojJV32mMt3WRmf5ignVi1TZkA67UYwm5sAitwETQuEigH91w70_6'
+					paypalAppId='AeLnykBc0v7TfaCiuBfWMgX-6nkcNSw_PXb_puQrPyAQPqrofapoYQWKU2YtYGrBoGnt7_66Za17eA-c'
 					paypalEnv='sandbox'
 					infoWebhook='https://inventory-test.escsportsapi.com/load'
 					orderWebhook=''
