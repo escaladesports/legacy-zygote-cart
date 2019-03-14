@@ -19,7 +19,7 @@ import CompanyName from '../inputs/company-name'
 import City from '../inputs/city'
 import State from '../inputs/state'
 import Zip from '../inputs/zip'
-import Paypal from '../paypal'
+// import Paypal from '../paypal'
 import previousStep from '../../utils/previous-step'
 import config from '../../zygote.config'
 
@@ -44,7 +44,7 @@ export default class PaymentStep extends React.Component{
 					paymentHeader,
 					paymentFooter,
 					stripeApiKey,
-					paypalAppId,
+					// paypalAppId,
 				}) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
@@ -63,9 +63,15 @@ export default class PaymentStep extends React.Component{
 										</div>
 									</div>
 
-									{!!paypalAppId && (
+									{/* {!!paypalAppId && (
 										<Paypal id={paypalAppId} />
-									)}
+									)} */}
+
+									{config.plugins && config.plugins.map(({ ExternalPayment }, key) => {
+										if (typeof ExternalPayment === `function`) {
+											return <ExternalPayment key={key} />
+										}
+									})}
 
 									{config.plugins && config.plugins.map(({ Payment }, key) => {
 										if (typeof Payment === `function`) {

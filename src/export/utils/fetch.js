@@ -61,6 +61,7 @@ export default async function fetchWebhook(path, body) {
 		}
 		
 		for (let i = 0; i < config.plugins.length; i++) {
+			response = await (body.event == `info` && typeof config.plugins[i].coupons === `function` ? config.plugins[i].coupons({response, info, preFetchData}) : response)
 			response = await (body.event == `info` && typeof config.plugins[i].postInfo === `function` ? config.plugins[i].postInfo({response, info, preFetchData}) : response)
 			response = await (body.event == `order` && typeof config.plugins[i].postOrder === `function` ? config.plugins[i].postOrder({response, info, preFetchData}) : response)
 		}
