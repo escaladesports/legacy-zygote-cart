@@ -288,7 +288,6 @@ This will alert the user that the order will arrive in multiple shipments, list 
 | `shippingState` | Order's shipping state |
 | `shippingZip` | Order's shipping zip |
 | `coupon` | Any entered coupons, should be used to validate |
-
 | `event` | Which step the user is currently on |
 | `products` | Array of products being purchased including their `id`, `price`, `quantity`, and if the item is `shippable` {true} or a digital good {false} |
 | `selectedShippingMethod` | If the order has a pre-selected shipping method |

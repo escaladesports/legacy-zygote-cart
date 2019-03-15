@@ -14,7 +14,7 @@ module.exports = {
 }
 ```
 
-The `zygote.config.js` file, in the root of your project, allows you to inject plugins and alter a limited number of features about the application.
+The `zygote.config.js` file, in the root of your project, allows you to inject plugins and alter a limited number of features about the application**.**
 
 | Parameter Name | Description |
 |:---------:|:--------:|
