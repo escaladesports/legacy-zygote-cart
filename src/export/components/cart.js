@@ -21,7 +21,7 @@ export default class Cart extends React.Component {
 	render() {
 		return (
 			<Subscribe to={[openState, stepState, settingsState]}>
-				{({ open, init }, { step, processing, skip }, { header }) => (
+				{({ open, init }, { step, processing, skip }, { header, shipping }) => (
 					<Fragment>
 						{init && (
 							<div
@@ -56,7 +56,7 @@ export default class Cart extends React.Component {
 									<div className='zygoteStep zygoteInfoStep'>
 										<InfoStep />
 									</div>
-									{!skip.shipping && <div className='zygoteStep zygoteShippingStep'>
+									{(!skip.shipping && shipping) && <div className='zygoteStep zygoteShippingStep'>
 										<ShippingMethodsStep />
 									</div>}
 									<div className='zygoteStep zygotePaymentStep'>

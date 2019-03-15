@@ -26,7 +26,7 @@ export default class InfoStep extends React.Component{
 	render() {
 		return (
 			<Subscribe to={[stepState, settingsState]}>
-				{({ step, vals }, { infoHeader, infoFooter }) => (
+				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
 							<form data-form='info'>
@@ -37,7 +37,7 @@ export default class InfoStep extends React.Component{
 								<SimpleSummary />
 								<div className='zygoteInfoSection'>
 									<Header>Let's get started</Header>
-									{config.splitName &&
+									{splitName &&
 										<Fragment>
 											<NameInput
 												name='infoFirstName'
@@ -55,7 +55,7 @@ export default class InfoStep extends React.Component{
 											/>
 										</Fragment>
 									}
-									{!config.splitName && <NameInput
+									{!splitName && <NameInput
 										name='infoName'
 										autoComplete='shipping name'
 										step='info'
@@ -127,9 +127,9 @@ export default class InfoStep extends React.Component{
 										/>
 									</div>
 								)}
-								<div className='zygoteInfoCoupon'>
+								{coupons && <div className='zygoteInfoCoupon'>
 									<Coupon />
-								</div>
+								</div>}
 								{config.plugins && config.plugins.map(({ Info }, key) => {
 									if (typeof Info === `function`) {
 										return <Info key={key} />

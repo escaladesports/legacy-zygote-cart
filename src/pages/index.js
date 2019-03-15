@@ -146,6 +146,8 @@ export default class HomePage extends React.Component {
 						},
 					}}
 
+					splitName={true}
+
 					totalModifications={[
 						{
 							id: `shipping`,

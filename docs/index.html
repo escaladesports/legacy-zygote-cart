@@ -724,13 +724,44 @@
 
         
           <h1 id="configurations">Configurations</h1>
+<h2 id="settings">Settings</h2>
+<pre class="highlight javascript"><code>  &lt;Cart
+    shipping: <span class="hljs-literal">true</span>
+    tax: <span class="hljs-literal">true</span>
+    coupons: <span class="hljs-literal">true</span>
+    splitName: <span class="hljs-literal">false</span>
+  /&gt;</code></pre><p>Here are a few configurations you can turn on and off on a cart per cart basis.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>shipping</code></td>
+<td align="center">Turn on <code>true</code> or off <code>false</code> the shipping step during checkout</td>
+</tr>
+<tr>
+<td align="center"><code>tax</code></td>
+<td align="center">Turn on <code>true</code> or off <code>false</code> all tax calculations</td>
+</tr>
+<tr>
+<td align="center"><code>coupons</code></td>
+<td align="center">Turn on <code>true</code> or off <code>false</code> the coupon input field</td>
+</tr>
+<tr>
+<td align="center"><code>splitName</code></td>
+<td align="center">Turn on <code>true</code> or off <code>false</code> the option which controls whether the name field on the info page is one single <code>name</code> input (false), or two separate fields <code>firstName</code> and <code>lastName</code> (true)</td>
+</tr>
+</tbody></table>
+<h2 id="plugins">Plugins</h2>
 <blockquote>
 <p>zygote.config.js</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="hljs-meta">"use strict"</span>;
 
 <span class="hljs-built_in">module</span>.exports = {
-  <span class="hljs-attr">splitName</span>: <span class="hljs-literal">true</span>, 
   <span class="hljs-attr">plugins</span>: [
     <span class="hljs-built_in">require</span>(<span class="hljs-string">'./plugins/zygote-plugin-standard-billing'</span>), 
     <span class="hljs-built_in">require</span>(<span class="hljs-string">'@escaladesports/zygote-plugin-esca-api/src'</span>), 
