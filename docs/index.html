@@ -56,11 +56,11 @@
 <pre class="highlight bash"><code>npm install --save zygote-cart</code></pre><pre class="highlight bash"><code>yarn add zygote-cart</code></pre><p>Welcome to the Zygote Cart API Documentation! Zygote is a drop-in e-commerce front end built in React. It takes a &quot;bring your own back-end&quot; approach so it can work with any payment processor or order fulfillment system. Out of the box it works very well with Stripe.</p>
 <p><strong>Note:</strong> At the moment Zygote only works with React. However there will be a universal option in the future.</p>
 <h2 id="usage">Usage</h2>
-<pre class="highlight jsx"><code><span class="hljs-keyword">import</span> { Cart, addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'zygote-cart'</span>;
+<pre class="highlight jsx"><code>import { Cart, openCart, addToCart } from 'zygote-cart';
 
 
 
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> addToCart({
+&lt;button onClick={() =&gt; addToCart({
   id: `TESTID`,
   name: `Billiard Table`,
   image: `https://via.placeholder.com/75x75`,
@@ -68,7 +68,7 @@
   price: 29999,
 })}&gt;
   Add to Cart!
-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+&lt;/button&gt;
 
 
 
@@ -77,10 +77,10 @@
 
 
 
-
+&lt;button onClick={openCart}&gt;Open Cart&lt;/button&gt;
 &lt;Cart
-  stripeApiKey=<span class="hljs-string">'pk_test_12345'</span>
-  orderWebhook=<span class="hljs-string">'/api/place-order'</span>
+  stripeApiKey='pk_test_12345'
+  orderWebhook='/api/place-order'
 /&gt;</code></pre><p>There are only two main functions of the application that you need to use in order to get the default behavior.</p>
 <h3 id="add-to-cart-button">Add to cart button</h3>
 <p>The button needs to be added to any and all products that you wish to sell on your site.</p>

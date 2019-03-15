@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Subscribe } from 'statable'
 
 import { FaPrint } from 'react-icons/fa'
@@ -14,7 +14,7 @@ export default class SuccessStep extends React.Component{
 		return (
 			<Subscribe to={[successState, settingsState]}>
 				{({ products, totals, meta }, { successHeader, successFooter }) => (
-					<Fragment>
+					<div data-testid='success-step'>
 						{!!successHeader &&
 							<div>{successHeader}</div>
 						}
@@ -39,7 +39,7 @@ export default class SuccessStep extends React.Component{
 						{!!successFooter &&
 							<div>{successFooter}</div>
 						}
-					</Fragment>
+					</div>
 				)}
 			</Subscribe>
 		)

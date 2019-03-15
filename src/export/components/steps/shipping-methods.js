@@ -20,7 +20,7 @@ export default class ShippingStep extends React.Component{
 				{({ step }, { loading }, { paymentHeader, paymentFooter }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
-							<form data-form='shipping'>
+							<form data-form='shipping' data-testid='shipping-step'>
 								{!!paymentHeader && (
 									<div>{paymentHeader}</div>
 								)}

@@ -41,6 +41,7 @@ export default class Cart extends React.Component {
 										onClick={closeCart}
 										ref={el => this.closeBtn = el}
 										onMouseUp={() => this.closeBtn.blur()}
+										data-testid="zygoteCloseButton"
 									>×</button>
 
 									{header && (
@@ -135,6 +136,10 @@ export default class Cart extends React.Component {
 		'.zygoteHeader': {
 			textAlign: `center`,
 			marginBottom: 20,
+			'.logo': {
+				maxWidth: `150px`,
+				margin: `0 30px`,
+			},
 		},
 		'.zygoteStep': {
 			display: `none`,

@@ -29,7 +29,7 @@ export default class InfoStep extends React.Component{
 				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
-							<form data-form='info'>
+							<form data-form='info' data-testid='info-step'>
 								{!!infoHeader && (
 									<div>{infoHeader}</div>
 								)}
