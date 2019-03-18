@@ -132,7 +132,7 @@ export default class PaymentStep extends React.Component{
 									<Totals />
 								</div>
 								<div className='zygotePaymentBtn'>
-									<Button onClick={submitOrder} disabled={loading ? true : false}>Place Order</Button>
+									<Button onClick={submitOrder} disabled={loading ? true : false} dataTestid="submit-order-button">Place Order</Button>
 								</div>
 								<div className='zygoteInfoLink'>
 									<Button className='zygoteBtn' secondary={true} onClick={previousStep}>

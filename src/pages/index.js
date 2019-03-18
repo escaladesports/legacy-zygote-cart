@@ -1,7 +1,8 @@
 import React from 'react'
 import { css } from 'emotion'
 import { Subscribe } from 'statable'
-import { Cart, openCart, addToCart, settingsState } from '../export'
+import { Cart, openCart, addToCart } from '../export'
+import { settingsState } from '../export/state'
 // import { Cart, openCart, addToCart, settingsState } from '../../dist'
 import logo from '../img/logo.svg'
 
