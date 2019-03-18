@@ -24,12 +24,14 @@ import config from '../../zygote.config'
 
 export default class InfoStep extends React.Component{
 	render() {
+		const { testing } = this.props
+
 		return (
 			<Subscribe to={[stepState, settingsState]}>
 				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
-							<form data-form='info' data-testid='info-step'>
+							<form data-form='info'>
 								{!!infoHeader && (
 									<div>{infoHeader}</div>
 								)}
@@ -72,6 +74,7 @@ export default class InfoStep extends React.Component{
 										autoComplete='shipping tel'
 										step='info'
 										value={vals.infoPhone ? vals.infoPhone : ``}
+										testing={testing}
 									/>
 								</div>
 								{showShipping() && (
@@ -136,7 +139,7 @@ export default class InfoStep extends React.Component{
 									}
 								})}
 								<div className='zygoteInfoBtn'>
-									<Button onClick={attemptSubmitInfo}>
+									<Button onClick={attemptSubmitInfo} dataTestid="info-next-step">
 										Next Step
 									</Button>
 								</div>

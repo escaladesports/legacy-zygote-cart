@@ -6,7 +6,11 @@ import { Cart, addToCart } from '../dist'
 const addItemToCart = () => {
 	const utils = render(
 		<Fragment>
-			<Cart />
+			<Cart 
+				testing={true}
+				infoWebhook='/.netlify/functions/info'
+				orderWebhook='/.netlify/functions/order'
+			/>
 			<div>
 				<button onClick={() => addToCart({
 					id: `TESTA`,
@@ -33,3 +37,55 @@ test(`Move to Details Step`, () => {
 	expect(getByTestId(`info-step`)).toBeVisible()
 	expect(getByTestId(`shipping-step`)).not.toBeVisible()
 })
+
+test(`Partially fill in Details, expect error`, () => {
+	const { getByLabelText, getByTestId, container } = addItemToCart()
+
+	fireEvent.change(getByLabelText(/Full Name/i, { selector: `input` }), { target: { value: `John Doe` } })
+	expect(getByLabelText(/Full Name/i, { selector: `input` }).value).toBe(`John Doe`)
+
+	fireEvent.click(getByTestId(`info-next-step`))
+	expect(getByTestId(`info-step`)).toBeVisible()
+	expect(container).toHaveTextContent(/This field is required/i)
+	expect(getByTestId(`shipping-step`)).not.toBeVisible()
+})
+
+// test(`Fill in Details, move to shipping step`, async () => {
+// 	const { getByLabelText, getByTestId, debug, getByText } = addItemToCart()
+
+// 	let inputNode = getByLabelText(/Full Name/i, { selector: `input` })
+// 	fireEvent.change(inputNode, { target: { value: `John Doe` } })
+// 	expect(inputNode.value).toBe(`John Doe`)
+
+// 	inputNode = getByLabelText(/Email/i, { selector: `input` })
+// 	fireEvent.change(inputNode, { target: { value: `test@example.com` } })
+// 	expect(inputNode.value).toBe(`test@example.com`)
+
+// 	inputNode = getByLabelText(/Phone/i, { selector: `input` })
+// 	fireEvent.change(inputNode, { target: { value: `(123) 456-7890` } })
+// 	expect(inputNode.value).toBe(`(123) 456-7890`)
+
+// 	inputNode = getByLabelText(/Address/i, { selector: `input` })
+// 	fireEvent.change(inputNode, { target: { value: `123 Fake St.` } })
+// 	expect(inputNode.value).toBe(`123 Fake St.`)
+
+// 	inputNode = getByLabelText(/City/i, { selector: `input` })
+// 	fireEvent.change(inputNode, { target: { value: `Test` } })
+// 	expect(inputNode.value).toBe(`Test`)
+
+// 	inputNode = getByLabelText(/State/i, { selector: `select` })
+// 	fireEvent.change(inputNode, { target: { value: `Alabama` } })
+// 	expect(inputNode.value).toBe(`Alabama`)
+
+// 	inputNode = getByLabelText(/Zip Code/i, { selector: `input` })
+// 	fireEvent.change(getByLabelText(/Zip Code/i), { target: { value: `12345` } })
+// 	expect(inputNode.value).toBe(`12345`)
+	
+// 	fireEvent.click(getByTestId(`info-next-step`))
+
+// 	await wait(() => {
+// 		expect(getByTestId(`cart`)).toHaveClass(`zygoteOnShippingStep`)
+// 	})
+// 	expect(getByTestId(`shipping-step`)).toBeVisible()
+// 	expect(getByTestId(`info-step`)).not.toBeVisible()
+// })

@@ -15,7 +15,7 @@ import config from '../zygote.config'
 
 let headers = {}
 try {
-	headers = require(`../../../headers`)
+	headers = require(`../../headers`)
 } catch (e) {
 	// no headers, no problem
 }

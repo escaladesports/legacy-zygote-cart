@@ -16,9 +16,11 @@ export default class Zygote extends React.Component {
 		}
 	}
 	render(){
+		const { testing } = this.props
+
 		return (
 			<div className={this.props.styles ? styles(this.props.styles) : ``}>
-				<Cart />
+				<Cart testing={testing} />
 			</div>
 		)
 	}

@@ -5,7 +5,10 @@ export default class TestPage extends React.Component {
 	render() {
 		return (
 			<Fragment>
-				<Cart />
+				<Cart
+					infoWebhook='/.netlify/functions/info'
+					orderWebhook='/.netlify/functions/order'
+				/>
 				<button onClick={openCart}>Open Cart</button>
 			</Fragment>
 		)
