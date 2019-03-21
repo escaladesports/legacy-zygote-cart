@@ -132,8 +132,8 @@ export default class HomePage extends React.Component {
 					stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
 					paypalAppId='AeLnykBc0v7TfaCiuBfWMgX-6nkcNSw_PXb_puQrPyAQPqrofapoYQWKU2YtYGrBoGnt7_66Za17eA-c'
 					paypalEnv='sandbox'
-					infoWebhook='/api/info'
-					orderWebhook=''
+					infoWebhook='/.netlify/functions/info-stripe'
+					orderWebhook='/.netlify/functions/order-stripe'
 					
 					auth0ClientID='Wweg1YAs6kJquv9DcLSpmSNpaY6XPaX8'
 					auth0Logout='http://localhost:8000/'
