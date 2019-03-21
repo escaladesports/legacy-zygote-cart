@@ -2,7 +2,7 @@
 	ID = "zygote-cart"
 
 [build]
-	command = "yarn build:gatsby"
+	command = "yarn build && yarn build:gatsby"
 	publish = "public"
 	functions = "dist-functions"
 
