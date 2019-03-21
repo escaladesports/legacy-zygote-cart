@@ -1,10 +1,10 @@
 import React from 'react'
 import { css } from 'emotion'
 import { Subscribe } from 'statable'
-import { Cart, openCart, addToCart } from '../export'
-import { settingsState } from '../export/state'
-// import { settingsState } from '../../dist/state'
-// import { Cart, openCart, addToCart } from '../../dist'
+// import { Cart, openCart, addToCart } from '../export'
+// import { settingsState } from '../export/state'
+import { settingsState } from '../../dist/state'
+import { Cart, openCart, addToCart } from '../../dist'
 import logo from '../img/logo.svg'
 
 const exposeSettings = [
@@ -14,7 +14,7 @@ const exposeSettings = [
 	`orderWebhook`,
 ]
 
-export default class HomePage extends React.Component {
+export default class HomePageDist extends React.Component {
 	render() {
 		let products = this.props.data.allStripeSku.edges.map(edge => edge.node)
 		let plans = this.props.data.allStripePlan.edges.map(edge => edge.node)
@@ -132,7 +132,7 @@ export default class HomePage extends React.Component {
 					stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
 					paypalAppId='AeLnykBc0v7TfaCiuBfWMgX-6nkcNSw_PXb_puQrPyAQPqrofapoYQWKU2YtYGrBoGnt7_66Za17eA-c'
 					paypalEnv='sandbox'
-					infoWebhook='/api/info'
+					infoWebhook='https://181-esca-api--zygote3.netlify.com/api/info'
 					orderWebhook=''
 					
 					auth0ClientID='Wweg1YAs6kJquv9DcLSpmSNpaY6XPaX8'
@@ -203,7 +203,7 @@ const styles = {
 }
 
 export const query = graphql`
-	query HomePage {
+	query HomePageDist {
 		allStripeSku {
 			edges {
 				node {

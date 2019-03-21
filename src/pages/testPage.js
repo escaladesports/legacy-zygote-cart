@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
-// import { Cart, openCart } from '../../dist'
-import { Cart, openCart } from '../export'
+import { Cart, openCart } from '../../dist'
+// import { Cart, openCart } from '../export'
 
 export default class TestPage extends React.Component {
 	render() {
