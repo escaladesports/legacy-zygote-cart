@@ -11,6 +11,7 @@ import closeCart from '../../utils/close-cart'
 
 export default class SuccessStep extends React.Component{
 	render() {
+		
 		return (
 			<Subscribe to={[successState, settingsState]}>
 				{({ products, totals, meta }, { successHeader, successFooter }) => (

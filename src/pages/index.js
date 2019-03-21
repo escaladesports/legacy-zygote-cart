@@ -1,9 +1,10 @@
 import React from 'react'
 import { css } from 'emotion'
 import { Subscribe } from 'statable'
-import { Cart, openCart, addToCart } from '../export'
-import { settingsState } from '../export/state'
-// import { Cart, openCart, addToCart, settingsState } from '../../dist'
+// import { Cart, openCart, addToCart } from '../export'
+// import { settingsState } from '../export/state'
+import { settingsState } from '../../dist/state'
+import { Cart, openCart, addToCart } from '../../dist'
 import logo from '../img/logo.svg'
 
 const exposeSettings = [
@@ -131,7 +132,7 @@ export default class HomePage extends React.Component {
 					stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
 					paypalAppId='AeLnykBc0v7TfaCiuBfWMgX-6nkcNSw_PXb_puQrPyAQPqrofapoYQWKU2YtYGrBoGnt7_66Za17eA-c'
 					paypalEnv='sandbox'
-					infoWebhook='https://inventory-test.escsportsapi.com/load'
+					infoWebhook='/api/info'
 					orderWebhook=''
 					
 					auth0ClientID='Wweg1YAs6kJquv9DcLSpmSNpaY6XPaX8'
