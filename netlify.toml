@@ -2,7 +2,7 @@
 	ID = "zygote-cart"
 
 [build]
-	command = "sed -i -e 's/ESCA_API_KEY/${ESCA_API_KEY}/g; s/ESCA_API_SITE/${ESCA_API_SITE}/g' netlify.toml && yarn build && yarn build:gatsby"
+	command = "sed -i -e 's/ESCA_API_KEY/$ESCA_API_KEY/g; s/ESCA_API_SITE/$ESCA_API_SITE/g; s/X_API_Key/$X_API_Key/g' netlify.toml && yarn build && yarn build:gatsby"
 	publish = "public"
 	functions = "dist-functions"
 
@@ -16,4 +16,7 @@
   to = "https://inventory-test.escsportsapi.com/load"
   status = 200
   force = true # COMMENT: ensure that we always redirect
-	headers = {Content-Type = "application/json", ESC-API-Key = "ESCA_API_KEY", ESC-API-Context = "ESCA_API_SITE"}
+  [redirects.headers]
+    Content-Type = "application/json"
+		ESC-API-Key = "ESCA_API_KEY"
+		ESC-API-Context = "ESCA_API_SITE"
