@@ -2,7 +2,7 @@
 	ID = "zygote-cart"
 
 [build]
-	command = "sed -i 's/E_API_KEY_PLACEHOLDER/${ESCA_API_KEY}/g; s/E_API_CONTEXT_PLACEHOLDER/${ESCA_API_SITE}/g; s/AMAZON_API_KEY_PLACEHOLDER/${X_API_Key}/g' netlify.toml && yarn build && yarn build:gatsby"
+	command = 'sed -i.bak "s@E_API_KEY_PLACEHOLDER@${ESCA_API_KEY}@g; s/E_API_CONTEXT_PLACEHOLDER/${ESCA_API_SITE}/g; s/AMAZON_API_KEY_PLACEHOLDER/${X_API_Key}/g" netlify.toml && yarn build && yarn build:gatsby'
 	publish = "public"
 	functions = "dist-functions"
 
