@@ -6,6 +6,9 @@
   Zygote Cart v3
 </h1>
 
+[![Build Status](https://travis-ci.org/escaladesports/zygote-cart.svg?branch=master)](https://travis-ci.org/escaladesports/zygote-cart)
+![npm](https://img.shields.io/npm/v/@escaladesports/zygote-cart.svg)
+
 [Documentation](https://escaladesports.github.io/zygote-cart/index.html)
 
 Zygote is a drop-in ecommerce front end built in React. It takes a "bring your own backend" approach so it can work with any payment processor or order fulfillment system. Out of the box it works very well with Stripe.
