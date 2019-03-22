@@ -19,8 +19,6 @@ import Login from './auth0'
 
 export default class Cart extends React.Component {
 	render() {
-		const { testing } = this.props
-
 		return (
 			<Subscribe to={[openState, stepState, settingsState]}>
 				{({ open, init }, { step, processing, skip }, { header, shipping }) => (
@@ -58,7 +56,7 @@ export default class Cart extends React.Component {
 										<CartStep />
 									</div>
 									<div className='zygoteStep zygoteInfoStep' data-testid='info-step'>
-										<InfoStep testing={testing} />
+										<InfoStep />
 									</div>
 									{(!skip.shipping && shipping) && <div className='zygoteStep zygoteShippingStep' data-testid='shipping-step'>
 										<ShippingMethodsStep />

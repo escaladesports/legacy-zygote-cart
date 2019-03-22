@@ -756,18 +756,11 @@
 </tr>
 </tbody></table>
 <h2 id="plugins">Plugins</h2>
-<blockquote>
-<p>zygote.config.js</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="hljs-meta">"use strict"</span>;
+<pre class="highlight javascript"><code><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> EscaAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'@escaladesports/zygote-plugin-esca-api'</span>
 
-<span class="hljs-built_in">module</span>.exports = {
-  <span class="hljs-attr">plugins</span>: [
-    <span class="hljs-built_in">require</span>(<span class="hljs-string">'./plugins/zygote-plugin-standard-billing'</span>), 
-    <span class="hljs-built_in">require</span>(<span class="hljs-string">'@escaladesports/zygote-plugin-esca-api/src'</span>), 
-  ],
-}</code></pre><p>The <code>zygote.config.js</code> file, in the root of your project, allows you to inject plugins and alter a limited number of features about the application<strong>.</strong></p>
-<table>
+  &lt;Cart
+    plugins: {[ EscaAPI ]}
+  /&gt;</code></pre><table>
 <thead>
 <tr>
 <th align="center">Parameter Name</th>
@@ -775,10 +768,6 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><code>splitName</code></td>
-<td align="center">This option controls whether the name field on the info page is one single <code>name</code> input (false), or two separate fields <code>firstName</code> and <code>lastName</code> (true)</td>
-</tr>
-<tr>
 <td align="center"><code>plugins</code></td>
 <td align="center">An array of required packages that are scanned for expected hooks and then are executed at the hook&#39;s firing point</td>
 </tr>

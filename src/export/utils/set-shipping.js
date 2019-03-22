@@ -2,7 +2,6 @@ import shippingState, { findShippingMethod } from '../state/shipping'
 import totalsState from '../state/totals'
 import settingsState from '../state/settings'
 import addTotalModification from './add-total-modification'
-import config from '../zygote.config'
 
 export default function setShipping(selected, setId) {
 	const method = findShippingMethod(selected)
@@ -32,7 +31,7 @@ export default function setShipping(selected, setId) {
 		discount += mod.value
 	})
 
-	config.plugins.forEach(plugin => {
+	settingsState.state.plugins.forEach(plugin => {
 		if (typeof plugin.calculateTax === `function` && settingsState.state.tax) {
 			plugin.calculateTax({
 				shippingAddress: shippingState.state.address,

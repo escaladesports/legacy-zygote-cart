@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Cart from './cart'
 import styles from '../styles'
 import settingsState from '../state/settings'
@@ -16,11 +17,9 @@ export default class Zygote extends React.Component {
 		}
 	}
 	render(){
-		const { testing } = this.props
-
 		return (
 			<div className={this.props.styles ? styles(this.props.styles) : ``}>
-				<Cart testing={testing} />
+				<Cart />
 			</div>
 		)
 	}

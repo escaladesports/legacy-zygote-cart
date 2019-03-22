@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
-import stepState from '../../state/step'
-import shippingState from '../../state/shipping'
-import settingsState from '../../state/settings'
+
+import { stepState, shippingState, settingsState} from '../../state'
 import StepsHeader from '../steps-header'
 import Header from '../header'
 import CardList from '../card-list'
@@ -21,7 +20,6 @@ import State from '../inputs/state'
 import Zip from '../inputs/zip'
 // import Paypal from '../paypal'
 import previousStep from '../../utils/previous-step'
-import config from '../../zygote.config'
 
 export default class PaymentStep extends React.Component{
 	constructor(props){
@@ -44,6 +42,7 @@ export default class PaymentStep extends React.Component{
 					paymentHeader,
 					paymentFooter,
 					stripeApiKey,
+					plugins,
 					// paypalAppId,
 				}) => (
 					<Fragment>
@@ -67,13 +66,13 @@ export default class PaymentStep extends React.Component{
 										<Paypal id={paypalAppId} />
 									)} */}
 
-									{config.plugins && config.plugins.map(({ ExternalPayment }, key) => {
+									{plugins && plugins.map(({ ExternalPayment }, key) => {
 										if (typeof ExternalPayment === `function`) {
 											return <ExternalPayment key={key} />
 										}
 									})}
 
-									{config.plugins && config.plugins.map(({ Payment }, key) => {
+									{plugins && plugins.map(({ Payment }, key) => {
 										if (typeof Payment === `function`) {
 											altPayment = true
 											return <Payment key={key} />

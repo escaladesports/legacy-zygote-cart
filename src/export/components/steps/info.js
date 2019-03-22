@@ -20,15 +20,12 @@ import productsState from '../../state/products'
 import settingsState from '../../state/settings'
 import SimpleSummary from '../simple-summary'
 import Coupon from '../inputs/coupon'
-import config from '../../zygote.config'
 
 export default class InfoStep extends React.Component{
 	render() {
-		const { testing } = this.props
-
 		return (
 			<Subscribe to={[stepState, settingsState]}>
-				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons }) => (
+				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons, testing, plugins }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
 							<form data-form='info'>
@@ -133,7 +130,7 @@ export default class InfoStep extends React.Component{
 								{coupons && <div className='zygoteInfoCoupon'>
 									<Coupon />
 								</div>}
-								{config.plugins && config.plugins.map(({ Info }, key) => {
+								{plugins && plugins.map(({ Info }, key) => {
 									if (typeof Info === `function`) {
 										return <Info key={key} />
 									}

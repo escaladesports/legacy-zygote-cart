@@ -1,24 +1,12 @@
 import fetch from 'isomorphic-fetch'
 
-import metaState from '../state/meta'
-import shippingState from '../state/shipping'
-import productsState from '../state/products'
-import totalsState from '../state/totals'
+import { metaState, shippingState, productsState, totalsState, stepState, settingsState } from '../state'
 import displayError from './display-error'
 import displayInfo from './display-info'
 import addTotalModification from './add-total-modification'
 import addQuantityModification from './quantity-modifications'
 import setShipping from './set-shipping'
 import triggerEvent from './trigger-event'
-import stepState from '../state/step'
-import config from '../zygote.config'
-
-let headers = {}
-try {
-	headers = require(`../../headers`)
-} catch (e) {
-	// no headers, no problem
-}
 
 export default async function fetchWebhook(path, body) {
 	if(body.event){
@@ -35,9 +23,9 @@ export default async function fetchWebhook(path, body) {
 		}
 
 		preFetchData = info
-		for (let i = 0; i < config.plugins.length; i++) {
-			preFetchData = await (body.event == `info` && typeof config.plugins[i].preInfo === `function` ? config.plugins[i].preInfo({preFetchData, info}) : preFetchData)
-			preFetchData = await (body.event == `order` && typeof config.plugins[i].preOrder === `function` ? config.plugins[i].preOrder({preFetchData, info}) : preFetchData)
+		for (let i = 0; i < settingsState.state.plugins.length; i++) {
+			preFetchData = await (body.event == `info` && typeof settingsState.state.plugins[i].preInfo === `function` ? settingsState.state.plugins[i].preInfo({preFetchData, info}) : preFetchData)
+			preFetchData = await (body.event == `order` && typeof settingsState.state.plugins[i].preOrder === `function` ? settingsState.state.plugins[i].preOrder({preFetchData, info}) : preFetchData)
 		}
 
 		if (preFetchData.billingCardNumber) {
@@ -51,7 +39,6 @@ export default async function fetchWebhook(path, body) {
 			response = await fetch(path, {
 				method: `post`,
 				body: jsonBody,
-				headers: headers,
 			})
 			response = await response.json()
 		}
@@ -60,10 +47,10 @@ export default async function fetchWebhook(path, body) {
 			response = preFetchData
 		}
 		
-		for (let i = 0; i < config.plugins.length; i++) {
-			response = await (body.event == `info` && typeof config.plugins[i].coupons === `function` ? config.plugins[i].coupons({response, info, preFetchData}) : response)
-			response = await (body.event == `info` && typeof config.plugins[i].postInfo === `function` ? config.plugins[i].postInfo({response, info, preFetchData}) : response)
-			response = await (body.event == `order` && typeof config.plugins[i].postOrder === `function` ? config.plugins[i].postOrder({response, info, preFetchData}) : response)
+		for (let i = 0; i < settingsState.state.plugins.length; i++) {
+			response = await (body.event == `info` && typeof settingsState.state.plugins[i].coupons === `function` ? settingsState.state.plugins[i].coupons({response, info, preFetchData}) : response)
+			response = await (body.event == `info` && typeof settingsState.state.plugins[i].postInfo === `function` ? settingsState.state.plugins[i].postInfo({response, info, preFetchData}) : response)
+			response = await (body.event == `order` && typeof settingsState.state.plugins[i].postOrder === `function` ? settingsState.state.plugins[i].postOrder({response, info, preFetchData}) : response)
 		}
 		console.log(`Received from API:`, response)
 	}
@@ -124,8 +111,8 @@ export default async function fetchWebhook(path, body) {
 			}
 		}
 		else {
-			for (let i = 0; i < config.plugins.length; i++) {
-				const ship = await (typeof config.plugins[i].getShippingMethods === `function` ? config.plugins[i].getShippingMethods({response, info, preFetchData}) : {})
+			for (let i = 0; i < settingsState.state.plugins.length; i++) {
+				const ship = await (typeof settingsState.state.plugins[i].getShippingMethods === `function` ? settingsState.state.plugins[i].getShippingMethods({response, info, preFetchData}) : {})
 				if (ship && ship.methods && ship.methods.length) {
 					shippingState.setState({
 						methods: ship.methods,
