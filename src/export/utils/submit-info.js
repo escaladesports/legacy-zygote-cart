@@ -21,7 +21,6 @@ export default async function submitInfo() {
 		let data
 		try {
 			data = await fetch(infoWebhook, vals)
-			console.log(`Received from API:`, data)
 		}
 		catch (err) {
 			data = {}

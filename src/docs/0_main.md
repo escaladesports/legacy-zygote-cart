@@ -15,7 +15,7 @@ Welcome to the Zygote Cart API Documentation! Zygote is a drop-in e-commerce fro
 ## Usage
 
 ```jsx
-import { Cart, addToCart } from 'zygote-cart';
+import { Cart, openCart, addToCart } from 'zygote-cart';
 
 
 
@@ -36,7 +36,7 @@ import { Cart, addToCart } from 'zygote-cart';
 
 
 
-
+<button onClick={openCart}>Open Cart</button>
 <Cart
   stripeApiKey='pk_test_12345'
   orderWebhook='/api/place-order'

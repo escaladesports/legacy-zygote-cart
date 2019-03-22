@@ -21,10 +21,11 @@ export default class Cart extends React.Component {
 	render() {
 		return (
 			<Subscribe to={[openState, stepState, settingsState]}>
-				{({ open, init }, { step, processing, skip }, { header }) => (
+				{({ open, init }, { step, processing, skip }, { header, shipping }) => (
 					<Fragment>
 						{init && (
 							<div
+								data-testid="cart"
 								className={classNames(
 									`zygote`,
 									`zygoteOn${processing ? `Processing` : `${capitalize(step)}Step`}`,
@@ -41,6 +42,7 @@ export default class Cart extends React.Component {
 										onClick={closeCart}
 										ref={el => this.closeBtn = el}
 										onMouseUp={() => this.closeBtn.blur()}
+										data-testid="zygoteCloseButton"
 									>×</button>
 
 									{header && (
@@ -53,16 +55,16 @@ export default class Cart extends React.Component {
 									<div className='zygoteStep zygoteCartStep'>
 										<CartStep />
 									</div>
-									<div className='zygoteStep zygoteInfoStep'>
+									<div className='zygoteStep zygoteInfoStep' data-testid='info-step'>
 										<InfoStep />
 									</div>
-									{!skip.shipping && <div className='zygoteStep zygoteShippingStep'>
+									{(!skip.shipping && shipping) && <div className='zygoteStep zygoteShippingStep' data-testid='shipping-step'>
 										<ShippingMethodsStep />
 									</div>}
-									<div className='zygoteStep zygotePaymentStep'>
+									<div className='zygoteStep zygotePaymentStep' data-testid='payment-step'>
 										<PaymentStep />
 									</div>
-									<div className='zygoteStep zygoteSuccessStep'>
+									<div className='zygoteStep zygoteSuccessStep' data-testid='success-step'>
 										<SuccessStep />
 									</div>
 									{!!processing &&
@@ -135,6 +137,10 @@ export default class Cart extends React.Component {
 		'.zygoteHeader': {
 			textAlign: `center`,
 			marginBottom: 20,
+			'.logo': {
+				maxWidth: `150px`,
+				margin: `0 30px`,
+			},
 		},
 		'.zygoteStep': {
 			display: `none`,

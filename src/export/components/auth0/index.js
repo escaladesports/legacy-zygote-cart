@@ -9,6 +9,7 @@ export default class Login extends React.Component {
 	constructor(props) {
 		super(props)
 		this.logout = this.logout.bind(this)
+		this.show = this.show.bind(this)
 	}
 
 	componentDidMount() {
@@ -59,6 +60,29 @@ export default class Login extends React.Component {
 		}
 	}
 
+	show() {
+		var options = {
+			additionalSignUpFields: [{
+				name: `address`,
+				placeholder: `enter your address`,
+				// The following properties are optional
+				icon: `https://example.com/assests/address_icon.png`,
+				prefill: `street 123`,
+				validator: function(address) {
+					return {
+						valid: address.length >= 10,
+						hint: `Must have 10 or more chars`, // optional
+					}
+				},
+			},
+			{
+				name: `full_name`,
+				placeholder: `Enter your full name`,
+			}],
+		}
+		this.lock.show(options)
+	}
+
 	logout() {
 		this.lock.logout({
 			returnTo: settingsState.state.auth0Logout,
@@ -75,7 +99,7 @@ export default class Login extends React.Component {
 						{this.lock && !customer && <button className="zygoteBtn zygoteBtnSmall zygoteSecondaryBtn" onClick={() => this.lock.show()}>Log in</button>}
 						{this.lock && customer && 
 							<div>
-								<div>Welcome {customer.nickname}!</div>
+								<div>Welcome <span onClick={this.show}>{customer.nickname}</span>!</div>
 								<button className="zygoteBtn zygoteBtnSmall zygotePrimaryBtn" onClick={() => this.logout()}>Log out</button>
 							</div>
 						}

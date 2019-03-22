@@ -1,10 +1,10 @@
 import React from 'react'
 import { css } from 'emotion'
 import { Subscribe } from 'statable'
-import { Cart, openCart, addToCart } from '../export'
-import { settingsState } from '../export/state'
-// import { settingsState } from '../../dist/state'
-// import { Cart, openCart, addToCart } from '../../dist'
+// import { Cart, openCart, addToCart } from '../export'
+// import { settingsState } from '../export/state'
+import { settingsState } from '../../dist/state'
+import { Cart, openCart, addToCart } from '../../dist'
 import logo from '../img/logo.svg'
 
 const exposeSettings = [
@@ -14,7 +14,7 @@ const exposeSettings = [
 	`orderWebhook`,
 ]
 
-export default class HomePage extends React.Component {
+export default class HomePageDist extends React.Component {
 	render() {
 		let products = this.props.data.allStripeSku.edges.map(edge => edge.node)
 		let plans = this.props.data.allStripePlan.edges.map(edge => edge.node)
@@ -203,7 +203,7 @@ const styles = {
 }
 
 export const query = graphql`
-	query HomePage {
+	query HomePageDist {
 		allStripeSku {
 			edges {
 				node {

@@ -56,11 +56,11 @@
 <pre class="highlight bash"><code>npm install --save zygote-cart</code></pre><pre class="highlight bash"><code>yarn add zygote-cart</code></pre><p>Welcome to the Zygote Cart API Documentation! Zygote is a drop-in e-commerce front end built in React. It takes a &quot;bring your own back-end&quot; approach so it can work with any payment processor or order fulfillment system. Out of the box it works very well with Stripe.</p>
 <p><strong>Note:</strong> At the moment Zygote only works with React. However there will be a universal option in the future.</p>
 <h2 id="usage">Usage</h2>
-<pre class="highlight jsx"><code><span class="hljs-keyword">import</span> { Cart, addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'zygote-cart'</span>;
+<pre class="highlight jsx"><code>import { Cart, openCart, addToCart } from 'zygote-cart';
 
 
 
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> addToCart({
+&lt;button onClick={() =&gt; addToCart({
   id: `TESTID`,
   name: `Billiard Table`,
   image: `https://via.placeholder.com/75x75`,
@@ -68,7 +68,7 @@
   price: 29999,
 })}&gt;
   Add to Cart!
-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+&lt;/button&gt;
 
 
 
@@ -77,10 +77,10 @@
 
 
 
-
+&lt;button onClick={openCart}&gt;Open Cart&lt;/button&gt;
 &lt;Cart
-  stripeApiKey=<span class="hljs-string">'pk_test_12345'</span>
-  orderWebhook=<span class="hljs-string">'/api/place-order'</span>
+  stripeApiKey='pk_test_12345'
+  orderWebhook='/api/place-order'
 /&gt;</code></pre><p>There are only two main functions of the application that you need to use in order to get the default behavior.</p>
 <h3 id="add-to-cart-button">Add to cart button</h3>
 <p>The button needs to be added to any and all products that you wish to sell on your site.</p>
@@ -297,7 +297,7 @@
 <td align="center">The amount the modification is changing the total by. This value should be te amount, in dollars, x10 to prevent rounding issues ($10.00 = 1000). Negative numbers are also valid if you are applying a discount</td>
 </tr>
 <tr>
-<td align="center"><code>displayValue</code> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+<td align="center"><code>displayValue</code></td>
 <td align="center">If you wish to display something other than <code>value</code> in the subtotal list (ie. Free, Calculated at checkout)</td>
 </tr>
 </tbody></table>
@@ -340,63 +340,81 @@
   <span class="hljs-attr">"infoPhone"</span>: <span class="hljs-string">"555-555-1234"</span>,
   <span class="hljs-attr">"shippingAddress1"</span>: <span class="hljs-string">"123 Some Street"</span>,
   <span class="hljs-attr">"shippingAddress2"</span>: <span class="hljs-string">"Apt. 5F"</span>,
+  <span class="hljs-attr">"shippingCompany"</span>: <span class="hljs-string">""</span>,
   <span class="hljs-attr">"shippingCity"</span>: <span class="hljs-string">"Kansas City"</span>,
   <span class="hljs-attr">"shippingState"</span>: <span class="hljs-string">"Missouri"</span>,
+  <span class="hljs-attr">"shippingStateAbbr"</span>: <span class="hljs-string">"MO"</span>,
   <span class="hljs-attr">"shippingZip"</span>: <span class="hljs-string">"64030"</span>,
-  <span class="hljs-attr">"products"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTID"</span>,
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Billiard Table"</span>,
-      <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
-      <span class="hljs-attr">"price"</span>: <span class="hljs-number">29999</span>
-    }
-  ]
+  <span class="hljs-attr">"coupon"</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">"event"</span>: <span class="hljs-string">"info"</span>,
+  <span class="hljs-attr">"products"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Microfiber Bean Bags with Tub"</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">3499</span>,
+    <span class="hljs-attr">"shippable"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">1</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Safetyglass Arrows – 28\""</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">32400</span>,
+    <span class="hljs-attr">"shippable"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">1</span>
+  }],
+  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"totals"</span>: {
+    <span class="hljs-attr">"subtotal"</span>: <span class="hljs-number">35899</span>,
+    <span class="hljs-attr">"modifications"</span>: [{
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Shipping"</span>,
+      <span class="hljs-attr">"displayValue"</span>: <span class="hljs-string">"-"</span>
+    }, {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Tax"</span>,
+      <span class="hljs-attr">"displayValue"</span>: <span class="hljs-string">"-"</span>
+    }],
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">35899</span>,
+    <span class="hljs-attr">"loading"</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">"meta"</span>: {}
 }</code></pre><blockquote>
 <p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code>{
   <span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"modifications"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"january-sale"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"January Sale"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">-2000</span>
-    },
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Sales Tax"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">899</span>
-    },
-  ],
-  <span class="hljs-attr">"shippingMethods"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-0"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Standard Shipping"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">0</span>
-    },
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-1"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Express Shipping"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">1150</span>
-    },
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ship-2"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Overnight Shipping"</span>,
-      <span class="hljs-attr">"value"</span>: <span class="hljs-number">4999</span>
-    }
-  ],
-  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-string">"ship-0"</span>,
-  <span class="hljs-attr">"quantityModifications"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
-      <span class="hljs-attr">"available"</span>: <span class="hljs-string">"5"</span>,
-    },
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
-      <span class="hljs-attr">"available"</span>: <span class="hljs-string">"2"</span>,
-    },
-  ],
+  <span class="hljs-attr">"modifications"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"january-sale"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"January Sale"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">-2000</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Sales Tax"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">899</span>
+  }],
+  <span class="hljs-attr">"shippingMethods"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping-0"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Standard Shipping"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">0</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping-1"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Express Shipping"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">1150</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping-2"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Overnight Shipping"</span>,
+    <span class="hljs-attr">"value"</span>: <span class="hljs-number">4999</span>
+  }],
+  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-string">"shipping-0"</span>,
+  <span class="hljs-attr">"quantityModifications"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
+    <span class="hljs-attr">"available"</span>: <span class="hljs-string">"5"</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
+    <span class="hljs-attr">"available"</span>: <span class="hljs-string">"2"</span>
+  }]
 }</code></pre><blockquote>
 <p>Example Error</p>
 </blockquote>
@@ -404,22 +422,7 @@
   <span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"error"</span>: <span class="hljs-string">"Your shipping address is incorrect."</span>,
   <span class="hljs-attr">"step"</span>: <span class="hljs-string">"info"</span>
-}</code></pre><h2 id="orderwebhook">orderWebhook</h2>
-
-        
-          <h1 id="configurations">Configurations</h1>
-<blockquote>
-<p>zygote.config.js</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="hljs-meta">"use strict"</span>;
-
-<span class="hljs-built_in">module</span>.exports = {
-  <span class="hljs-attr">splitName</span>: <span class="hljs-literal">true</span>, 
-  <span class="hljs-attr">plugins</span>: [
-    <span class="hljs-built_in">require</span>(<span class="hljs-string">'./plugins/zygote-plugin-standard-billing'</span>), 
-    <span class="hljs-built_in">require</span>(<span class="hljs-string">'@escaladesports/zygote-plugin-esca-api/src'</span>), 
-  ],
-}</code></pre><p>The <code>zygote.config.js</code> file, in the root of your project, allows you to inject plugins and alter a limited number of features about the application.</p>
+}</code></pre><h3 id="example-request">Example Request</h3>
 <table>
 <thead>
 <tr>
@@ -428,10 +431,343 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><code>splitName</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-<td align="center">This option controls whether the name field on the info page is one single <code>name</code> input (false), or two separate fields <code>firstName</code> and <code>lastName</code> (true)</td>
+<td align="center"><code>infoName</code></td>
+<td align="center">If <strong>splitName</strong> is set within the configuration, this will be replaced by <code>infoFirstName</code> and <code>infoLastName</code></td>
 </tr>
 <tr>
+<td align="center"><code>infoEmail</code></td>
+<td align="center">Order&#39;s email</td>
+</tr>
+<tr>
+<td align="center"><code>infoPhone</code></td>
+<td align="center">Order&#39;s phone number</td>
+</tr>
+<tr>
+<td align="center"><code>shippingAddress1</code></td>
+<td align="center">Order&#39;s shipping address</td>
+</tr>
+<tr>
+<td align="center"><code>shippingAddress2</code></td>
+<td align="center">Order&#39;s shipping apartment, office, etc</td>
+</tr>
+<tr>
+<td align="center"><code>shippingCompany</code></td>
+<td align="center">Order&#39;s company (if applicable)</td>
+</tr>
+<tr>
+<td align="center"><code>shippingCity</code></td>
+<td align="center">Order&#39;s shipping city</td>
+</tr>
+<tr>
+<td align="center"><code>shippingState</code></td>
+<td align="center">Order&#39;s shipping state</td>
+</tr>
+<tr>
+<td align="center"><code>shippingStateAbbr</code></td>
+<td align="center">Order&#39;s shipping state abbreviation</td>
+</tr>
+<tr>
+<td align="center"><code>shippingZip</code></td>
+<td align="center">Order&#39;s shipping zip</td>
+</tr>
+<tr>
+<td align="center"><code>coupon</code></td>
+<td align="center">Any entered coupons, should be used to validate</td>
+</tr>
+<tr>
+<td align="center"><code>event</code></td>
+<td align="center">Which step the user is currently on</td>
+</tr>
+<tr>
+<td align="center"><code>products</code></td>
+<td align="center">Array of products being purchased including their <code>id</code>, <code>price</code>, <code>quantity</code>, and if the item is <code>shippable</code> {true} or a digital good {false}</td>
+</tr>
+<tr>
+<td align="center"><code>selectedShippingMethod</code></td>
+<td align="center">If the order has a pre-selected shipping method</td>
+</tr>
+<tr>
+<td align="center"><code>totals</code></td>
+<td align="center">The order totals including any pre order modifications such as promotions or taxes</td>
+</tr>
+</tbody></table>
+<h3 id="example-response">Example Response</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>success</code></td>
+<td align="center">Whether or not the action was successful</td>
+</tr>
+<tr>
+<td align="center"><code>modifications</code></td>
+<td align="center">Array of modification objects containing a unique <code>id</code>, human readable <code>description</code>, and calculated <code>value</code></td>
+</tr>
+<tr>
+<td align="center"><code>shippingMethods</code></td>
+<td align="center">An array of shipping methods objects containing a unique <code>id</code>, human readable <code>description</code>, and calculated <code>value</code></td>
+</tr>
+<tr>
+<td align="center"><code>selectedShippingMethod</code></td>
+<td align="center">The default selected shipping method&#39;s <code>id</code>. Leave blank to not preselect an option</td>
+</tr>
+<tr>
+<td align="center"><code>quantityModifications</code></td>
+<td align="center">An array of available inventory for each item in the order. This will be used to alter the order on behalf of the user if their order exceeds the available amount of product. The object should include the item&#39;s <code>id</code> and the number <code>available</code>. This is not required. If more product is ordered than available, the order will proceed normally</td>
+</tr>
+</tbody></table>
+<h3 id="example-error">Example Error</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>success</code></td>
+<td align="center">Whether or not the action was successful</td>
+</tr>
+<tr>
+<td align="center"><code>error</code></td>
+<td align="center">The error message to display to the user</td>
+</tr>
+<tr>
+<td align="center"><code>step</code></td>
+<td align="center">The step to return to upon failure (<code>cart</code>, <code>info</code>, <code>shipping</code>, <code>payment</code>, <code>success</code>)</td>
+</tr>
+</tbody></table>
+<h3 id="multiple-shipping-options">Multiple shipping options</h3>
+<p>In the case that an order needs to be shipped from multiple locations (ie. <code>TESTA</code> is shipping from Florida, where <code>TESTB</code> is shipping from Indiana) the <code>shippingMethods</code> key will be altered slightly to accommodate this:</p>
+<p><code>{
+  shippingMethods: [
+    {
+      id: &#39;shipping1&#39;,
+      description: &#39;Pickleball paddle, Basketball&#39;,
+      shippingMethods: [
+        {
+          id: &#39;shipping1-method1&#39;,
+          value: 0,
+          description: &#39;Standard shipping&#39;
+        },
+        {
+          id: &#39;shipping1-method2&#39;,
+          value: 1500,
+          description: &#39;Express shipping&#39;
+        }
+      ]
+    },
+    {
+      id: &#39;shipping2&#39;,
+      description: &#39;Crossbow&#39;,
+      shippingMethods: [
+        {
+          id: &#39;shipping2-method1&#39;,
+          value: 1000,
+          description: &#39;Standard shipping&#39;
+        },
+        {
+          id: &#39;shipping2-method2&#39;,
+          value: 5000,
+          description: &#39;Express shipping&#39;
+        }
+      ]
+    }
+  ],
+  selectedShippingMethod: {
+    shipping1: &#39;shipping1-method1&#39;,
+    shipping2: &#39;shipping2-method2&#39;,
+  }
+}</code></p>
+<p>This will alert the user that the order will arrive in multiple shipments, list the items in each via the description field, and then allow them to select their desired shipping method on each.</p>
+<h2 id="orderwebhook">orderWebhook</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"infoName"</span>: <span class="hljs-string">"John Doe"</span>,
+  <span class="hljs-attr">"infoEmail"</span>: <span class="hljs-string">"johndoe@gmail.com"</span>,
+  <span class="hljs-attr">"infoPhone"</span>: <span class="hljs-string">"555-555-1234"</span>,
+  <span class="hljs-attr">"shippingAddress1"</span>: <span class="hljs-string">"123 Some Street"</span>,
+  <span class="hljs-attr">"shippingAddress2"</span>: <span class="hljs-string">"Apt. 5F"</span>,
+  <span class="hljs-attr">"shippingCompany"</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">"shippingCity"</span>: <span class="hljs-string">"Kansas City"</span>,
+  <span class="hljs-attr">"shippingState"</span>: <span class="hljs-string">"Missouri"</span>,
+  <span class="hljs-attr">"shippingZip"</span>: <span class="hljs-string">"64030"</span>,
+  <span class="hljs-attr">"coupon"</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">"billingName"</span>: <span class="hljs-string">"John Doe"</span>,
+  <span class="hljs-attr">"billingCardNumber"</span>: <span class="hljs-string">"4111111111111111"</span>,
+  <span class="hljs-attr">"billingCardExpiration"</span>: <span class="hljs-string">"10 / 28"</span>,
+  <span class="hljs-attr">"billingCardCVC"</span>: <span class="hljs-string">"900"</span>,
+  <span class="hljs-attr">"sameBilling"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"billingStateAbbr"</span>: <span class="hljs-string">"MO"</span>,
+  <span class="hljs-attr">"paymentType"</span>: <span class="hljs-string">"standard"</span>,
+  <span class="hljs-attr">"products"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTA"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Microfiber Bean Bags with Tub"</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">3499</span>,
+    <span class="hljs-attr">"shippable"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">1</span>
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"TESTB"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Safetyglass Arrows – 28\""</span>,
+    <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://via.placeholder.com/75x75"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">32400</span>,
+    <span class="hljs-attr">"shippable"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">1</span>
+  }],
+  <span class="hljs-attr">"totals"</span>: {
+    <span class="hljs-attr">"subtotal"</span>: <span class="hljs-number">35899</span>,
+    <span class="hljs-attr">"modifications"</span>: [{
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"january-sale"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"January Sale"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">-2000</span>
+    }, {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tax"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Sales Tax"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">899</span>
+    }, {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"shipping"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Express Shipping"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">1150</span>
+    }],
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">35948</span>,
+    <span class="hljs-attr">"loading"</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">"event"</span>: <span class="hljs-string">"order"</span>,
+  <span class="hljs-attr">"selectedShippingMethod"</span>: <span class="hljs-string">"shipping-1"</span>,
+  <span class="hljs-attr">"meta"</span>: {}
+}</code></pre><blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>,
+}</code></pre><blockquote>
+<p>Example Error</p>
+</blockquote>
+<pre class="highlight json"><code>{
+  <span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"error"</span>: <span class="hljs-string">"Payment was rejected."</span>,
+  <span class="hljs-attr">"step"</span>: <span class="hljs-string">"order"</span>
+}</code></pre><h3 id="example-request-1">Example Request</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>infoName</code></td>
+<td align="center">If <strong>splitName</strong> is set within the configuration, this will be replaced by <code>infoFirstName</code> and <code>infoLastName</code></td>
+</tr>
+<tr>
+<td align="center"><code>infoEmail</code></td>
+<td align="center">Order&#39;s email</td>
+</tr>
+<tr>
+<td align="center"><code>infoPhone</code></td>
+<td align="center">Order&#39;s phone number</td>
+</tr>
+<tr>
+<td align="center"><code>shippingAddress1</code></td>
+<td align="center">Order&#39;s shipping address</td>
+</tr>
+<tr>
+<td align="center"><code>shippingAddress2</code></td>
+<td align="center">Order&#39;s shipping apartment, office, etc</td>
+</tr>
+<tr>
+<td align="center"><code>shippingCompany</code></td>
+<td align="center">Order&#39;s company (if applicable)</td>
+</tr>
+<tr>
+<td align="center"><code>shippingCity</code></td>
+<td align="center">Order&#39;s shipping city</td>
+</tr>
+<tr>
+<td align="center"><code>shippingState</code></td>
+<td align="center">Order&#39;s shipping state</td>
+</tr>
+<tr>
+<td align="center"><code>shippingZip</code></td>
+<td align="center">Order&#39;s shipping zip</td>
+</tr>
+<tr>
+<td align="center"><code>coupon</code></td>
+<td align="center">Any entered coupons, should be used to validate</td>
+</tr>
+<tr>
+<td align="center"><code>event</code></td>
+<td align="center">Which step the user is currently on</td>
+</tr>
+<tr>
+<td align="center"><code>products</code></td>
+<td align="center">Array of products being purchased including their <code>id</code>, <code>price</code>, <code>quantity</code>, and if the item is <code>shippable</code> {true} or a digital good {false}</td>
+</tr>
+<tr>
+<td align="center"><code>selectedShippingMethod</code></td>
+<td align="center">If the order has a pre-selected shipping method</td>
+</tr>
+<tr>
+<td align="center"><code>totals</code></td>
+<td align="center">The order totals including any pre order modifications such as promotions or taxes</td>
+</tr>
+</tbody></table>
+
+        
+          <h1 id="configurations">Configurations</h1>
+<h2 id="settings">Settings</h2>
+<pre class="highlight javascript"><code>  &lt;Cart
+    shipping: <span class="hljs-literal">true</span>
+    tax: <span class="hljs-literal">true</span>
+    coupons: <span class="hljs-literal">true</span>
+    splitName: <span class="hljs-literal">false</span>
+  /&gt;</code></pre><p>Here are a few configurations you can turn on and off on a cart per cart basis.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>shipping</code></td>
+<td align="center">Turn on <code>true</code> or off <code>false</code> the shipping step during checkout</td>
+</tr>
+<tr>
+<td align="center"><code>tax</code></td>
+<td align="center">Turn on <code>true</code> or off <code>false</code> all tax calculations</td>
+</tr>
+<tr>
+<td align="center"><code>coupons</code></td>
+<td align="center">Turn on <code>true</code> or off <code>false</code> the coupon input field</td>
+</tr>
+<tr>
+<td align="center"><code>splitName</code></td>
+<td align="center">Turn on <code>true</code> or off <code>false</code> the option which controls whether the name field on the info page is one single <code>name</code> input (false), or two separate fields <code>firstName</code> and <code>lastName</code> (true)</td>
+</tr>
+</tbody></table>
+<h2 id="plugins">Plugins</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> EscaAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'@escaladesports/zygote-plugin-esca-api'</span>
+
+  &lt;Cart
+    plugins: {[ EscaAPI ]}
+  /&gt;</code></pre><table>
+<thead>
+<tr>
+<th align="center">Parameter Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
 <td align="center"><code>plugins</code></td>
 <td align="center">An array of required packages that are scanned for expected hooks and then are executed at the hook&#39;s firing point</td>
 </tr>
@@ -483,28 +819,21 @@
 </tbody></table>
 
         
-          <h1 id="paypal-integration">PayPal Integration</h1>
-<pre class="highlight javascript"><code>&lt;Cart
-  paypalAppId=<span class="hljs-string">''</span>
-  paypalEnv=<span class="hljs-string">'sandbox'</span>
-/&gt;</code></pre><p>By default, if a PayPal App ID is provided, the express checkout button will be made available in the payment stage. Omitting these attributes will hide the button.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Parameter Name</th>
-<th align="center">Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>paypalAppId</code></td>
-<td align="center">The application ID given to you while registering a new <a href="https://developer.paypal.com/docs/api-basics/#">PayPal application</a></td>
-</tr>
-<tr>
-<td align="center"><code>paypalEnv</code></td>
-<td align="center">The environment you wish to run the button in</td>
-</tr>
-</tbody></table>
+          <!-- # PayPal Integration
 
+```javascript
+<Cart
+  paypalAppId=''
+  paypalEnv='sandbox'
+/>
+```
+
+By default, if a PayPal App ID is provided, the express checkout button will be made available in the payment stage. Omitting these attributes will hide the button.
+
+| Parameter Name | Description |
+|:---------:|:--------:|
+| `paypalAppId` | The application ID given to you while registering a new [PayPal application](https://developer.paypal.com/docs/api-basics/#) |
+| `paypalEnv` | The environment you wish to run the button in | -->
         
           <h1 id="stripe-integration">Stripe Integration</h1>
 <pre class="highlight javascript"><code>&lt;Cart
@@ -524,79 +853,165 @@
 </tbody></table>
 
         
-          <h1 id="plugin-api">Plugin API</h1>
-<pre class="highlight javascript"><code><span class="hljs-keyword">export</span> { 
-  preInfo, <span class="hljs-comment">// Fires before fetching the 'infoWebhook'</span>
-  postInfo, <span class="hljs-comment">// Fires after fetching the 'infoWebhook'</span>
-  calculateTax, <span class="hljs-comment">// Fires on the 'Shipping' step </span>
-  getShippingMethods, <span class="hljs-comment">// Fires on the 'Shipping' step </span>
-  preOrder, <span class="hljs-comment">// Fires before fetching the 'orderWebhook'</span>
-  postOrder <span class="hljs-comment">// Fires after fetching the 'orderWebhook'</span>
-}
+          <h1 id="coupons">Coupons</h1>
+<pre class="highlight js"><code><span class="hljs-keyword">return</span> {
+  <span class="hljs-attr">modifications</span>: [
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">'50OFF'</span> <span class="hljs-comment">// Coupon code</span>
+      description: <span class="hljs-string">'Spring savings event'</span>, <span class="hljs-comment">// Used in subtotal as a label</span>
+      value: <span class="hljs-string">'-5000'</span>, <span class="hljs-comment">// Negative, cent representation of discount</span>
+      type: <span class="hljs-string">'discount'</span> <span class="hljs-comment">// Metadata you can later use in your plugins</span>
+    }
+  ]
+}</code></pre><p>Coupons are represented by a single text field that should either be validated through a plugin or via your payment gateway. If validating with a plugin, be sure to return a valid modification object for Zygote to keep track of. Coupons are validated <strong>after</strong> fetching the <code>infoWebhook</code>.</p>
 
-<span class="hljs-keyword">export</span> { 
-  Info, <span class="hljs-comment">// React component injected into the 'Details' step</span>
-  Shipping, <span class="hljs-comment">// React component injected into the 'Shipping' step</span>
-  Payment <span class="hljs-comment">// React component injected into the 'Payment' step</span>
-}</code></pre><p>Does the cart not collect fields that you need? Are your endpoints expecting something different? Are your endpoints not delivered out of the box?</p>
+        
+          <h1 id="plugin-api">Plugin API</h1>
+<p>Does the cart not collect fields that you need? Are your endpoints expecting something different? Are your endpoints not delivered out of the box?</p>
 <p>Neat.</p>
 <p>Well, we could make you fill out an issue in the repository where we can officially ignore it. Or even send you to a chat client where we can also officaly ignore it.</p>
 <p>OR!</p>
 <p>You can take advantage of the fact that you are an adult and that you can not only eat gummybears for breakfast because nobody can tell you no, but that you can also write your own plugins for form fields, tax calculations, order manipulation, and more! We have exposed several programming hooks where you can inject whatever you need and do whatever you want.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Hook Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>preInfo</code></td>
+<td align="center">Fires before fetching the <code>infoWebhook</code> between the &#39;Details&#39; and &#39;Shipping&#39; steps</td>
+</tr>
+<tr>
+<td align="center"><code>postInfo</code></td>
+<td align="center">Fires after fetching the <code>infoWebhook</code> between the &#39;Details&#39; and &#39;Shipping&#39; steps</td>
+</tr>
+<tr>
+<td align="center"><code>coupons</code></td>
+<td align="center">Fires after fetching the <code>infoWebhook</code> between the &#39;Details&#39; and &#39;Shipping&#39; steps</td>
+</tr>
+<tr>
+<td align="center"><code>calculateTax</code></td>
+<td align="center">Fires on the &#39;Shipping&#39; step</td>
+</tr>
+<tr>
+<td align="center"><code>getShippingMethods</code></td>
+<td align="center">Fires on the &#39;Shipping&#39; step</td>
+</tr>
+<tr>
+<td align="center"><code>preOrder</code></td>
+<td align="center">Fires before fetching the <code>orderWebhook</code> between the &#39;Payment&#39; and &#39;Success&#39; steps</td>
+</tr>
+<tr>
+<td align="center"><code>postOrder</code></td>
+<td align="center">Fires after fetching the <code>orderWebhook</code> between the &#39;Payment&#39; and &#39;Success&#39; steps</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">Component Name</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Info</code></td>
+<td align="center">React component injected into the &#39;Details&#39; step</td>
+</tr>
+<tr>
+<td align="center"><code>Shipping</code></td>
+<td align="center">React component injected into the &#39;Shipping&#39; step</td>
+</tr>
+<tr>
+<td align="center"><code>Payment</code></td>
+<td align="center">React component injected into the &#39;Payment&#39; step (usually form fields)</td>
+</tr>
+<tr>
+<td align="center"><code>ExternalPayment</code></td>
+<td align="center">React component injected into the &#39;Payment&#39; step used for external payment gateways such as PayPal and Apple Pay (usually a button)</td>
+</tr>
+</tbody></table>
 <h2 id="preinfo">preInfo</h2>
-<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> preInfo = <span class="hljs-keyword">async</span> ({ info }) =&gt; {
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> preInfo = <span class="hljs-keyword">async</span> ({ preFetchData, info }) =&gt; {
   <span class="hljs-keyword">return</span> {
     <span class="hljs-attr">skus</span>: info.products ? info.products.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">product</span>) </span>{ <span class="hljs-keyword">return</span> product.id }) : []
   }
-}</code></pre><p>Fires <strong>before</strong> fetching the <code>infoWebhook</code></p>
+}</code></pre><p>Fires <strong>before</strong> fetching the <code>infoWebhook</code> between the &#39;Details&#39; and &#39;Shipping&#39; steps. This hook should be used if your <code>infoWebhook</code> endpoint requires a different format then what zygote produces<strong>.</strong> In this example, the plugin is replacing the entire request with single array of SKUs.</p>
 <h2 id="postinfo">postInfo</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">const</span> postInfo = <span class="hljs-keyword">async</span> ({ response, info, preFetchData }) =&gt; {
-  <span class="hljs-keyword">const</span> { inventory } = response
-  <span class="hljs-keyword">const</span> quantityModifications = <span class="hljs-built_in">Object</span>.keys(inventory).map(<span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">id</span>: id,
-      <span class="hljs-attr">available</span>: inventory[id].stock || <span class="hljs-number">0</span>,
-    }
-  })
 
-  <span class="hljs-keyword">let</span> shippingMethods = {}, selectedShippingMethod = {}
-  <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://products-test.escsportsapi.com/shipping`</span>, { <span class="hljs-comment">// Get packing dimensions</span>
+  <span class="hljs-keyword">let</span> quantityModifications = []
+  <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://api.com/stock`</span>, { <span class="hljs-comment">// Check stock for each item in order</span>
     method: <span class="hljs-string">`post`</span>,
-    <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(preFetchData),
-    <span class="hljs-attr">headers</span>: headers,
+    <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(response.products),
   })
-    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+    .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json())
+    .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+      response.products.map(<span class="hljs-function"><span class="hljs-params">prod</span> =&gt;</span> {
+        quantityModifications.push({ <span class="hljs-comment">// Loops over products and builds array of product ids with their available stock</span>
+          id: prod.id,
+          <span class="hljs-attr">available</span>: res[prod.id].stock),
+        }
+      })
+    })
     .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Request failed`</span>, error))
 
   <span class="hljs-keyword">return</span> {
-    <span class="hljs-attr">success</span>: inventory &amp;&amp; shippingMethods ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">modifications</span>: [
-      {
-        <span class="hljs-attr">id</span>: <span class="hljs-string">`january-sale`</span>,
-        <span class="hljs-attr">description</span>: <span class="hljs-string">`January Sale`</span>,
-        <span class="hljs-attr">value</span>: <span class="hljs-number">-2000</span>,
-      },
-      shippingMethods[<span class="hljs-built_in">Object</span>.keys(shippingMethods)[<span class="hljs-number">0</span>]].tax,
-    ],
-    <span class="hljs-attr">shippingMethods</span>: <span class="hljs-built_in">Object</span>.keys(shippingMethods).map(<span class="hljs-function"><span class="hljs-params">ship</span> =&gt;</span> shippingMethods[ship]),
-    <span class="hljs-attr">selectedShippingMethod</span>: <span class="hljs-built_in">Object</span>.keys(selectedShippingMethod).length == <span class="hljs-number">1</span> ? selectedShippingMethod[<span class="hljs-built_in">Object</span>.keys(selectedShippingMethod)[<span class="hljs-number">0</span>]] : selectedShippingMethod,
-    <span class="hljs-attr">quantityModifications</span>: quantityModifications,
+    ...response,
+    <span class="hljs-attr">quantityModifications</span>: quantityModifications, <span class="hljs-comment">// This will be used to compare the number requested vs the number available and will adjust the cart</span>
   }
-}</code></pre><p>Fires <strong>after</strong> fetching the <code>infoWebhook</code></p>
+}</code></pre><p>Fires <strong>after</strong> fetching the <code>infoWebhook</code> between the &#39;Details&#39; and &#39;Shipping&#39; steps.</p>
+<h2 id="coupons">coupons</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> coupons = <span class="hljs-keyword">async</span> ({ response, info, preFetchData }) =&gt; {
+    <span class="hljs-keyword">if</span> (info.coupon) {
+        <span class="hljs-keyword">const</span> check = {
+            <span class="hljs-attr">code</span>: info.coupon,
+            <span class="hljs-attr">order</span>: {
+                <span class="hljs-attr">products</span>: response.products,
+            }
+        }
+
+        <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://api.com/coupons`</span>, { <span class="hljs-comment">// Get packing dimensions</span>
+            method: <span class="hljs-string">`post`</span>,
+            <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(check),
+    })
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json())
+      .then(<span class="hljs-function"><span class="hljs-params">coupon</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (coupon) {
+          <span class="hljs-keyword">if</span> (!coupon.valid) { <span class="hljs-comment">// Not a valid coupon</span>
+            response.messages.info.push(
+              coupon.reason &amp;&amp; coupon.reason.length &gt; <span class="hljs-number">0</span> ? <span class="hljs-string">`<span class="hljs-subst">${coupon.error}</span>. <span class="hljs-subst">${coupon.reason[<span class="hljs-number">0</span>]}</span>`</span> : coupon.error
+            )
+            info.coupon = <span class="hljs-string">''</span>
+          }
+          <span class="hljs-keyword">else</span> {
+            response.modifications.push({ <span class="hljs-comment">// Add valid coupon to modifications array</span>
+              id: coupon.code,
+              <span class="hljs-attr">description</span>: coupon.label,
+              <span class="hljs-attr">value</span>: coupon.discount,
+              <span class="hljs-attr">type</span>: coupon.type
+            })
+          }
+        }
+      })
+      .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Request failed`</span>, error))
+    }
+
+    <span class="hljs-keyword">return</span> response
+}</code></pre><p>Fires <strong>after</strong> fetching the <code>infoWebhook</code> between the &#39;Details&#39; and &#39;Shipping&#39; steps</p>
 <h2 id="calculatetax">calculateTax</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">const</span> calculateTax = <span class="hljs-keyword">async</span> ({ shippingAddress, subtotal = <span class="hljs-number">0</span>, shipping = <span class="hljs-number">0</span>, discount = <span class="hljs-number">0</span> }) =&gt; {
-  <span class="hljs-keyword">if</span> (!shippingAddress.shippingStateAbbr) <span class="hljs-keyword">return</span> {}
   <span class="hljs-keyword">let</span> checkTax = {
     <span class="hljs-attr">state</span>: shippingAddress.shippingStateAbbr,
-    <span class="hljs-attr">subtotal</span>: (subtotal / <span class="hljs-number">100</span>).toFixed(<span class="hljs-number">2</span>),
-    <span class="hljs-attr">shipping</span>: (shipping / <span class="hljs-number">100</span>).toFixed(<span class="hljs-number">2</span>),
-    <span class="hljs-attr">discount</span>: ((discount &lt; <span class="hljs-number">0</span> ? discount * <span class="hljs-number">-1</span> : discount) / <span class="hljs-number">100</span>).toFixed(<span class="hljs-number">2</span>),
+    <span class="hljs-attr">subtotal</span>: subtotal,
+    <span class="hljs-attr">shipping</span>: shipping,
+    <span class="hljs-attr">discount</span>: discount,
   }
 
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://taxes-test.escsportsapi.com/calculate`</span>, { <span class="hljs-comment">// Get taxes</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://api.com/taxes`</span>, { <span class="hljs-comment">// Get taxes</span>
     method: <span class="hljs-string">`post`</span>,
     <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(checkTax),
-    <span class="hljs-attr">headers</span>: headers,
   })
     .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
     .then(<span class="hljs-function"><span class="hljs-params">jsonBody</span> =&gt;</span> {
@@ -606,100 +1021,112 @@
       <span class="hljs-keyword">return</span> {
         <span class="hljs-attr">id</span>: <span class="hljs-string">`tax`</span>,
         <span class="hljs-attr">description</span>: jsonBody.tax.label,
-        <span class="hljs-attr">value</span>: <span class="hljs-built_in">parseInt</span>(jsonBody.tax.value.toString().replace(<span class="hljs-regexp">/\./g</span>, <span class="hljs-string">''</span>), <span class="hljs-number">10</span>),
+        <span class="hljs-attr">value</span>: <span class="hljs-built_in">parseInt</span>(jsonBody.tax.value),
       }
     })
     .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Failed to calculate taxes'</span>, error))
-}</code></pre><h2 id="getshippingmethods">getShippingMethods</h2>
+}</code></pre><p>Fires on the &#39;Shipping&#39; step.</p>
+<h2 id="getshippingmethods">getShippingMethods</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">const</span> getShippingMethods = <span class="hljs-keyword">async</span> ({ response, info, preFetchData }) =&gt; {
+  <span class="hljs-keyword">const</span> shipping = {
+    <span class="hljs-attr">destination</span>: {
+      <span class="hljs-attr">street1</span>: info.shippingAddress1,
+      <span class="hljs-attr">street2</span>: info.shippingAddress2,
+      <span class="hljs-attr">city</span>: info.shippingCity,
+      <span class="hljs-attr">state</span>: info.shippingStateAbbr,
+      <span class="hljs-attr">zip</span>: info.shippingZip,
+      <span class="hljs-attr">country</span>: <span class="hljs-string">`US`</span>,
+      <span class="hljs-attr">company</span>: info.shippingCompany || <span class="hljs-string">``</span>,
+      <span class="hljs-attr">phone</span>: info.infoPhone || <span class="hljs-string">``</span>,
+    },
+    <span class="hljs-attr">products</span>: response.products
+  }
 
-}</code></pre><h2 id="preorder">preOrder</h2>
-<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> preOrder = <span class="hljs-keyword">async</span> ({ info }) =&gt; {
+  <span class="hljs-keyword">let</span> shippingMethods = []
+  <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://api.com/shipping`</span>, { <span class="hljs-comment">// Get taxes</span>
+    method: <span class="hljs-string">`post`</span>,
+    <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(shipping),
+  })
+    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+        .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+            <span class="hljs-keyword">if</span> (data.errors) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(data.errors)
+      }
 
-}</code></pre><h2 id="postorder">postOrder</h2>
+      shippingMethods = data.shippingOptions.map(<span class="hljs-function"><span class="hljs-params">option</span> =&gt;</span> (
+        {
+          <span class="hljs-attr">id</span>: option.id,
+          <span class="hljs-attr">description</span>: option.label,
+          <span class="hljs-attr">value</span>: option.value,
+          <span class="hljs-attr">addInfo</span>: <span class="hljs-string">`Get it <span class="hljs-subst">${option.eta}</span>!`</span>,
+        }
+      ))
+    })
+
+  <span class="hljs-keyword">return</span> {
+    ...response,
+        <span class="hljs-attr">shippingMethods</span>: shippingMethods,
+        <span class="hljs-attr">selectedShippingMethod</span>: shippingMethods[<span class="hljs-number">0</span>], <span class="hljs-comment">// Default selected one</span>
+  }
+}</code></pre><p>Fires on the &#39;Shipping&#39; step.</p>
+<h2 id="preorder">preOrder</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> preOrder = <span class="hljs-keyword">async</span> ({ preFetchData, info }) =&gt; {
+  <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://api.com/getTracking`</span>, { <span class="hljs-comment">// Call some service to do work before the order is placed</span>
+    method: <span class="hljs-string">`post`</span>,
+    <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(preFetchData),
+  })
+
+  <span class="hljs-keyword">return</span> preFetchData
+}</code></pre><p>Fires <strong>before</strong> fetching the <code>orderWebhook</code> between the &#39;Payment&#39; and &#39;Success&#39; steps.</p>
+<h2 id="postorder">postOrder</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">const</span> postOrder = <span class="hljs-keyword">async</span> ({ response, info, preFetchData }) =&gt; {
+  <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">`https://api.com/trackOrder`</span>, { <span class="hljs-comment">// Save order info to another service after the order is placed</span>
+    method: <span class="hljs-string">`post`</span>,
+    <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(response),
+  })
 
-}</code></pre><h2 id="info-">&lt;Info /&gt;</h2>
+  <span class="hljs-keyword">return</span> response
+}</code></pre><p>Fires <strong>after</strong> fetching the <code>orderWebhook</code> between the &#39;Payment&#39; and &#39;Success&#39; steps</p>
+<h2 id="info-">&lt;Info /&gt;</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Info</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
-      &lt;Fragment&gt;
-        &lt;Fragment&gt;
-          &lt;NameInput
-            name='billingFirstName'
-            autoComplete='first name'
-            step='billing'
-            label='First Name'
-          /&gt;
-          &lt;NameInput
-            name='billingLastName'
-            autoComplete='last name'
-            step='billing'
-            label='Last Name'
-          /&gt;
-        &lt;/Fragment&gt;
-        &lt;CreditCard step='billing' /&gt;
-        &lt;div className='zygotePaymentExpCVC'&gt;
-          &lt;div&gt;
-            &lt;Expiration step='billing' /&gt;
-          &lt;/div&gt;
-          &lt;div&gt;
-            &lt;Cvc step='billing' /&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/Fragment&gt;
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">GiftMessageInput</span> /&gt;</span>
+        Message signature: <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"signature"</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     )
   }
-}</code></pre><h2 id="shipping-">&lt;Shipping /&gt;</h2>
+}</span></code></pre><p>React component injected into the &#39;Details&#39; step.</p>
+<h2 id="shipping-">&lt;Shipping /&gt;</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Shipping</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
-      &lt;Fragment&gt;
-        &lt;Fragment&gt;
-          &lt;NameInput
-            name='billingFirstName'
-            autoComplete='first name'
-            step='billing'
-            label='First Name'
-          /&gt;
-          &lt;NameInput
-            name='billingLastName'
-            autoComplete='last name'
-            step='billing'
-            label='Last Name'
-          /&gt;
-        &lt;/Fragment&gt;
-        &lt;CreditCard step='billing' /&gt;
-        &lt;div className='zygotePaymentExpCVC'&gt;
-          &lt;div&gt;
-            &lt;Expiration step='billing' /&gt;
-          &lt;/div&gt;
-          &lt;div&gt;
-            &lt;Cvc step='billing' /&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/Fragment&gt;
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Fragment</span>&gt;</span>
+        Instructions for driver:
+        <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"forDriver"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/market-tracking-pixel-52.png"</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Fragment</span>&gt;</span>
     )
   }
-}</code></pre><h2 id="payment-">&lt;Payment /&gt;</h2>
+}</span></code></pre><p>React component injected into the &#39;Shipping&#39; step.</p>
+<h2 id="payment-">&lt;Payment /&gt;</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Payment</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
       &lt;Fragment&gt;
-        &lt;Fragment&gt;
-          &lt;NameInput
-            name='billingFirstName'
-            autoComplete='first name'
-            step='billing'
-            label='First Name'
-          /&gt;
-          &lt;NameInput
-            name='billingLastName'
-            autoComplete='last name'
-            step='billing'
-            label='Last Name'
-          /&gt;
-        &lt;/Fragment&gt;
+        &lt;NameInput
+          name='billingFirstName'
+          autoComplete='first name'
+          step='billing'
+          label='First Name'
+        /&gt;
+        &lt;NameInput
+          name='billingLastName'
+          autoComplete='last name'
+          step='billing'
+          label='Last Name'
+        /&gt;
         &lt;CreditCard step='billing' /&gt;
         &lt;div className='zygotePaymentExpCVC'&gt;
           &lt;div&gt;
@@ -712,27 +1139,67 @@
       &lt;/Fragment&gt;
     )
   }
-}</code></pre>
-        
-          <h1 id="input-api">Input API</h1>
-<h2 id="address">Address</h2>
-<h2 id="checkbox">Checkbox</h2>
-<h2 id="city">City</h2>
-<h2 id="company-name">Company Name</h2>
-<h2 id="coupon">Coupon</h2>
-<h2 id="credit-card">Credit Card</h2>
-<h2 id="cvc">CVC</h2>
-<h2 id="email">Email</h2>
-<h2 id="expiration">Expiration</h2>
-<h2 id="input">Input</h2>
-<h2 id="name">Name</h2>
-<h2 id="phone">Phone</h2>
-<h2 id="radio">Radio</h2>
-<h2 id="select">Select</h2>
-<h2 id="state">State</h2>
-<h2 id="toggle">Toggle</h2>
-<h2 id="zip">Zip</h2>
+}</code></pre><p>React component injected into the &#39;Payment&#39; step (usually form fields).</p>
+<h2 id="externalpayment-">&lt;ExternalPayment /&gt;</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExternalPayment</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PaypalExpressBtn</span>
+        <span class="hljs-attr">client</span>=<span class="hljs-string">{{</span>
+          <span class="hljs-attr">sandbox:</span> <span class="hljs-attr">paypalAppId</span>,
+          <span class="hljs-attr">production:</span> <span class="hljs-attr">paypalAppId</span>,
+        }}
+        <span class="hljs-attr">env</span>=<span class="hljs-string">{paypalEnv}</span>
+        <span class="hljs-attr">shipping</span>=<span class="hljs-string">{1}</span>
+        <span class="hljs-attr">onError</span>=<span class="hljs-string">{err</span> =&gt;</span> console.error(err)}
+        onSuccess={token =&gt; {
+          submitOrder({
+            token,
+            type: `paypal`,
+          })
+        }}
+        transaction={transaction}
+      /&gt;
+    )
+  }
+}</span></code></pre><p>React component injected into the &#39;Payment&#39; step used for external payment gateways such as PayPal and Apple Pay (usually a button)</p>
 
+        
+          <!-- # Input API
+
+## Address
+
+## Checkbox
+
+## City
+
+## Company Name
+
+## Coupon
+
+## Credit Card
+
+## CVC
+
+## Email
+
+## Expiration
+
+## Input
+
+## Name
+
+## Phone
+
+## Radio
+
+## Select
+
+## State
+
+## Toggle
+
+## Zip -->
         
       </div>
       <div class="dark-box">

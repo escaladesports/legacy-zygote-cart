@@ -74,6 +74,7 @@ export default class ProductItem extends React.Component{
 						onClick={() => removeFromCart(id)}
 						ref={el => this.remove = el}
 						onMouseUp={() => this.remove.blur()}
+						data-testid='removeItem'
 					>×</button>
 				)}
 			</li>

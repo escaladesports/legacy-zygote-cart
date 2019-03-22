@@ -2,7 +2,7 @@
 	ID = "zygote-cart"
 
 [build]
-	command = "yarn build:gatsby"
+	command = 'sed -i.bak "s@E_API_KEY_PLACEHOLDER@${ESCA_API_KEY}@g; s/E_API_CONTEXT_PLACEHOLDER/${ESCA_API_SITE}/g; s/AMAZON_API_KEY_PLACEHOLDER/${X_API_Key}/g" netlify.toml && yarn build && yarn build:gatsby'
 	publish = "public"
 	functions = "dist-functions"
 
@@ -12,8 +12,79 @@
 
 ## COMMENT: This rule redirects to an external api
 [[redirects]]
-  from = "/api/info"
+  from = "/api/inventory/load"
   to = "https://inventory-test.escsportsapi.com/load"
   status = 200
   force = true # COMMENT: ensure that we always redirect
-	headers = {Content-Type = "application/json", ESC-API-Key = "ESCA_API_KEY", ESC-API-Context = "ESCA_API_SITE"}
+  [redirects.headers]
+    Content-Type = "application/json"
+		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"
+
+[[redirects]]
+  from = "/api/coupon/calculate"
+  to = "https://coupon-test.escsportsapi.com/calculate"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  [redirects.headers]
+    Content-Type = "application/json"
+		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"
+
+[[redirects]]
+  from = "/api/products/shipping"
+  to = "https://products-test.escsportsapi.com/shipping"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  [redirects.headers]
+    Content-Type = "application/json"
+		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"
+
+[[redirects]]
+  from = "/api/shipping/load"
+  to = "https://shipping-test.escsportsapi.com/load"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  [redirects.headers]
+    Content-Type = "application/json"
+		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"
+
+[[redirects]]
+  from = "/api/orders/store"
+  to = "https://orders-test.escsportsapi.com/store"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  [redirects.headers]
+    Content-Type = "application/json"
+		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		X-API-Key = "AMAZON_API_KEY_PLACEHOLDER"
+
+[[redirects]]
+  from = "/api/pay/paypal"
+  to = "https://pay-test.escsportsapi.com/paypal/verify"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  [redirects.headers]
+    Content-Type = "application/json"
+		X-API-Key = "AMAZON_API_KEY_PLACEHOLDER"
+
+[[redirects]]
+  from = "/api/pay/anet"
+  to = "https://pay-test.escsportsapi.com/anet/pay"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  [redirects.headers]
+    Content-Type = "application/json"
+		X-API-Key = "AMAZON_API_KEY_PLACEHOLDER"
+
+[[redirects]]
+  from = "/api/taxes/calculate"
+  to = "https://taxes-test.escsportsapi.com/calculate"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  [redirects.headers]
+    Content-Type = "application/json"
+		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"

@@ -27,6 +27,8 @@ env.js.key
 .env.js.key
 .serverless
 _optimize
+headers.js
+netlify.toml.bak
 
 # Temporary
 temp

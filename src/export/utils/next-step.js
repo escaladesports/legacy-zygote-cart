@@ -11,7 +11,7 @@ export default function nextStep(){
 	} while (stepState.state.skip[step] && i < steps.length)
 
 	if (step) {
-		console.log(`Moving to step ${step}`)
+		// console.log(`Moving to step ${step}`)
 		changeStep(step)
 	}
 }

@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
-import stepState from '../../state/step'
-import shippingState from '../../state/shipping'
-import settingsState from '../../state/settings'
+
+import { stepState, shippingState, settingsState} from '../../state'
 import StepsHeader from '../steps-header'
 import Header from '../header'
 import CardList from '../card-list'
@@ -19,9 +18,8 @@ import CompanyName from '../inputs/company-name'
 import City from '../inputs/city'
 import State from '../inputs/state'
 import Zip from '../inputs/zip'
-import Paypal from '../paypal'
+// import Paypal from '../paypal'
 import previousStep from '../../utils/previous-step'
-import config from '../../zygote.config'
 
 export default class PaymentStep extends React.Component{
 	constructor(props){
@@ -44,7 +42,8 @@ export default class PaymentStep extends React.Component{
 					paymentHeader,
 					paymentFooter,
 					stripeApiKey,
-					paypalAppId,
+					plugins,
+					// paypalAppId,
 				}) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
@@ -63,11 +62,17 @@ export default class PaymentStep extends React.Component{
 										</div>
 									</div>
 
-									{!!paypalAppId && (
+									{/* {!!paypalAppId && (
 										<Paypal id={paypalAppId} />
-									)}
+									)} */}
 
-									{config.plugins && config.plugins.map(({ Payment }, key) => {
+									{plugins && plugins.map(({ ExternalPayment }, key) => {
+										if (typeof ExternalPayment === `function`) {
+											return <ExternalPayment key={key} />
+										}
+									})}
+
+									{plugins && plugins.map(({ Payment }, key) => {
 										if (typeof Payment === `function`) {
 											altPayment = true
 											return <Payment key={key} />
@@ -126,7 +131,7 @@ export default class PaymentStep extends React.Component{
 									<Totals />
 								</div>
 								<div className='zygotePaymentBtn'>
-									<Button onClick={submitOrder} disabled={loading ? true : false}>Place Order</Button>
+									<Button onClick={submitOrder} disabled={loading ? true : false} dataTestid="submit-order-button">Place Order</Button>
 								</div>
 								<div className='zygoteInfoLink'>
 									<Button className='zygoteBtn' secondary={true} onClick={previousStep}>

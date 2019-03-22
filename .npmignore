@@ -28,12 +28,19 @@ README.md
 .eslintrc
 .nvmrc
 gatsby-config.js
-jes.config.js
+jest.config.js
 netlify.toml
 site-config.js
 plugins/
 tests/
 utils/
+.cache
+public/
+docs/
+netlify.toml.bak  
+headers.js
+slate-config.yml
+dist-functions/
 
 # Temporary
 temp

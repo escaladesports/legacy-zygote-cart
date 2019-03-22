@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
 
-import stepState from '../../state/step'
-import shippingState from '../../state/shipping'
-import settingsState from '../../state/settings'
+import { stepState, shippingState, settingsState } from '../../state'
 import StepsHeader from '../steps-header'
 import Button from '../button'
 import ProductList from '../product-list'
@@ -11,13 +9,12 @@ import Totals from '../totals'
 import ShippingMethods from '../shipping-methods'
 import nextStep from '../../utils/next-step'
 import previousStep from '../../utils/previous-step'
-import config from '../../zygote.config'
 
 export default class ShippingStep extends React.Component{
 	render() {
 		return (
 			<Subscribe to={[stepState, shippingState, settingsState]}>
-				{({ step }, { loading }, { paymentHeader, paymentFooter }) => (
+				{({ step }, { loading }, { paymentHeader, paymentFooter, plugins }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
 							<form data-form='shipping'>
@@ -33,7 +30,7 @@ export default class ShippingStep extends React.Component{
 									<ProductList editable={false} />
 									<Totals />
 								</div>
-								{config.plugins && config.plugins.map(({ Shipping }, key) => {
+								{plugins && plugins.map(({ Shipping }, key) => {
 									if (typeof Shipping === `function`) {
 										return <Shipping key={key} />
 									}

@@ -20,13 +20,12 @@ import productsState from '../../state/products'
 import settingsState from '../../state/settings'
 import SimpleSummary from '../simple-summary'
 import Coupon from '../inputs/coupon'
-import config from '../../zygote.config'
 
 export default class InfoStep extends React.Component{
 	render() {
 		return (
 			<Subscribe to={[stepState, settingsState]}>
-				{({ step, vals }, { infoHeader, infoFooter }) => (
+				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons, testing, plugins }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
 							<form data-form='info'>
@@ -37,7 +36,7 @@ export default class InfoStep extends React.Component{
 								<SimpleSummary />
 								<div className='zygoteInfoSection'>
 									<Header>Let's get started</Header>
-									{config.splitName &&
+									{splitName &&
 										<Fragment>
 											<NameInput
 												name='infoFirstName'
@@ -55,7 +54,7 @@ export default class InfoStep extends React.Component{
 											/>
 										</Fragment>
 									}
-									{!config.splitName && <NameInput
+									{!splitName && <NameInput
 										name='infoName'
 										autoComplete='shipping name'
 										step='info'
@@ -72,6 +71,7 @@ export default class InfoStep extends React.Component{
 										autoComplete='shipping tel'
 										step='info'
 										value={vals.infoPhone ? vals.infoPhone : ``}
+										testing={testing}
 									/>
 								</div>
 								{showShipping() && (
@@ -127,16 +127,16 @@ export default class InfoStep extends React.Component{
 										/>
 									</div>
 								)}
-								<div className='zygoteInfoCoupon'>
+								{coupons && <div className='zygoteInfoCoupon'>
 									<Coupon />
-								</div>
-								{config.plugins && config.plugins.map(({ Info }, key) => {
+								</div>}
+								{plugins && plugins.map(({ Info }, key) => {
 									if (typeof Info === `function`) {
 										return <Info key={key} />
 									}
 								})}
 								<div className='zygoteInfoBtn'>
-									<Button onClick={attemptSubmitInfo}>
+									<Button onClick={attemptSubmitInfo} dataTestid="info-next-step">
 										Next Step
 									</Button>
 								</div>

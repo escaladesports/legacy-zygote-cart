@@ -16,7 +16,7 @@ export default class CartStep extends React.Component{
 		return (
 			<Subscribe to={[productsState, addedToCartState, settingsState]}>
 				{({ products }, { addedToCart }, {
-					cartHeader,
+					cartHeader = `Zygote Cart`,
 					cartFooter,
 					addedToCartMsg,
 				}) => (
@@ -55,6 +55,9 @@ export default class CartStep extends React.Component{
 	static styles = () => ({
 		'.zygoteCartHeader': {
 			marginBottom: 20,
+			textAlign: `center`,
+			fontWeight: `bold`,
+			fontSize: `1.3em`,
 		},
 		'.zygoteCartFooter': {
 			marginTop: 20,

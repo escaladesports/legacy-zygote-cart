@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Cart from './cart'
 import styles from '../styles'
 import settingsState from '../state/settings'

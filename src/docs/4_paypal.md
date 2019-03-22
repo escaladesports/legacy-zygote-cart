@@ -1,4 +1,4 @@
-# PayPal Integration
+<!-- # PayPal Integration
 
 ```javascript
 <Cart
@@ -12,4 +12,4 @@ By default, if a PayPal App ID is provided, the express checkout button will be 
 | Parameter Name | Description |
 |:---------:|:--------:|
 | `paypalAppId` | The application ID given to you while registering a new [PayPal application](https://developer.paypal.com/docs/api-basics/#) |
-| `paypalEnv` | The environment you wish to run the button in |
+| `paypalEnv` | The environment you wish to run the button in | -->
