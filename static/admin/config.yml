@@ -1,0 +1,58 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+
+media_folder: static/uploads
+public_folder: /uploads
+
+collections:
+  - label: Pages
+    name: pages
+    files:
+      - label: Home
+        name: index
+        file: src/markdown/index.md
+        fields:
+          - label: Body
+            name: body
+            widget: markdown
+          - label: Header Image
+            name: headerImage
+            widget: image
+      - label: Contact
+        name: contact
+        file: src/markdown/contact.md
+        fields:
+          - label: Title
+            name: title
+            widget: string
+          - label: Body
+            name: body
+            widget: markdown
+      - label: Privacy Policy
+        name: privacy-policy
+        file: src/markdown/privacy-policy.md
+        fields:
+          - label: Title
+            name: title
+            widget: string
+          - label: Address
+            name: address
+            widget: text
+          - label: Email
+            name: email
+            widget: string
+          - label: Body
+            name: body
+            widget: markdown
+      - label: Page Not Found
+        name: '404'
+        file: src/markdown/404.md
+        fields:
+          - label: Title
+            name: title
+            widget: string
+          - label: Body
+            name: body
+            widget: markdown

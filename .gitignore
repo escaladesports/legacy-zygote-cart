@@ -11,19 +11,24 @@ node_modules/
 
 # Development/Environment
 .env
+.env.*
 dist
+dist-*
 .next
 json
-static
-docs/build/
-dist-es6/
-dist-es5/
-dist-modules/
-coverage/
-.eslintcache
-.postcssrc
-webpack.config.js
-.babelrc
+public
+.cache
+envdotjs-key
+env.js
+env.key
+env.js.key
+.env.js
+.env.key
+.env.js.key
+.serverless
+_optimize
+headers.js
+netlify.toml.bak
 
 # Temporary
 temp
