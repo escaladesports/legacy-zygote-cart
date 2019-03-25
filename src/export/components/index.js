@@ -11,7 +11,9 @@ export default class Zygote extends React.Component {
 	}
 	constructor(props) {
 		super(props)
-		props.styles = { ...defaultStyles, ...props.styles }
+		this.state = {
+			styles: { ...defaultStyles, ...props.styles },
+		}
 		settingsState.setState(props)
 		if (!props.orderWebhook){
 			console.warn(`No order webhook supplied`)
@@ -19,7 +21,7 @@ export default class Zygote extends React.Component {
 	}
 	render(){
 		return (
-			<div className={this.props.styles ? styles(this.props.styles) : ``}>
+			<div className={this.state.styles ? styles(this.state.styles) : ``}>
 				<Cart />
 			</div>
 		)
