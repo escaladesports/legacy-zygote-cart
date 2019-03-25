@@ -79,11 +79,13 @@ There are only two required attributes for the `<Cart>` component. More on optio
 
 ```jsx
 <Cart
-  style={{
+  styles={{
     fontColor: `#333`,
     borderColor: `#c0bfbf`,
+    altBorderColor: `#EFF0F0`,
     primaryColor: `#B98AF8`,
     backgroundColor: `#fff`,
+    altBackgroundColor: `#F8F8F8`,
     overlayColor: `rgba(185,138,245,0.7)`,
     fontFamily: `Roboto`,
   }}

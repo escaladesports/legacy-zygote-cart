@@ -11,6 +11,7 @@ export default class Zygote extends React.Component {
 	}
 	constructor(props) {
 		super(props)
+		props.styles = { ...defaultStyles, ...props.styles }
 		settingsState.setState(props)
 		if (!props.orderWebhook){
 			console.warn(`No order webhook supplied`)

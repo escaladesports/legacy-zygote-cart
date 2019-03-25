@@ -7,11 +7,11 @@
 </h1>
 
 [![Build Status](https://travis-ci.org/escaladesports/zygote-cart.svg?branch=master)](https://travis-ci.org/escaladesports/zygote-cart)
-![npm](https://img.shields.io/npm/v/@escaladesports/zygote-cart.svg)
+[![npm](https://img.shields.io/npm/v/@escaladesports/zygote-cart.svg)](https://www.npmjs.com/package/@escaladesports/zygote-cart)
 
 [Documentation](https://escaladesports.github.io/zygote-cart/index.html)
 
-Zygote is a drop-in ecommerce front end built in React. It takes a "bring your own backend" approach so it can work with any payment processor or order fulfillment system. Out of the box it works very well with Stripe.
+Zygote is a drop-in e-commerce front end built in React. It takes a "bring your own backend" approach so it can work with any payment processor or order fulfillment system. Out of the box it works very well with Stripe.
 
 **Notes:** At the moment Zygote only works with React. However there will be a universal option in the future.
 
@@ -58,12 +58,14 @@ Editable style variables:
 
 ```jsx
 <Cart
-  style={{
+  styles={{
     fontColor: `#333`,
     borderColor: `#c0bfbf`,
-    primaryColor: `#00cfff`,
+    altBorderColor: `#EFF0F0`,
+    primaryColor: `#B98AF8`,
     backgroundColor: `#fff`,
-    overlayColor: `rgba(0,207,255,0.7)`,
+    altBackgroundColor: `#F8F8F8`,
+    overlayColor: `rgba(185,138,245,0.7)`,
     fontFamily: `Roboto`,
   }}
 />
