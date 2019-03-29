@@ -8,6 +8,8 @@ export default class EmailInput extends React.Component {
 		required: true,
 		autoComplete: `email`,
 		name: `email`,
+		formik: false,
+		onChange: null,
 	}
 	validate(val){
 		if(!isEmail(val)){
@@ -22,6 +24,8 @@ export default class EmailInput extends React.Component {
 			name,
 			step,
 			value,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<Input
@@ -33,6 +37,8 @@ export default class EmailInput extends React.Component {
 				name={name}
 				step={step}
 				value={value}
+				formik={formik}
+				onChange={onChange}
 			/>
 		)
 	}

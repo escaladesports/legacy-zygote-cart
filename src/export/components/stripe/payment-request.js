@@ -62,7 +62,7 @@ export default class PaymentRequest extends React.Component {
 			})
 		})
 		totalsState.state.modifications.forEach(({ description, value }) => {
-			console.log(description, value)
+			// console.log(description, value)
 			if (typeof value === `number`) {
 				displayItems.push({
 					label: description,

@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
 
 import { stepState, shippingState, settingsState} from '../../state'
+import { Address, Address2, CompanyName, City, State, Zip, Checkbox } from '../inputs'
+
 import StepsHeader from '../steps-header'
 import Header from '../header'
 import CardList from '../card-list'
@@ -10,14 +12,7 @@ import Button from '../button'
 import submitOrder from '../../utils/submit-order'
 import ProductList from '../product-list'
 import Totals from '../totals'
-import Checkbox from '../inputs/checkbox'
 import inputs from '../../utils/inputs'
-import AddressInput from '../inputs/address'
-import Address2Input from '../inputs/address-2'
-import CompanyName from '../inputs/company-name'
-import City from '../inputs/city'
-import State from '../inputs/state'
-import Zip from '../inputs/zip'
 // import Paypal from '../paypal'
 import previousStep from '../../utils/previous-step'
 
@@ -104,10 +99,10 @@ export default class PaymentStep extends React.Component{
 									{!this.state.sameBilling && (
 										<div className='zygotePaymentSection'>
 											<Header>What is your billing address?</Header>
-											<AddressInput name='billingAddress1' autoComplete='billing address-line1' />
+											<Address name='billingAddress1' autoComplete='billing address-line1' />
 											<div className='zygotePaymentExtra'>
 												<div>
-													<Address2Input name='billingAddress2' autoComplete='billing address-line2' />
+													<Address2 name='billingAddress2' autoComplete='billing address-line2' />
 												</div>
 												<div>
 													<CompanyName name='billingCompany' autoComplete='billing org' />

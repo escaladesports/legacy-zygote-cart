@@ -10,6 +10,8 @@ export default class PhoneInput extends React.Component {
 		mask: `(999) 999-9999`,
 		name: `phone`,
 		testing: false,
+		formik: false,
+		onChange: null,
 	}
 	validate(val){
 		if (!isPhone(val)){
@@ -26,6 +28,8 @@ export default class PhoneInput extends React.Component {
 			step,
 			value,
 			testing,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<Input
@@ -38,6 +42,8 @@ export default class PhoneInput extends React.Component {
 				name={name}
 				step={step}
 				value={value}
+				formik={formik}
+				onChange={onChange}
 			/>
 		)
 	}

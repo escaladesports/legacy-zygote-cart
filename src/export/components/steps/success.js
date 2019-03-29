@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
-
 import { FaPrint } from 'react-icons/fa'
+
 import ProductList from '../product-list'
 import Totals from '../totals'
-import successState from '../../state/success'
-import settingsState from '../../state/settings'
+import { successState, settingsState } from '../../state'
 import Button from '../button'
 import closeCart from '../../utils/close-cart'
 

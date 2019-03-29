@@ -19,6 +19,7 @@
   [redirects.headers]
     Content-Type = "application/json"
 		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		X-API-Key = "AMAZON_API_KEY_PLACEHOLDER"
 		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"
 
 [[redirects]]
@@ -29,6 +30,7 @@
   [redirects.headers]
     Content-Type = "application/json"
 		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		X-API-Key = "AMAZON_API_KEY_PLACEHOLDER"
 		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"
 
 [[redirects]]
@@ -39,6 +41,7 @@
   [redirects.headers]
     Content-Type = "application/json"
 		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		X-API-Key = "AMAZON_API_KEY_PLACEHOLDER"
 		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"
 
 [[redirects]]
@@ -49,6 +52,7 @@
   [redirects.headers]
     Content-Type = "application/json"
 		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		X-API-Key = "AMAZON_API_KEY_PLACEHOLDER"
 		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"
 
 [[redirects]]
@@ -88,4 +92,5 @@
   [redirects.headers]
     Content-Type = "application/json"
 		ESC-API-Key = "E_API_KEY_PLACEHOLDER"
+		X-API-Key = "AMAZON_API_KEY_PLACEHOLDER"
 		ESC-API-Context = "E_API_CONTEXT_PLACEHOLDER"

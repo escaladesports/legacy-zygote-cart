@@ -192,7 +192,7 @@ const getShippingMethods = async ({ response, info, preFetchData }) => {
 }
 ```
 
-Fires on the 'Shipping' step.
+Fires on the 'Shipping' step. This should return an object of shipping methods.
 
 ## preOrder
 
@@ -207,22 +207,29 @@ const preOrder = async ({ preFetchData, info }) => {
 }
 ```
 
-Fires **before** fetching the `orderWebhook` between the 'Payment' and 'Success' steps.
+Fires **before** fetching the `orderWebhook` between the 'Payment' and 'Success' steps. Use this hook to transform the data that will be sent to the `orderWebhook` if it is needed.
 
 ## postOrder
 
 ```javascript
 const postOrder = async ({ response, info, preFetchData }) => {
+  let order_id = []
   await fetch(`https://api.com/trackOrder`, { // Save order info to another service after the order is placed
     method: `post`,
     body: JSON.stringify(response),
   })
+    .then(res => res.json())
+    .then(data => order_id.push({ id: 'or_o34fjijifr' }))
 
-  return response
+  return {
+		success: true,
+		meta: {
+			orderId: order_id.map(order => order.id ? order.id : order)
+		}
 }
 ```
 
-Fires **after** fetching the `orderWebhook` between the 'Payment' and 'Success' steps
+Fires **after** fetching the `orderWebhook` between the 'Payment' and 'Success' steps. This step should return an object that contains the result `success`, and `meta` which contains an array or order ids assigned to the key `orderId`. This can be later used for order reporting if it is saved to a user's account.
 
 ## \<Info />
 

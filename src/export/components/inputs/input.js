@@ -50,6 +50,11 @@ export default class Input extends React.Component{
 	validate(focus = false){
 		const { value } = this.input
 
+		if (!this.props.required) {
+			this.setState({ error: false, focus: false })
+			return true
+		}
+
 		// Required message
 		if (this.props.required && !value){
 			this.setState({ error: `This field is required`, focus })
@@ -72,10 +77,19 @@ export default class Input extends React.Component{
 		return true
 	}
 	componentDidMount(){
-		registerInput(this)
+		if (!this.props.formik) {
+			registerInput(this)
+		}
 	}
 	componentWillUnmount(){
-		unregisterInput(this)
+		if (!this.props.formik) {
+			unregisterInput(this)
+		}
+	}
+	componentDidUpdate(prevProps, prevState){
+		if (prevProps.value !== this.props.value && prevState.value === this.state.value) {
+			this.setState({ value: this.props.value })
+		}
 	}
 	render(){
 		const {
@@ -92,6 +106,8 @@ export default class Input extends React.Component{
 			inputRef,
 			checked,
 			value: defaultVal,
+			formik = false,
+			onChange = null,
 		} = this.props
 		return (
 			<label
@@ -113,10 +129,10 @@ export default class Input extends React.Component{
 				{mask && (
 					<InputMask
 						mask={mask}
-						onChange={this.handleChange}
+						onChange={formik && onChange ? onChange : this.handleChange}
 						onFocus={this.handleFocus}
 						onBlur={this.validate}
-						value={defaultVal || value}
+						value={formik ? defaultVal : value}
 					>
 						{(inputProps) => (
 							<input
@@ -141,10 +157,10 @@ export default class Input extends React.Component{
 							this.input = input
 							inputRef(input)
 						}}
-						value={defaultVal || value}
+						value={formik ? defaultVal : value}
 						name={name}
 						className='zygoteInput'
-						onChange={this.handleChange}
+						onChange={formik && onChange ? onChange : this.handleChange}
 						onFocus={this.handleFocus}
 						onBlur={this.validate}
 						checked={checked}

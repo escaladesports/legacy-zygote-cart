@@ -1,31 +1,20 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
 
-import stepState from '../../state/step'
-import NameInput from '../inputs/name'
-import EmailInput from '../inputs/email'
-import PhoneInput from '../inputs/phone'
-import AddressInput from '../inputs/address'
-import Address2Input from '../inputs/address-2'
-import CompanyName from '../inputs/company-name'
-import City from '../inputs/city'
-import State from '../inputs/state'
-import Zip from '../inputs/zip'
+import { stepState, productsState, settingsState, customerState }  from '../../state'
+import { Name, Email, Phone, Address, Address2, CompanyName, City, State, Zip, Coupon } from '../inputs'
 import StepsHeader from '../steps-header'
 import Header from '../header'
 import Button from '../button'
 import attemptSubmitInfo from '../../utils/attempt-submit-info'
 import previousStep from '../../utils/previous-step'
-import productsState from '../../state/products'
-import settingsState from '../../state/settings'
 import SimpleSummary from '../simple-summary'
-import Coupon from '../inputs/coupon'
 
 export default class InfoStep extends React.Component{
 	render() {
 		return (
-			<Subscribe to={[stepState, settingsState]}>
-				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons, testing, plugins }) => (
+			<Subscribe to={[stepState, settingsState, customerState]}>
+				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons, testing, plugins }, { customer, metadataKey }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
 							<form data-form='info'>
@@ -38,58 +27,58 @@ export default class InfoStep extends React.Component{
 									<Header>Let's get started</Header>
 									{splitName &&
 										<Fragment>
-											<NameInput
+											<Name
 												name='infoFirstName'
 												autoComplete='first name'
 												step='info'
 												label='First Name'
-												value={vals.infoFirstName ? vals.infoFirstName : ``}
+												value={vals.infoFirstName || customer[metadataKey] && customer[metadataKey].first || ``}
 											/>
-											<NameInput
+											<Name
 												name='infoLastName'
 												autoComplete='last name'
 												step='info'
 												label='Last Name'
-												value={vals.infoLastName ? vals.infoLastName : ``}
+												value={vals.infoLastName || customer[metadataKey] && customer[metadataKey].last || ``}
 											/>
 										</Fragment>
 									}
-									{!splitName && <NameInput
+									{!splitName && <Name
 										name='infoName'
 										autoComplete='shipping name'
 										step='info'
-										value={vals.infoName ? vals.infoName : ``}
+										value={vals.infoName || customer[metadataKey] && customer[metadataKey].first && customer[metadataKey].last ? `${customer[metadataKey].first} ${customer[metadataKey].last}` : ``}
 									/>}
-									<EmailInput
+									<Email
 										name='infoEmail'
 										autoComplete='shipping email'
 										step='info'
-										value={vals.infoEmail ? vals.infoEmail : ``}
+										value={vals.infoEmail || customer.email || ``}
 									/>
-									<PhoneInput
+									<Phone
 										name='infoPhone'
 										autoComplete='shipping tel'
 										step='info'
-										value={vals.infoPhone ? vals.infoPhone : ``}
+										value={vals.infoPhone || customer[metadataKey] && customer[metadataKey].phone || ``}
 										testing={testing}
 									/>
 								</div>
 								{showShipping() && (
 									<div className='zygoteInfoSection'>
 										<Header>Where should we deliver?</Header>
-										<AddressInput
+										<Address
 											name='shippingAddress1'
 											autoComplete='shipping address-line1'
 											step='info'
-											value={vals.shippingAddress1 ? vals.shippingAddress1 : ``}
+											value={vals.shippingAddress1 || customer[metadataKey] && customer[metadataKey].addresses && customer[metadataKey].addresses.shipping ? customer[metadataKey].addresses.shipping.address1 || `` : ``}
 										/>
 										<div className='zygoteInfoExtra'>
 											<div>
-												<Address2Input
+												<Address2
 													name='shippingAddress2'
 													autoComplete='shipping address-line2'
 													step='info'
-													value={vals.shippingAddress2 ? vals.shippingAddress2 : ``}
+													value={vals.shippingAddress2 || customer[metadataKey] && customer[metadataKey].addresses && customer[metadataKey].addresses.shipping ? customer[metadataKey].addresses.shipping.address2 || `` : ``}
 												/>
 											</div>
 											<div>
@@ -97,7 +86,7 @@ export default class InfoStep extends React.Component{
 													name='shippingCompany'
 													autoComplete='shipping org'
 													step='info'
-													value={vals.shippingCompany ? vals.shippingCompany : ``}
+													value={vals.shippingCompany || customer[metadataKey] && customer[metadataKey].addresses && customer[metadataKey].addresses.shipping ? customer[metadataKey].addresses.shipping.company || `` : ``}
 												/>
 											</div>
 										</div>
@@ -107,7 +96,7 @@ export default class InfoStep extends React.Component{
 													name='shippingCity'
 													autoComplete='shipping address-level2'
 													step='info'
-													value={vals.shippingCity ? vals.shippingCity : ``}
+													value={vals.shippingCity || customer[metadataKey] && customer[metadataKey].addresses && customer[metadataKey].addresses.shipping ? customer[metadataKey].addresses.shipping.city || `` : ``}
 												/>
 											</div>
 											<div>
@@ -115,7 +104,7 @@ export default class InfoStep extends React.Component{
 													name='shippingState'
 													autoComplete='shipping address-level1'
 													step='info'
-													value={vals.shippingState ? vals.shippingState : ``}
+													value={vals.shippingState || customer[metadataKey] && customer[metadataKey].addresses && customer[metadataKey].addresses.shipping ? customer[metadataKey].addresses.shipping.state || `` : ``}
 												/>
 											</div>
 										</div>
@@ -123,7 +112,7 @@ export default class InfoStep extends React.Component{
 											name='shippingZip'
 											autoComplete='shipping postal-code'
 											step='info'
-											value={vals.shippingZip ? vals.shippingZip : ``}
+											value={vals.shippingZip || customer[metadataKey] && customer[metadataKey].addresses && customer[metadataKey].addresses.shipping ? customer[metadataKey].addresses.shipping.zip || `` : ``}
 										/>
 									</div>
 								)}

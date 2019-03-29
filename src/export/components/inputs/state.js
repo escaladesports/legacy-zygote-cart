@@ -8,6 +8,8 @@ export default class StateInput extends React.Component {
 		autoComplete: `address-level1`,
 		required: true,
 		name: `state`,
+		formik: false,
+		onChange: null,
 	}
 	render() {
 		const {
@@ -17,6 +19,8 @@ export default class StateInput extends React.Component {
 			name,
 			step,
 			value,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<Select
@@ -26,6 +30,8 @@ export default class StateInput extends React.Component {
 				name={name}
 				step={step}
 				value={value}
+				formik={formik}
+				onChange={onChange}
 			>
 				{states.map((state, index) => (
 					<option

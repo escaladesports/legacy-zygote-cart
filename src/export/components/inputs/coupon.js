@@ -2,12 +2,14 @@ import React, { Fragment } from 'react'
 import Input from './input'
 import Toggle from './toggle'
 
-export default class CompanyNameInput extends React.Component {
+export default class CouponInput extends React.Component {
 	static defaultProps = {
 		toggleText: `Apply a Coupon`,
 		label: `Coupon Code`,
 		apply: false,
 		name: `coupon`,
+		formik: false,
+		onChange: null,
 	}
 	constructor(props) {
 		super(props)
@@ -29,6 +31,8 @@ export default class CompanyNameInput extends React.Component {
 			apply,
 			name,
 			value,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<Fragment>
@@ -48,6 +52,8 @@ export default class CompanyNameInput extends React.Component {
 							name={name}
 							step={step}
 							value={value}
+							formik={formik}
+							onChange={onChange}
 						/>
 					</div>
 					{apply && (

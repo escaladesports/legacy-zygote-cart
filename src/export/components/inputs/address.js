@@ -1,12 +1,14 @@
 import React from 'react'
 import Input from './input'
 
-export default class NameInput extends React.Component {
+export default class AddressInput extends React.Component {
 	static defaultProps = {
 		label: `Address`,
 		autoComplete: `address-line1`,
 		required: true,
 		name: `addressLine1`,
+		formik: false,
+		onChange: null,
 	}
 	render() {
 		const {
@@ -16,6 +18,8 @@ export default class NameInput extends React.Component {
 			name,
 			step,
 			value,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<Input
@@ -25,6 +29,8 @@ export default class NameInput extends React.Component {
 				name={name}
 				step={step}
 				value={value}
+				formik={formik}
+				onChange={onChange}
 			/>
 		)
 	}

@@ -33,6 +33,8 @@ import { default as stripe } from '../components/stripe'
 import { default as stripeInput } from '../components/stripe/input'
 import { default as stripePaymentRequest } from '../components/stripe/payment-request'
 import { default as applePay } from '../components/apple-pay-button'
+import { default as auth0Button } from '../components/auth0'
+import { default as secondaryPanel } from  '../components/secondaryPanel'
 import printStyles from './print'
 
 export default function styles(opts){
@@ -72,5 +74,7 @@ export default function styles(opts){
 		...applePay.styles(opts),
 		...cardInput.styles(opts),
 		...printStyles,
+		...auth0Button.styles(opts),
+		...secondaryPanel.styles(opts),
 	})
 }

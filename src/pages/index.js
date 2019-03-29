@@ -74,26 +74,6 @@ export default class HomePage extends React.Component {
 						stock: 2,
 					})}>STIGA Emoji One-Star Table Tennis Balls - Monthly Subscription</button>
 				</div>
-				<div>
-					<button onClick={() => addToCart({
-						id: `35-7090-2`,
-						name: `Microfiber Bean Bags with Tub`,
-						image: `https://images.salsify.com/image/upload/s--ibaII9O1--/w_75,h_75,c_pad/tcuv43grz2uec6z5twln.jpg`,
-						description: `Microfiber Bean Bags with Tub.`,
-						price: 3499,
-						shippable: true,
-					})}>Microfiber Bean Bags with Tub</button>
-				</div>
-				<div>
-					<button onClick={() => addToCart({
-						id: `A08108`,
-						name: `Safetyglass Arrows – 28"`,
-						image: `https://images.salsify.com/image/upload/s--ibaII9O1--/w_75,h_75,c_pad/tcuv43grz2uec6z5twln.jpg`,
-						description: `Safetyglass Arrows – 28".`,
-						price: 32400,
-						shippable: true,
-					})}>Safetyglass Arrows – 28"</button>
-				</div>
 				
 				<div className={styles.editControls}>
 					<Subscribe to={settingsState}>
@@ -130,13 +110,16 @@ export default class HomePage extends React.Component {
 					cartFooter={<div className={styles.footer}>* Free shipping, except Alaska and Hawaii</div>}
 
 					stripeApiKey='pk_test_0EMVTB6nEzmrjGA0Fc0kyVOR'
+
 					paypalAppId='AeLnykBc0v7TfaCiuBfWMgX-6nkcNSw_PXb_puQrPyAQPqrofapoYQWKU2YtYGrBoGnt7_66Za17eA-c'
 					paypalEnv='sandbox'
+
 					infoWebhook='/.netlify/functions/info-stripe'
 					orderWebhook='/.netlify/functions/order-stripe'
 					
 					auth0ClientID='Wweg1YAs6kJquv9DcLSpmSNpaY6XPaX8'
-					auth0Logout='http://localhost:8000/'
+					auth0Logout='http://zygote3-demo.netlify.com:8000/'
+					auth0Namespace='https://zygote-cart3'
 					auth0Domain='zygote-cart.auth0.com'
 					auth0Theme={{
 						primaryColor: `#00cfff`,
@@ -147,8 +130,6 @@ export default class HomePage extends React.Component {
 							redirect: false,
 						},
 					}}
-
-					splitName={true}
 
 					totalModifications={[
 						{
@@ -163,8 +144,6 @@ export default class HomePage extends React.Component {
 						},
 					]}
 				/>
-
-
 			</div>
 		)
 	}

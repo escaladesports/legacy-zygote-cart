@@ -46,10 +46,14 @@ export default class Select extends React.Component{
 		this.setState({ error: false })
 	}
 	componentDidMount() {
-		registerInput(this)
+		if (!this.props.formik) {
+			registerInput(this)
+		}
 	}
 	componentWillUnmount() {
-		unregisterInput(this)
+		if (!this.props.formik) {
+			unregisterInput(this)
+		}
 	}
 	render(){
 		const {
@@ -65,6 +69,8 @@ export default class Select extends React.Component{
 			inputRef,
 			name,
 			value: defaultValue,
+			formik = false,
+			onChange = null,
 		} = this.props
 		return (
 			<label
@@ -90,7 +96,7 @@ export default class Select extends React.Component{
 						if(inputRef) inputRef(el)
 					}}
 					value={defaultValue || value}
-					onChange={this.handleChange}
+					onChange={formik && onChange ? onChange : this.handleChange}
 					onFocus={this.handleFocus}
 					onBlur={this.validate}
 					className='zygoteSelect'

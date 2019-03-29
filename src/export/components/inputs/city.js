@@ -7,6 +7,8 @@ export default class CityInput extends React.Component {
 		autoComplete: `address-level2`,
 		required: true,
 		name: `city`,
+		formik: false,
+		onChange: null,
 	}
 	render() {
 		const {
@@ -16,6 +18,8 @@ export default class CityInput extends React.Component {
 			name,
 			step,
 			value,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<Input
@@ -25,6 +29,8 @@ export default class CityInput extends React.Component {
 				name={name}
 				step={step}
 				value={value}
+				formik={formik}
+				onChange={onChange}
 			/>
 		)
 	}

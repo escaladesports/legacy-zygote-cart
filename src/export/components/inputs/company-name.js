@@ -9,6 +9,8 @@ export default class CompanyNameInput extends React.Component {
 		autoComplete: `org`,
 		required: false,
 		name: `companyName`,
+		formik: false,
+		onChange: null,
 	}
 	constructor(props){
 		super(props)
@@ -31,6 +33,8 @@ export default class CompanyNameInput extends React.Component {
 			name,
 			step,
 			value,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<Fragment>
@@ -48,6 +52,8 @@ export default class CompanyNameInput extends React.Component {
 						name={name}
 						step={step}
 						value={value}
+						formik={formik}
+						onChange={onChange}
 					/>
 				</div>
 			</Fragment>

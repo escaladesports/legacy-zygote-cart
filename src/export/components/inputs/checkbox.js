@@ -13,6 +13,7 @@ export default class Checkbox extends React.Component {
 			label,
 			autoComplete,
 			step,
+			formik = false,
 		} = this.props
 		return (
 			<div
@@ -30,6 +31,7 @@ export default class Checkbox extends React.Component {
 					label={label}
 					autoComplete={autoComplete}
 					step={step}
+					formik={formik}
 				/>
 				{checked && (
 					<div className='zygoteCheckboxIcon'>✓</div>

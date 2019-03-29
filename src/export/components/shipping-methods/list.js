@@ -1,7 +1,7 @@
 import React from 'react'
 import setShipping from '../../utils/set-shipping'
 import formatUsd from '../../utils/format-usd'
-import Radio from '../inputs/radio'
+import { Radio } from '../inputs'
 
 export default class ShippingMethodsList extends React.Component {
 	constructor(props){

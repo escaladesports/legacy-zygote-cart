@@ -5,6 +5,7 @@
   auth0ClientID='public_id'
   auth0Logout='https://www.example.com/logout'
   auth0Domain='https://example.auth0.com'
+  auth0Namespace='https://example'
   auth0Theme={{
     primaryColor: '#00cfff',
   }}
@@ -24,5 +25,18 @@ The [auth0 integration](https://auth0.com/docs/quickstarts) gives you an out-of-
 | `auth0ClientID` | The client ID is provided from the [auth0 application](https://auth0.com/docs/quickstarts) when you first set it up |
 | `auth0Logout` | The allowed logout path you supplied for your auth0 application |
 | `auth0Domain` | The authentication domain given to your auth0 application |
+| `auth0Namespace` | Namespace used in Rules for gathering user_metadata |
 | `auth0Theme` | All [theming options](https://auth0.com/docs/libraries/lock/v11/configuration#theming) made available by the auth0 Lock component are valid |
 | `auth0Options` | All [display options](https://auth0.com/docs/libraries/lock/v11/configuration#display) made available by the auth0 Lock component are valid |
+
+## User Metadata Custom Claim Rule
+
+```javascript
+function (user, context, callback) {
+  const namespace = 'https://example';
+  context.idToken[namespace + '/user_metadata'] = user.user_metadata;
+  callback(null, user, context);
+}
+```
+
+In order to retrieve `user_metadata` from auth0, you will need to add the above rule to your dashboard, changing the `namespace` variable to the `auth0Namespace` value. Additional information about [auth0 Rules](https://auth0.com/docs/rules) can be found in their documentation.

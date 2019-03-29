@@ -1,19 +1,13 @@
 import table from 'datasets-us-states-names-abbr'
 
 import fetch from './fetch'
-import stepState from '../state/step'
-import settingsState from '../state/settings'
-import productsState from '../state/products'
-import totalsState from '../state/totals'
+import { stepState, settingsState, productsState, totalsState, messagesState, metaState, shippingState, successState } from '../state'
 import errorCheck from './error-check'
 import getFormValues from './get-form-values'
 import clearMessages from './clear-messages'
-import messagesState from '../state/status-messages'
 import validateAllInput from './validate-all-input'
 import displayError from './display-error'
-import metaState from '../state/meta'
-import shippingState from '../state/shipping'
-import successState from '../state/success'
+import { postSuccess } from '../components/auth0'
 
 export default async function submitOrder({ type, token }) {
 	clearMessages()
@@ -99,6 +93,20 @@ export default async function submitOrder({ type, token }) {
 		}
 	}
 	else {
+		for (let i = 0; i < settingsState.state.plugins.length; i++) {
+			await (typeof settingsState.state.plugins[i].postSuccess === `function` ? settingsState.state.plugins[i].postSuccess({ 
+				products: productsState.state.products,
+				totals: {
+					subtotal,
+					modifications,
+					total,
+				},
+				response: data,
+			}) : null)
+		}
+
+		await postSuccess({ response: data })
+
 		successState.setState({
 			totals: {...totalsState.state},
 			products: [...productsState.state.products],

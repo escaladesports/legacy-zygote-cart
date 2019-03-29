@@ -2,12 +2,14 @@ import React from 'react'
 import isZip from 'is-valid-zip'
 import Input from './input'
 
-export default class EmailInput extends React.Component {
+export default class ZipInput extends React.Component {
 	static defaultProps = {
 		label: `Zip Code`,
 		required: true,
 		autoComplete: `postal-code`,
 		name: `postalCode`,
+		formik: false,
+		onChange: null,
 	}
 	validate(val){
 		if (!isZip(val)){
@@ -22,6 +24,8 @@ export default class EmailInput extends React.Component {
 			name,
 			step,
 			value,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<Input
@@ -32,6 +36,8 @@ export default class EmailInput extends React.Component {
 				name={name}
 				step={step}
 				value={value}
+				formik={formik}
+				onChange={onChange}
 			/>
 		)
 	}

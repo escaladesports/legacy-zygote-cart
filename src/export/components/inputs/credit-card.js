@@ -22,6 +22,8 @@ export default class CreditCard extends React.Component {
 		label: `Card Number`,
 		required: true,
 		name: `billingCardNumber`,
+		formik: false,
+		onChange: null,
 	}
 	constructor(props){
 		super(props)
@@ -42,6 +44,8 @@ export default class CreditCard extends React.Component {
 			label,
 			name,
 			step,
+			formik,
+			onChange,
 		} = this.props
 		return (
 			<div className='zygoteCardInput'>
@@ -58,6 +62,8 @@ export default class CreditCard extends React.Component {
 								required={required}
 								validators={[this.validate]}
 								step={step}
+								formik={formik}
+								onChange={onChange}
 								{...props}
 								name={name}
 							/>
