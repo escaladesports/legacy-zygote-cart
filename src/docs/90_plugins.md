@@ -21,6 +21,7 @@ You can take advantage of the fact that you are an adult and that you can not on
 | `getShippingMethods` | Fires on the 'Shipping' step |
 | `preOrder` | Fires before fetching the `orderWebhook` between the 'Payment' and 'Success' steps |
 | `postOrder` | Fires after fetching the `orderWebhook` between the 'Payment' and 'Success' steps |
+| `postSuccess` | Fires after the 'Success' step |
 
 | Component Name | Description |
 |:---------:|:--------:|
@@ -67,7 +68,7 @@ const postInfo = async ({ response, info, preFetchData }) => {
   }
 }
 ```
-Fires **after** fetching the `infoWebhook` between the 'Details' and 'Shipping' steps.
+Fires **after** fetching the `infoWebhook` between the 'Details' and 'Shipping' steps. Use this hook in your plugin the transform the data returned by your `infoWebhook`, if needed.
 
 ## coupons
 
@@ -111,7 +112,7 @@ const coupons = async ({ response, info, preFetchData }) => {
 }
 ```
 
-Fires **after** fetching the `infoWebhook` between the 'Details' and 'Shipping' steps
+Fires **after** fetching the `infoWebhook` between the 'Details' and 'Shipping' steps. Use this hook in your plugin for validating and applying coupons.
 
 ## calculateTax
 
@@ -143,7 +144,7 @@ const calculateTax = async ({ shippingAddress, subtotal = 0, shipping = 0, disco
 }
 ```
 
-Fires on the 'Shipping' step.
+Fires on the 'Shipping' step. Use this hook in your plugin for hitting a tax calculation API.
 
 ## getShippingMethods
 
@@ -230,6 +231,49 @@ const postOrder = async ({ response, info, preFetchData }) => {
 ```
 
 Fires **after** fetching the `orderWebhook` between the 'Payment' and 'Success' steps. This step should return an object that contains the result `success`, and `meta` which contains an array or order ids assigned to the key `orderId`. This can be later used for order reporting if it is saved to a user's account.
+
+## postSuccess
+
+```javascript
+export const postSuccess = async ({ products, totals, response }) => {
+	const { customer, metadataKey } = customerState.state
+	const { auth0Domain } = settingsState.state
+
+	let newOrders = []
+	if (Array.isArray(response.meta.orderId)) {
+		newOrders = response.meta.orderId
+	}
+	else {
+		newOrders = [response.meta.orderId]
+	}
+
+	const apiCall = {
+		user_metadata: {
+			orders: customer[metadataKey].orders ? [...customer[metadataKey].orders, ...newOrders] : newOrders,
+		},
+	}
+
+	await fetch(`https://${auth0Domain}/api/v2/users/${customer.sub}`, {
+		method: `PATCH`,
+		body: JSON.stringify(apiCall),
+		headers: {
+			'Authorization': `Bearer ${localStorage.accessToken}`, // eslint-disable-line no-undef
+			'Content-Type': `application/json`,
+		},
+	})
+		.then(res => res.json())
+		.then(res => {
+			const newInfo = {
+				...customer,
+			}
+			newInfo[metadataKey] = res.user_metadata
+			localStorage.setItem(`profile`, JSON.stringify(newInfo)) // eslint-disable-line no-undef
+			customerState.setState({ customer: newInfo })
+		})
+} 
+```
+
+Fires **after** the 'Success' step. Use this hook in your plugin for collecting and storing order information to a user account, or for triggering the next step in your order processing workflow.
 
 ## \<Info />
 
