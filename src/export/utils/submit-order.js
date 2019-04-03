@@ -1,7 +1,7 @@
 import table from 'datasets-us-states-names-abbr'
 
 import fetch from './fetch'
-import { stepState, settingsState, productsState, totalsState, messagesState, metaState, shippingState, successState } from '../state'
+import { stepState, settingsState, productsState, totalsState, messagesState, metaState, shippingState, successState, customerState } from '../state'
 import errorCheck from './error-check'
 import getFormValues from './get-form-values'
 import clearMessages from './clear-messages'
@@ -93,6 +93,15 @@ export default async function submitOrder({ type, token }) {
 		}
 	}
 	else {
+		if (Array.isArray(data.meta.orderId)) {
+			data.meta.orderId = data.meta.orderId.map(order => {
+				const parts = order.split(`|`)
+				return parts.length > 1 && parts[0] != body.paymentType ? `${body.paymentType}|${order}` : order
+			})
+		}
+		else {
+			data.meta.orderId = [`${body.paymentType}|${data.meta.orderId}`]
+		}
 		for (let i = 0; i < settingsState.state.plugins.length; i++) {
 			await (typeof settingsState.state.plugins[i].postSuccess === `function` ? settingsState.state.plugins[i].postSuccess({ 
 				products: productsState.state.products,
@@ -105,7 +114,9 @@ export default async function submitOrder({ type, token }) {
 			}) : null)
 		}
 
-		await postSuccess({ response: data })
+		if (customerState.state.customer && settingsState.state.auth0Domain) { // Active auth0 login
+			await postSuccess({ response: data })
+		}
 
 		successState.setState({
 			totals: {...totalsState.state},

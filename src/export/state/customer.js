@@ -3,6 +3,7 @@ import { State } from 'statable'
 const defaults = {
 	customer: {},
 	metadataKey: ``,
+	orders: [],
 }
 
 const customerState = new State({...defaults}, {

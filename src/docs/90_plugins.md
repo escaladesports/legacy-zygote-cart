@@ -21,6 +21,7 @@ You can take advantage of the fact that you are an adult and that you can not on
 | `getShippingMethods` | Fires on the 'Shipping' step |
 | `preOrder` | Fires before fetching the `orderWebhook` between the 'Payment' and 'Success' steps |
 | `postOrder` | Fires after fetching the `orderWebhook` between the 'Payment' and 'Success' steps |
+| `fetchOrders` | Fires when the customer dashboard is loaded |
 | `postSuccess` | Fires after the 'Success' step |
 
 | Component Name | Description |
@@ -231,6 +232,26 @@ const postOrder = async ({ response, info, preFetchData }) => {
 ```
 
 Fires **after** fetching the `orderWebhook` between the 'Payment' and 'Success' steps. This step should return an object that contains the result `success`, and `meta` which contains an array or order ids assigned to the key `orderId`. This can be later used for order reporting if it is saved to a user's account.
+
+## fetchOrders
+
+```javascript
+export const fetchOrders = async (type, id) => {
+  if (type != `myOrderService`) return
+
+  await fetch(`https://exampleorders.com/api/v1/${id}`)
+    .then(res => res.json())
+    .then(order => {
+      return {
+        id: id,
+        amount: order.amount, // Full value of the order in cents form (ie. $200.31 = 20031)
+        time: order.updated, // Timestamp of when the order was placed or fulfilled (your choice). Should be a Unix time stamp.
+      }
+    })
+}
+```
+
+Fires when the customer dashboard is loaded. Used to retrieve recent order information for the user. The order id should be passed in as `{order_type}|{order_number}`. The plugin should check for the first half of the string split on the `|` to see if it needs to perform the lookup. This simply prevents, for example, Stripe from trying to look up a PayPal order and failing.
 
 ## postSuccess
 

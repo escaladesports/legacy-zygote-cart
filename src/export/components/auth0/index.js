@@ -11,6 +11,7 @@ import fetch from 'isomorphic-fetch'
 import { stepState, settingsState, customerState } from '../../state'
 import { Name, Email, Phone, Address, Address2, CompanyName, City, State, Zip } from '../inputs'
 import Button from '../button'
+import centsToDollars from '../../utils/cents-to-dollars'
 
 export default class Login extends React.Component {
 	constructor(props) {
@@ -67,6 +68,10 @@ export default class Login extends React.Component {
 					localStorage.setItem(`accessToken`, authResult.accessToken) // eslint-disable-line no-undef
 					localStorage.setItem(`profile`, JSON.stringify(profile)) // eslint-disable-line no-undef
 					customerState.setState({ customer: profile, metadataKey: `${auth0Namespace}/user_metadata` })
+
+					if (profile && profile[`${auth0Namespace}/user_metadata`] && profile[`${auth0Namespace}/user_metadata`].orders) { // eslint-disable-line no-undef
+						fetchOrders(profile[`${auth0Namespace}/user_metadata`].orders) // eslint-disable-line no-undef
+					}
 				})
 			})
 
@@ -99,6 +104,10 @@ export default class Login extends React.Component {
 					localStorage.setItem(`accessToken`, authResult.accessToken) // eslint-disable-line no-undef
 					localStorage.setItem(`profile`, JSON.stringify(profile)) // eslint-disable-line no-undef
 					customerState.setState({ customer: profile, metadataKey: `${auth0Namespace}/user_metadata` })
+
+					if (profile && profile[`${auth0Namespace}/user_metadata`] && profile[`${auth0Namespace}/user_metadata`].orders) { // eslint-disable-line no-undef
+						fetchOrders(profile[`${auth0Namespace}/user_metadata`].orders) // eslint-disable-line no-undef
+					}
 				})
 			})
 		}
@@ -144,7 +153,7 @@ export default class Login extends React.Component {
 
 		const content = (
 			<Subscribe to={customerState}>
-				{({ customer, metadataKey }) => (
+				{({ customer, metadataKey, orders }) => (
 					<section>
 						<h1>Welcome back!</h1>
 						<h2>This is what we have on file for you:</h2>
@@ -333,22 +342,30 @@ export default class Login extends React.Component {
 								</TabPane>
 							}
 							<TabPane tab='Recent Orders' key="1">
-								<table>
+								<table className='zygoteOrderTable'>
 									<thead>
 										<tr>
 											<th>Order ID</th>
-											<th>Purchase</th>
+											{/* <th>Purchase</th> */}
 											<th>Price</th>
 											<th>Date</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>TB0019287-T</td>
-											<td>Trampoline x5</td>
-											<td>$500.26</td>
-											<td>4/23/2019</td>
-										</tr>
+										{customer[metadataKey].orders.length > 0 && orders.length > 0 && orders.map((order, i) => {
+											const date = new Date(order.time * 1000)	
+											return (
+												<tr key={i}>
+													<td>{order.id}</td>
+													{/* <td>{order.products}</td> */}
+													<td>${centsToDollars(order.amount)}</td>
+													<td>{`${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`}</td>
+												</tr>
+											)
+										})}
+										{customer[metadataKey].orders.length > 0 && orders.length == 0 && <tr><td colSpan='4'>Loading...</td></tr>}
+										{customer[metadataKey].orders && customer[metadataKey].orders.length == 0 && <tr><td colSpan='4'>There are no recent orders on this account.</td></tr>}
+										{!customer[metadataKey].orders && customer[metadataKey].orders.length == 0 && <tr><td colSpan='4'>There are no recent orders on this account.</td></tr>}
 									</tbody>
 								</table>
 							</TabPane>
@@ -411,13 +428,71 @@ export default class Login extends React.Component {
 		'.zygoteLogin': {
 			marginBottom: `15px`,
 		},
+		'.zygoteOrderTable': {
+			width: `100%`,
+			overflow: `auto`,
+			marginTop: `15px`,
+			fontSize: `12px`,
+			'tr:nth-child(even)': {
+				background: `#e8e8e8`,
+			},
+			td: {
+				padding: `15px`,
+				wordBreak: `break-all`,
+			},
+		},
 	})
 }
 
+const fetchOrders = async (orderids) => {
+	let orders = []
+	await orderids.map(async orderid => {
+		const parts = orderid.split(`|`)
+		if (parts.length >= 2) {
+			const type = parts[0]
+			const id = parts[1]
+			if (type == `stripe`) {
+				if (settingsState.state.stripeRestrictedKey) {
+					await fetch(`https://api.stripe.com/v1/orders/${id}`, {
+						method: `GET`,
+						headers: {
+							'Authorization': `Bearer ${settingsState.state.stripeRestrictedKey}`,
+							'Content-Type': `application/json`,
+						},
+					})
+						.then(res => res.json())
+						.then(order => {
+							orders.push({
+								id: id,
+								products: order.items.map(item => item.description),
+								amount: order.amount,
+								time: order.updated,
+							})
+						})
+				}
+			}
+			else {
+				for (let i = 0; i < settingsState.state.plugins.length; i++) {
+					if (settingsState.state.plugins[i].fetchOrders === `function`) {
+						orders.push(await settingsState.state.plugins[i].fetchOrders(type, id))
+					}
+				}
+			}
+		}
+	})
+
+	orders.sort((a,b) => {
+		if (!a.time && !b.time) return 0
+		return a.time > b.time ? 1 : b.time > a.time ? -1 : 0
+	})
+	customerState.setState({ orders })
+}
 
 export const postSuccess = async ({ response }) => {
 	const { customer, metadataKey } = customerState.state
 	const { auth0Domain } = settingsState.state
+
+	if (!customer || !auth0Domain) return
 
 	let newOrders = []
 	if (Array.isArray(response.meta.orderId)) {
