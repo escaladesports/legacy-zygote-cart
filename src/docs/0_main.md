@@ -1,11 +1,11 @@
 # Introduction - Zygote Cart
 
 ```bash
-npm install --save zygote-cart
+npm install --save @escaladesports/zygote-cart
 ```
 
 ```bash
-yarn add zygote-cart
+yarn add @escaladesports/zygote-cart
 ```
 
 
@@ -21,7 +21,7 @@ Welcome to the Zygote Cart API Documentation! Zygote is a drop-in e-commerce fro
 ## Usage
 
 ```jsx
-import { Cart, openCart, addToCart } from 'zygote-cart';
+import { Cart, openCart, addToCart } from '@escaladesports/zygote-cart';
 
 
 

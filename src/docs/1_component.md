@@ -84,7 +84,7 @@ To disable this, set the `googleTagManager` property to `false`.
 ## Optional Shipping
 
 ```javascript
-import { addToCart } from 'zygote-cart';
+import { addToCart } from '@escaladesports/zygote-cart';
 
 <button onClick={addToCart({
   id: `DIS82`,

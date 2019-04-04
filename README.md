@@ -1,9 +1,9 @@
 <p align="center">
-    <img alt="Gatsby" src="https://escaladesports.github.io/zygote-cart/images/logo.png" width="200" />
+    <img alt="Zygote Cart logo" src="https://escaladesports.github.io/zygote-cart/images/logo.png" width="200" />
 </p>
 
 <h1 align="center">
-  Zygote Cart v3
+  Zygote3
 </h1>
 
 [![Build Status](https://travis-ci.org/escaladesports/zygote-cart.svg?branch=master)](https://travis-ci.org/escaladesports/zygote-cart)
@@ -20,19 +20,19 @@ Zygote is a drop-in e-commerce front end built in React. It takes a "bring your 
 With npm:
 
 ```bash
-npm install --save zygote-cart
+npm install --save @escaladesports/zygote-cart
 ```
 
 Or with Yarn:
 
 ```bash
-yarn add zygote-cart
+yarn add @escaladesports/zygote-cart
 ```
 
 ## Usage
 
 ```jsx
-import { Cart, addToCart } from 'zygote-cart'
+import { Cart, addToCart } from '@escaladesports/zygote-cart'
 
 <button onClick={() => addToCart({
   id: `TESTID`,
@@ -237,7 +237,7 @@ For items like digital goods or services that don't require shipping, you can pa
 Example:
 
 ```jsx
-import { addToCart } from 'zygote-cart'
+import { addToCart } from '@escaladesports/zygote-cart'
 
 <button onClick={addToCart({
   id: `DIS82`,
@@ -280,48 +280,4 @@ The webhooks can pass modifications to the total, but if you need some modificat
 />
 ```
 
-## Server Side Helpers
 
-To make it easier to work with payment processors and transactional emails, we've included a few helper functions. These particular examples are using serverless functions to process the data, then send the response back to the client.
-
-Info webhook:
-
-```js
-import { submitStripeInfo } from 'zygote-cart/server'
-
-export async function handler({ body }, _, callback) {
-
-	const res = await submitStripeInfo({
-		stripeApiSecret: process.env.STRIPE_API_SECRET,
-		body,
-		verbose: true,
-  })
-
-	callback(null, {
-		statusCode: 200,
-		body: JSON.stringify(res),
-  })
-
-}
-```
-
-Order webhook:
-
-```js
-import { submitStripeOrder } from 'zygote-cart/server'
-
-export async function handler({ body }, _, callback) {
-
-	const res = await submitStripeOrder({
-		stripeApiSecret: process.env.STRIPE_API_SECRET,
-		body,
-		verbose: true,
-	})
-
-	callback(null, {
-		statusCode: 200,
-		body: JSON.stringify(res),
-	})
-
-}
-```
