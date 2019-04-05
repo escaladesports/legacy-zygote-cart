@@ -53,13 +53,13 @@
       <div class="content">
         
           <h1 id="introduction---zygote-cart">Introduction - Zygote Cart</h1>
-<pre class="highlight bash"><code>npm install --save zygote-cart</code></pre><pre class="highlight bash"><code>yarn add zygote-cart</code></pre><p>Welcome to the Zygote Cart API Documentation! Zygote is a drop-in e-commerce front end built in React. It takes a &quot;bring your own back-end&quot; approach so it can work with any payment processor or order fulfillment system. Out of the box it works very well with Stripe.</p>
+<pre class="highlight bash"><code>npm install --save @escaladesports/zygote-cart</code></pre><pre class="highlight bash"><code>yarn add @escaladesports/zygote-cart</code></pre><p>Welcome to the Zygote Cart API Documentation! Zygote is a drop-in e-commerce front end built in React. It takes a &quot;bring your own back-end&quot; approach so it can work with any payment processor or order fulfillment system. Out of the box it works very well with Stripe.</p>
 <p><strong>Note:</strong> At the moment Zygote only works with React. However there will be a universal option in the future.</p>
 <p><a href="https://github.com/escaladesports/zygote-cart"><img src="https://img.shields.io/github/forks/escaladesports/zygote-cart.svg?style=social" alt="GitHub forks"></a>
 <a href="https://travis-ci.org/escaladesports/zygote-cart"><img src="https://travis-ci.org/escaladesports/zygote-cart.svg?branch=master" alt="Build Status"></a>
 <img src="https://img.shields.io/npm/v/@escaladesports/zygote-cart.svg" alt="npm"></p>
 <h2 id="usage">Usage</h2>
-<pre class="highlight jsx"><code>import { Cart, openCart, addToCart } from 'zygote-cart';
+<pre class="highlight jsx"><code>import { Cart, openCart, addToCart } from '@escaladesports/zygote-cart';
 
 
 
@@ -69,6 +69,8 @@
   image: `https://via.placeholder.com/75x75`,
   description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit...`,
   price: 29999,
+  shippable: true,
+  quantity: 1,
 })}&gt;
   Add to Cart!
 &lt;/button&gt;
@@ -112,7 +114,15 @@
 </tr>
 <tr>
 <td align="center"><code>price</code></td>
-<td align="center">The price of the item x10 in order to reduce rounding errors ($299.99 = 29999)</td>
+<td align="center">The price of the item in cents in order to reduce rounding errors ($299.99 = 29999).</td>
+</tr>
+<tr>
+<td align="center"><code>shippable</code></td>
+<td align="center">Whether the item for purchase is a physical good that will be shipped to the customer (true) or a digital good and the shipping step can be skipped (false).</td>
+</tr>
+<tr>
+<td align="center"><code>quantity</code></td>
+<td align="center">Pre-add this number of products to the cart when the user clicks. Defaults to 1 if not specified or included.</td>
 </tr>
 </tbody></table>
 <h3 id="cart-component">Cart component</h3>
@@ -250,7 +260,7 @@
 </ul>
 <p>To disable this, set the <code>googleTagManager</code> property to <code>false</code>.</p>
 <h2 id="optional-shipping">Optional Shipping</h2>
-<pre class="highlight javascript"><code><span class="hljs-keyword">import</span> { addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'zygote-cart'</span>;
+<pre class="highlight javascript"><code><span class="hljs-keyword">import</span> { addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'@escaladesports/zygote-cart'</span>;
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{addToCart({</span>
   <span class="hljs-attr">id:</span> `<span class="hljs-attr">DIS82</span>`,
