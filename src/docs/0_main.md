@@ -31,6 +31,7 @@ import { Cart, openCart, addToCart } from '@escaladesports/zygote-cart';
   image: `https://via.placeholder.com/75x75`,
   description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit...`,
   price: 29999,
+  quantity: 1,
 })}>
   Add to Cart!
 </button>
@@ -61,7 +62,8 @@ The button needs to be added to any and all products that you wish to sell on yo
 | `name` | Human readable product name, displays in cart when item is added. |
 | `image` | Image of product used when displaying added item in cart. |
 | `description` | Quick description of the product used when displaying added item in cart. |
-| `price` | The price of the item x10 in order to reduce rounding errors ($299.99 = 29999) |
+| `price` | The price of the item in cents in order to reduce rounding errors ($299.99 = 29999) |
+| `quantity` | Pre-add this number of products to the cart when the user clicks. Defaults to 1 if not specified or included. |
 
 
 ### Cart component
