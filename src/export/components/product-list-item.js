@@ -69,8 +69,8 @@ export default class ProductItem extends React.Component{
 				</div>
 				{editable && (
 					<button
-						role='button'
 						className='zygoteProdX'
+						type='button'
 						onClick={() => removeFromCart(id)}
 						ref={el => this.remove = el}
 						onMouseUp={() => this.remove.blur()}

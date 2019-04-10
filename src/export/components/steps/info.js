@@ -28,7 +28,7 @@ export default class InfoStep extends React.Component{
 				{({ step, vals }, { infoHeader, infoFooter, splitName, coupons, testing, plugins }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
-							<form data-form='info'>
+							<form data-form='info' onSubmit={attemptSubmitInfo}>
 								{!!infoHeader && (
 									<div>{infoHeader}</div>
 								)}
@@ -136,7 +136,7 @@ export default class InfoStep extends React.Component{
 									}
 								})}
 								<div className='zygoteInfoBtn'>
-									<Button onClick={attemptSubmitInfo} dataTestid="info-next-step">
+									<Button type='submit' /*onClick={}*/ dataTestid="info-next-step">
 										Next Step
 									</Button>
 								</div>

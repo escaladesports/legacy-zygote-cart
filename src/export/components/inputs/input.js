@@ -14,6 +14,7 @@ export default class Input extends React.Component{
 		this.state = {
 			value: props.value || ``,
 			focus: false,
+			userEditing : false,
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleFocus = this.handleFocus.bind(this)
@@ -25,14 +26,14 @@ export default class Input extends React.Component{
 		}
 		if (this.input.type === `checkbox`) {
 			if (this.input.checked) {
-				this.setState({ value: this.input.value })
+				this.setState({ value: this.input.value, userEditing: true })
 			}
 			else {
-				this.setState({ value: `` })
+				this.setState({ value: ``, userEditing: true })
 			}
 		}
 		else {
-			this.setState({ value: this.input.value })
+			this.setState({ value: this.input.value, userEditing: true })
 		}
 	}
 	handleFocus(e) {
@@ -82,6 +83,7 @@ export default class Input extends React.Component{
 			value,
 			focus,
 			error,
+			userEditing,
 		} = this.state
 		const {
 			label,
@@ -116,7 +118,7 @@ export default class Input extends React.Component{
 						onChange={this.handleChange}
 						onFocus={this.handleFocus}
 						onBlur={this.validate}
-						value={defaultVal || value}
+						value={userEditing ? value : defaultVal || value}
 					>
 						{(inputProps) => (
 							<input
@@ -141,7 +143,7 @@ export default class Input extends React.Component{
 							this.input = input
 							inputRef(input)
 						}}
-						value={defaultVal || value}
+						value={userEditing ? value : defaultVal || value}
 						name={name}
 						className='zygoteInput'
 						onChange={this.handleChange}
