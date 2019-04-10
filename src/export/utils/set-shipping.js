@@ -6,7 +6,7 @@ import addTotalModification from './add-total-modification'
 export default function setShipping(selected, setId) {
 	const method = findShippingMethod(selected)
 	if(!method) return
-	if (setId){
+	if (setId && typeof shippingState.state.selected === `object`){
 		const selectedSet = shippingState.state.selected
 		selectedSet[setId] = selected
 		shippingState.setState({ selected: selectedSet })
