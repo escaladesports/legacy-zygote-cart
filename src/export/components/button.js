@@ -9,6 +9,7 @@ export default class Button extends React.Component {
 			secondary,
 			disabled,
 			dataTestid,
+			type = `button`,
 		} = this.props
 		return (
 			<button
@@ -18,7 +19,7 @@ export default class Button extends React.Component {
 				)}
 				onClick={onClick}
 				disabled={disabled}
-				type='button'
+				type={type}
 				data-testid={dataTestid}
 			>
 				{children}

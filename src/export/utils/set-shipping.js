@@ -16,7 +16,7 @@ export default function setShipping(selected, setId) {
 	}
 	totalsState.setState({ loading: true })
 	addTotalModification({
-		id: setId ? `shipping-${setId}` : `shipping`,
+		id: setId && typeof shippingState.state.selected === `object` ? `shipping-${setId}` : `shipping`,
 		description: method.description,
 		displayValue: method.displayValue,
 		value: method.value,

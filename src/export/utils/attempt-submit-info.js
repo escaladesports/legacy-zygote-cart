@@ -2,7 +2,9 @@ import validateAllInput from './validate-all-input'
 import errorCheck from './error-check'
 import nextStep from './next-step'
 
-export default function attemptSubmitInfo() {
+export default function attemptSubmitInfo(e) {
+	e.preventDefault()
+	console.log(e)
 	validateAllInput(`info`)
 	setTimeout(() => {
 		if (errorCheck()) return

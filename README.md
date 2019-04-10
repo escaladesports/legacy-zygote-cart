@@ -40,6 +40,7 @@ import { Cart, addToCart } from '@escaladesports/zygote-cart'
   image: `https://via.placeholder.com/75x75`,
   description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit...`,
   price: 29999,
+  shippable: true,
 })}>
   Add to Cart!
 </button>
