@@ -24,7 +24,7 @@ export default class ShippingMethods extends React.Component {
 						}
 						{!loading && !!methods.length && (
 							<div className='zygoteShipMethods'>
-								<h2>Shipping Options</h2>
+								<h2 className="zygoteSectionHeader">Shipping Options</h2>
 								{methods.length > 1 && methods[0].shippingMethods && <h3>{`This order will arrive in ${methods.length} separate shipments`}</h3>}
 								{methods[0].shippingMethods && (
 									methods.map(({

@@ -52,7 +52,7 @@ export default class CreditCard extends React.Component {
 						delete props.placeholder
 						return (
 							<Input
-								type='text'
+								type='number'
 								autoComplete={autoComplete}
 								label={label}
 								required={required}

@@ -40,7 +40,7 @@ export default class CartStep extends React.Component{
 								<div className='zygoteCardListWrapper'>
 									<CardList />
 								</div>
-								<Button onClick={nextStep}>Place Order</Button>
+								<Button onClick={nextStep}>Secure Checkout</Button>
 							</Fragment>
 						)}
 						<Button secondary onClick={closeCart}>Continue Shopping</Button>

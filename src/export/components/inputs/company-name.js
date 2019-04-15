@@ -4,7 +4,7 @@ import Toggle from './toggle'
 
 export default class CompanyNameInput extends React.Component {
 	static defaultProps = {
-		toggleText: `Add an Company Name`,
+		toggleText: `Company Name`,
 		label: `Company Name`,
 		autoComplete: `org`,
 		required: false,

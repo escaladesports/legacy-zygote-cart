@@ -4,7 +4,7 @@ import Toggle from './toggle'
 
 export default class Address2Input extends React.Component {
 	static defaultProps = {
-		toggleText: `Add an Apt/Suite #`,
+		toggleText: `Apt/Suite #`,
 		label: `Apt/Suite #`,
 		autoComplete: `address-line2`,
 		required: false,

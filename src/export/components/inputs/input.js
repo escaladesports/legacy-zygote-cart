@@ -21,19 +21,21 @@ export default class Input extends React.Component{
 		this.validate = this.validate.bind(this)
 	}
 	handleChange(e){
+		let userEditing = true
 		if(this.props.onChange){
 			this.props.onChange(e)
+			userEditing = false // The provided field edited the value so the rules are different
 		}
 		if (this.input.type === `checkbox`) {
 			if (this.input.checked) {
-				this.setState({ value: this.input.value, userEditing: true })
+				this.setState({ value: this.input.value, userEditing })
 			}
 			else {
-				this.setState({ value: ``, userEditing: true })
+				this.setState({ value: ``, userEditing })
 			}
 		}
 		else {
-			this.setState({ value: this.input.value, userEditing: true })
+			this.setState({ value: this.input.value, userEditing })
 		}
 	}
 	handleFocus(e) {
@@ -95,6 +97,7 @@ export default class Input extends React.Component{
 			checked,
 			value: defaultVal,
 		} = this.props
+		
 		return (
 			<label
 				className={classNames(

@@ -35,7 +35,7 @@ export default class ShippingMethodsList extends React.Component {
 								<div>{description}</div>
 								{addInfo && <div className='zygoteShippingAdditionalInfo'>{addInfo}</div>}
 							</div>
-							<div>{formatUsd(value)}</div>
+							<div>{(typeof value === `number` ? `+` : ``) + formatUsd(value)}</div>
 						</label>
 					</li>
 				)}

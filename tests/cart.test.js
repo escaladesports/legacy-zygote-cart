@@ -33,7 +33,7 @@ afterEach(cleanup)
 
 test(`Move to Details Step`, () => {
 	const { getByText, getByTestId } = addItemToCart()
-	fireEvent.click(getByText(/Place Order/i))
+	fireEvent.click(getByText(/Secure Checkout/i))
 	expect(getByTestId(`info-step`)).toBeVisible()
 	expect(getByTestId(`shipping-step`)).not.toBeVisible()
 })

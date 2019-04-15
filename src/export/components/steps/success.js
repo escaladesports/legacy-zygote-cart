@@ -22,7 +22,7 @@ export default class SuccessStep extends React.Component{
 						{!successHeader &&
 							<h1 className='zygoteSuccessHeader'>Order Received!</h1>
 						}
-						<h2>Detailed Order Receipt</h2>
+						<h2 className="zygoteSectionHeader">Detailed Order Receipt</h2>
 						<div className='zygoteSuccessMeta'>
 							{meta.orderNumber &&
 								<div>Order Number: {meta.orderNumber}</div>

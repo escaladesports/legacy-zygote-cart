@@ -21,7 +21,7 @@ export default class StepsHeader extends React.Component {
 							)}
 							onClick={step === `info` ? null : () => changeStep(`info`)}
 						>
-							Details
+							1. Details
 						</li>
 						{!skip.shipping && <li
 							role='button'
@@ -36,7 +36,7 @@ export default class StepsHeader extends React.Component {
 									: null
 							}
 						>
-							Shipping
+							2. Shipping
 						</li>}
 						<li
 							className={classNames(
@@ -44,7 +44,7 @@ export default class StepsHeader extends React.Component {
 								step === `payment` && `zygoteActiveStepLink`,
 							)}
 						>
-							Payment
+							{skip.shipping ? `2.` : `3.`} Payment
 						</li>
 					</ul>
 				)}
@@ -64,7 +64,7 @@ export default class StepsHeader extends React.Component {
 		'.zygoteStepLink': {
 			display: `inline-block`,
 			padding: 10,
-			width: 90,
+			width: 100,
 			borderBottom: `3px solid #C0BFBF`,
 			cursor: `default !important`,
 		},

@@ -21,7 +21,7 @@ export default class Cart extends React.Component {
 	render() {
 		return (
 			<Subscribe to={[openState, stepState, settingsState]}>
-				{({ open, init }, { step, processing, skip }, { header, shipping }) => (
+				{({ open, init }, { step, processing, skip }, { header, shipping, footer }) => (
 					<Fragment>
 						{init && (
 							<div
@@ -70,6 +70,9 @@ export default class Cart extends React.Component {
 									{!!processing &&
 										<Processing>{processing}</Processing>
 									}
+									{footer && (
+										<div className='zygoteFooter'>{footer}</div>
+									)}
 								</div>
 							</div>
 						)}

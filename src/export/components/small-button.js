@@ -24,15 +24,15 @@ export default class SmallButton extends React.Component {
 		'.zygoteSmBtn': {
 			display: `inline-block`,
 			position: `relative`,
-			width: 19,
-			height: 19,
+			width: 20,
+			height: 20,
 			borderRadius: `100%`,
 			textAlign: `center`,
 			fontWeight: `bold`,
 			fontSize: 22,
 			span: {
 				position: `absolute`,
-				marginTop: -1,
+				marginTop: -2,
 				top: `50%`,
 				left: `50%`,
 				transform: `translate(-50%, -50%)`,

@@ -126,7 +126,7 @@ export default class PaymentStep extends React.Component{
 									)}
 								</div>
 								<div className='zygotePaymentSection'>
-									<h2>Final Order Summary</h2>
+									<h2 className="zygoteSectionHeader">Final Order Summary</h2>
 									<ProductList editable={false} />
 									<Totals />
 								</div>

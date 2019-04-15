@@ -25,6 +25,7 @@ export default class EmailInput extends React.Component {
 		} = this.props
 		return (
 			<Input
+				type="number"
 				autoComplete={autoComplete}
 				label={label}
 				required={required}
