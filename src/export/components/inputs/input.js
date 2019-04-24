@@ -215,19 +215,21 @@ export default class Input extends React.Component{
 				height: `100%`,
 				borderRadius: `10px`,
 				animation: `pulse 1.3s`,
+				backgroundColor: `rgba(204, 44, 44, 0)`,
 			},
 		},
 		'@keyframes pulse': {
 			'0%': {
-				boxShadow: `0 0 0 0 #ff040066`,
-				background: `#ff040066`,
+				boxShadow: `0 0 0 0 rgba(255, 4, 0, 0.4)`,
+				backgroundColor: `rgba(255, 4, 0, 0.4)`,
 			},
 			'70%': {
-				boxShadow: `0 0 0 10px #cc2c2c00`,
-				background: `#cc2c2c00`,
+				boxShadow: `0 0 0 10px rgba(204, 44, 44, 0)`,
+				backgroundColor: `rgba(204, 44, 44, 0)`,
 			},
 			'100%': {
-				boxShadow: `0 0 0 0 #cc2c2c00`,
+				boxShadow: `0 0 0 0 rgba(204, 44, 44, 0)`,
+				backgroundColor: `rgba(204, 44, 44, 0)`,
 			},
 		},
 	})
