@@ -214,11 +214,11 @@ export default class Input extends React.Component{
 				position: `absolute`,
 				height: `100%`,
 				borderRadius: `10px`,
-				animation: `pulse 1.3s`,
+				animation: `zygote-pulse 1.3s`,
 				backgroundColor: `rgba(204, 44, 44, 0)`,
 			},
 		},
-		'@keyframes pulse': {
+		'@keyframes zygote-pulse': {
 			'0%': {
 				boxShadow: `0 0 0 0 rgba(255, 4, 0, 0.4)`,
 				backgroundColor: `rgba(255, 4, 0, 0.4)`,
