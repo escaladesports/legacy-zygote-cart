@@ -1,9 +1,21 @@
 import React from 'react'
+import { injectGlobal } from 'emotion'
 
 import Cart from './cart'
 import styles from '../styles'
 import settingsState from '../state/settings'
 import defaultStyles from '../styles/defaults'
+
+injectGlobal`
+	body.zygoteOpen {
+		overflow-y: hidden;
+	}
+	@media print {
+		body.zygoteOpen {
+			visibility: hidden;
+		}
+	}
+`
 
 export default class Zygote extends React.Component {
 	static defaultProps = {

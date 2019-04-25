@@ -152,6 +152,8 @@ export default class ProductItem extends React.Component{
 			right: 0,
 			fontSize: `2em`,
 			lineHeight: `16px`,
+			padding: 0,
+			height: `20px`,
 			fontWeight: 200,
 			cursor: `pointer`,
 			background: `transparent`,

@@ -130,8 +130,9 @@ export default class Cart extends React.Component {
 			top: 25,
 			right: 25,
 			fontSize: `3em`,
-			lineHeight: `22px`,
+			lineHeight: `0`,
 			cursor: `pointer`,
+			height: `30px`,
 			fontWeight: 200,
 			':hover, :focus': {
 				opacity: .6,
