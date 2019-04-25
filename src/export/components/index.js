@@ -7,7 +7,7 @@ import settingsState from '../state/settings'
 import defaultStyles from '../styles/defaults'
 
 injectGlobal`
-	body.zygoteOpen {
+	body.zygoteOpen, body > div, body > section, body > header, body > main, body > footer {
 		overflow-y: hidden;
 	}
 	@media print {

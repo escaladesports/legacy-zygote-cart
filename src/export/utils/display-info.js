@@ -1,6 +1,6 @@
 import messagesState from '../state/status-messages'
 
-export default function displayError(msg){
+export default function displayInfo(msg){
 	if(!msg) return
 	let info = [...messagesState.state.info]
 	if (Array.isArray(msg)) {
