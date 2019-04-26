@@ -3,6 +3,7 @@ import productsState from '../state/products'
 import decreaseQuantity from './decrease-quantity'
 import removeFromCart from './remove-from-cart'
 import displayInfo from './display-info'
+import changeStep from './change-step'
 
 export default function addQuantityModification(newModification) {
 	/*
@@ -14,11 +15,12 @@ export default function addQuantityModification(newModification) {
 	if(!newModification) return
 	const remove = [...productsState.state.products]
 	if (newModification === `all`) {
+		messagesState.setState({ errors: [] })
 		remove.forEach(({ id, name }) => {
 			removeFromCart(id)
 			displayInfo(`"${name.replace(/&quot;/g,`"`)}" is no longer available for purchase and has been removed from your cart.`)
-			messagesState.setState({ errors: [] })
 		})
+		changeStep(`cart`)
 	}
 	else {
 		remove.forEach(({ id, quantity, name }) => {
