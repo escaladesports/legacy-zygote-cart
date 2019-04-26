@@ -9,8 +9,7 @@ export default function removeFromCart(id){
 	let removedProduct
 	for (let i = products.length; i--;) {
 		if (products[i].id === id) {
-			removedProduct = products[i]
-			products.splice(i, 1)
+			removedProduct = products.splice(i, 1)
 			break
 		}
 	}
@@ -29,10 +28,11 @@ export default function removeFromCart(id){
 		stepState.setState({ skip })
 	}
 	calculateTotals()
+	console.log(removedProduct)
 	if (removedProduct){
 		if (products.length == 0) {
 			changeStep(`cart`)
 		}
-		triggerEvent(`removeProduct`, removedProduct)
+		triggerEvent(`removeProduct`, removedProduct.map(prod => prod.id))
 	}
 }
