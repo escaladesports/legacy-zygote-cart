@@ -89,7 +89,7 @@ export default async function fetchWebhook(path, body) {
 			addTotalModification(modifications)
 		}
 		if (quantityModifications) {
-			addQuantityModification(quantityModifications)
+			response = {...response, ...addQuantityModification(quantityModifications)}
 		}
 		if (typeof meta === `object`) {
 			metaState.setState({ meta })

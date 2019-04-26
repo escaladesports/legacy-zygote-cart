@@ -29,6 +29,7 @@ export default function removeFromCart(id){
 	}
 	calculateTotals()
 	console.log(removedProduct)
+	console.log(products)
 	if (removedProduct){
 		if (products.length == 0) {
 			changeStep(`cart`)

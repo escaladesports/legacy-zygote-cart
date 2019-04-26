@@ -10,13 +10,14 @@ export default function addQuantityModification(newModification) {
 		available: `5`,
 	}
 	*/
-	if(!newModification) return
+	if(!newModification) return {}
 	const remove = [...productsState.state.products]
-	if (newModification == `all`) {
+	if (typeof newModification === `string` && newModification === `all`) {
 		remove.forEach(({ id, name }) => {
 			removeFromCart(id)
 			displayInfo(`"${name.replace(/&quot;/g,`"`)}" is no longer available for purchase and has been removed from your cart.`)
 		})
+		return { returnTo: `cart` }
 	}
 	else {
 		remove.forEach(({ id, quantity, name }) => {
@@ -32,6 +33,7 @@ export default function addQuantityModification(newModification) {
 			}
 		})
 	}
+	return {}
 }
 
 function search(key, arr){
