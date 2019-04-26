@@ -15,7 +15,7 @@ export default function addQuantityModification(newModification) {
 	if (typeof newModification === `string` && newModification === `all`) {
 		remove.forEach(({ id, name }) => {
 			removeFromCart(id)
-			displayError(`"${name.replace(/&quot;/g,`"`)}" is no longer available for purchase and has been removed from your cart.`)
+			displayError(`"${name.replace(/&quot;/g,`"`).replace(/&#039;/g,`'`)}" is no longer available for purchase and has been removed from your cart.`)
 		})
 		return { returnTo: `cart` }
 	}
@@ -25,7 +25,7 @@ export default function addQuantityModification(newModification) {
 			if (mod) {
 				if (mod.available == 0) {
 					removeFromCart(id)
-					displayError(`"${name.replace(/&quot;/g,`"`)}" is no longer available for purchase and has been removed from your cart.`)
+					displayError(`"${name.replace(/&quot;/g,`"`).replace(/&#039;/g,`'`)}" is no longer available for purchase and has been removed from your cart.`)
 				}
 				else if (mod.available < quantity) {
 					decreaseQuantity(id, quantity - mod.available, true)

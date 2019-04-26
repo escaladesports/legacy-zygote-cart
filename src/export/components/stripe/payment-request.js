@@ -57,7 +57,7 @@ export default class PaymentRequest extends React.Component {
 		const displayItems = []
 		productsState.state.products.forEach(({ name, quantity, price }) => {
 			displayItems.push({
-				label: `${name}${quantity > 1 ? ` (x${quantity})` : ``}`,
+				label: `${name.replace(/&quot;/g,`"`).replace(/&#039;/g,`'`)}${quantity > 1 ? ` (x${quantity})` : ``}`,
 				amount: price * quantity,
 			})
 		})

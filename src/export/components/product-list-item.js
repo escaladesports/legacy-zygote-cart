@@ -29,7 +29,7 @@ export default class ProductItem extends React.Component{
 					<img src={image} />
 				</div>
 				<div className='zygoteProdTitle'>
-					{name.replace(/&quot;/g,`"`)}
+					{name.replace(/&quot;/g,`"`).replace(/&#039;/g,`'`)}
 				</div>
 				<div className='zygoteProdDesc'>
 					{description}
