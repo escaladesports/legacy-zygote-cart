@@ -30,6 +30,9 @@ export default class CardList extends React.Component {
 	static styles = () => ({
 		'.zygoteCardList': {
 			marginBottom: 20,
+			display: `flex`,
+			justifyContent: `center`,
+			alignItems: `flex-start`,
 			div: {
 				width: 33,
 				display: `inline-block`,

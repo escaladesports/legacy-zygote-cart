@@ -69,8 +69,6 @@ export default class SecurityIcon extends React.Component {
 		)
 	}
 	static styles = () => ({
-		'.zygoteSecurityIcon': {
-			transform: `translateY(30%)`,
-		},
+		'.zygoteSecurityIcon': { },
 	})
 }

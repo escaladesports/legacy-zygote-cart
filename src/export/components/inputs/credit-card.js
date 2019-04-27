@@ -79,6 +79,7 @@ export default class CreditCard extends React.Component {
 			top: 3,
 			right: 2,
 			width: 49,
+			height: 35,
 		},
 	})
 }
