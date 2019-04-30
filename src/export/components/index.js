@@ -7,8 +7,13 @@ import settingsState from '../state/settings'
 import defaultStyles from '../styles/defaults'
 
 injectGlobal`
-	body.zygoteOpen, body > div, body > section, body > header, body > main, body > footer {
-		overflow-y: hidden;
+	body.zygoteOpen {
+		overflow: hidden;
+	}
+	@media screen (max-with: 500px) {
+		body.zygoteOpen {
+			position: fixed;
+		}
 	}
 	@media print {
 		body.zygoteOpen {
