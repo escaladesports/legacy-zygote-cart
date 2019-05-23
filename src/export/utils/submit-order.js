@@ -30,12 +30,12 @@ export default async function submitOrder({ type, token }) {
 	const body = getFormValues()
 	body.billingStateAbbr = body.sameBilling ? table[body.shippingState] : table[body.billingState]
 
-	if(type === `paypal`){
+	if (type === `paypal`) {
 		body.paymentType = `paypal`
 		body.payment = token
 	}
 	else if (settingsState.state.stripeApiKey && window.zygoteStripeInstance) {
-		if(token && type === `stripe`){
+		if (token && type === `stripe`) {
 			body.payment = token
 		}
 		else {
@@ -82,16 +82,17 @@ export default async function submitOrder({ type, token }) {
 	try {
 		data = await fetch(settingsState.state.orderWebhook, body)
 	}
-	catch(err){
+	catch (err) {
 		data = {}
 		console.error(err)
 	}
 
+	console.log(data)
 	if (!data.success) {
-		if (!messagesState.state.errors.length){
+		if (!messagesState.state.errors.length) {
 			displayError(settingsState.state.orderSubmitError)
 		}
-		if(data.returnTo){
+		if (data.returnTo) {
 			stepState.setState({ step: data.returnTo })
 		}
 		else {
@@ -100,9 +101,9 @@ export default async function submitOrder({ type, token }) {
 	}
 	else {
 		successState.setState({
-			totals: {...totalsState.state},
+			totals: { ...totalsState.state },
 			products: [...productsState.state.products],
-			meta: {...metaState.state.meta},
+			meta: { ...metaState.state.meta },
 		})
 		stepState.setState({ step: `success`, vals: {} })
 		totalsState.reset()
@@ -114,7 +115,7 @@ export default async function submitOrder({ type, token }) {
 	stepState.setState({ processing: false })
 }
 
-function timeout(n = 1){
+function timeout(n = 1) {
 	return new Promise((resolve) => {
 		setTimeout(resolve, n)
 	})
