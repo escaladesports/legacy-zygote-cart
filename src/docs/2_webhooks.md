@@ -93,7 +93,10 @@ There are two URLs that can be passed as properties to send the cart information
   }, {
     "id": "TESTB",
     "available": "2"
-  }]
+	}],
+	"messages": {
+		"info": "Custom message here"
+	}
 }
 ```
 
@@ -102,7 +105,9 @@ There are two URLs that can be passed as properties to send the cart information
 ```json
 {
   "success": false,
-  "error": "Your shipping address is incorrect.",
+  "messages": {
+		"error": "Your shipping address is incorrect."
+		},
   "step": "info"
 }
 ```

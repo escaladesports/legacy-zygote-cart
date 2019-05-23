@@ -9,7 +9,7 @@ import setShipping from './set-shipping'
 import triggerEvent from './trigger-event'
 
 export default async function fetchWebhook(path, body) {
-	if(body.event){
+	if (body.event) {
 		triggerEvent(`${body.event}Attempt`, body)
 	}
 	let response, info, preFetchData
@@ -24,8 +24,8 @@ export default async function fetchWebhook(path, body) {
 
 		preFetchData = info
 		for (let i = 0; i < settingsState.state.plugins.length; i++) {
-			preFetchData = await (body.event == `info` && typeof settingsState.state.plugins[i].preInfo === `function` ? settingsState.state.plugins[i].preInfo({preFetchData, info}) : preFetchData)
-			preFetchData = await (body.event == `order` && typeof settingsState.state.plugins[i].preOrder === `function` ? settingsState.state.plugins[i].preOrder({preFetchData, info}) : preFetchData)
+			preFetchData = await (body.event == `info` && typeof settingsState.state.plugins[i].preInfo === `function` ? settingsState.state.plugins[i].preInfo({ preFetchData, info }) : preFetchData)
+			preFetchData = await (body.event == `order` && typeof settingsState.state.plugins[i].preOrder === `function` ? settingsState.state.plugins[i].preOrder({ preFetchData, info }) : preFetchData)
 		}
 
 		if (preFetchData.billingCardNumber) {
@@ -46,15 +46,15 @@ export default async function fetchWebhook(path, body) {
 			console.warn(`No 'path' was provided for event '${body.event}'. Please fix this, unless the call is handled via a plugin.`)
 			response = preFetchData
 		}
-		
+
 		for (let i = 0; i < settingsState.state.plugins.length; i++) {
-			response = await (body.event == `info` && typeof settingsState.state.plugins[i].coupons === `function` ? settingsState.state.plugins[i].coupons({response, info, preFetchData}) : response)
-			response = await (body.event == `info` && typeof settingsState.state.plugins[i].postInfo === `function` ? settingsState.state.plugins[i].postInfo({response, info, preFetchData}) : response)
-			response = await (body.event == `order` && typeof settingsState.state.plugins[i].postOrder === `function` ? settingsState.state.plugins[i].postOrder({response, info, preFetchData}) : response)
+			response = await (body.event == `info` && typeof settingsState.state.plugins[i].coupons === `function` ? settingsState.state.plugins[i].coupons({ response, info, preFetchData }) : response)
+			response = await (body.event == `info` && typeof settingsState.state.plugins[i].postInfo === `function` ? settingsState.state.plugins[i].postInfo({ response, info, preFetchData }) : response)
+			response = await (body.event == `order` && typeof settingsState.state.plugins[i].postOrder === `function` ? settingsState.state.plugins[i].postOrder({ response, info, preFetchData }) : response)
 		}
 		console.log(`Received from API:`, response)
 	}
-	catch(err){
+	catch (err) {
 		console.error(err)
 		triggerEvent(`error`, err)
 		response = {}
@@ -89,7 +89,7 @@ export default async function fetchWebhook(path, body) {
 			addTotalModification(modifications)
 		}
 		if (quantityModifications) {
-			response = {...response, ...addQuantityModification(quantityModifications)}
+			response = { ...response, ...addQuantityModification(quantityModifications) }
 		}
 		if (typeof meta === `object`) {
 			metaState.setState({ meta })
@@ -112,7 +112,7 @@ export default async function fetchWebhook(path, body) {
 		}
 		else {
 			for (let i = 0; i < settingsState.state.plugins.length; i++) {
-				const ship = await (typeof settingsState.state.plugins[i].getShippingMethods === `function` ? settingsState.state.plugins[i].getShippingMethods({response, info, preFetchData}) : {})
+				const ship = await (typeof settingsState.state.plugins[i].getShippingMethods === `function` ? settingsState.state.plugins[i].getShippingMethods({ response, info, preFetchData }) : {})
 				if (ship && ship.methods && ship.methods.length) {
 					shippingState.setState({
 						methods: ship.methods,
@@ -128,7 +128,7 @@ export default async function fetchWebhook(path, body) {
 			stepState.setState({ step })
 		}
 	}
-	catch(err){
+	catch (err) {
 		console.error(err)
 	}
 
