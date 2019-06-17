@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
 
-import { stepState, shippingState, settingsState} from '../../state'
+import { stepState, shippingState, settingsState } from '../../state'
 import StepsHeader from '../steps-header'
 import Header from '../header'
 import CardList from '../card-list'
@@ -20,14 +20,14 @@ import State from '../inputs/state'
 import Zip from '../inputs/zip'
 // import Paypal from '../paypal'
 import previousStep from '../../utils/previous-step'
-
-export default class PaymentStep extends React.Component{
-	constructor(props){
+import StandardPayment from '../standard-payment'
+export default class PaymentStep extends React.Component {
+	constructor(props) {
 		super(props)
 		this.state = { sameBilling: true }
 		this.toggleBilling = this.toggleBilling.bind(this)
 	}
-	toggleBilling(){
+	toggleBilling() {
 		this.setState({ sameBilling: !this.state.sameBilling })
 	}
 	render() {
@@ -83,6 +83,11 @@ export default class PaymentStep extends React.Component{
 										<StripePayment />
 									)}
 
+									{plugins.findIndex(plugin => plugin.hasOwnProperty(`Payment`)) === -1
+											&& <StandardPayment />}
+
+
+
 									<label className='zygotePaymentSame'>
 										<Checkbox
 											name='sameBilling'
@@ -135,7 +140,7 @@ export default class PaymentStep extends React.Component{
 								</div>
 								<div className='zygoteInfoLink'>
 									<Button className='zygoteBtn' secondary={true} onClick={previousStep}>
-										Previous Step
+											Previous Step
 									</Button>
 								</div>
 								{!!paymentFooter && (
@@ -236,8 +241,8 @@ export default class PaymentStep extends React.Component{
 	})
 }
 
-function value(name){
-	if (inputs[name] && inputs[name].state && inputs[name].state.value){
+function value(name) {
+	if (inputs[name] && inputs[name].state && inputs[name].state.value) {
 		return inputs[name].state.value
 	}
 }
