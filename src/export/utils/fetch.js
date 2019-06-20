@@ -32,7 +32,7 @@ export default async function fetchWebhook(path, body) {
 			preFetchData.billingCardNumber = preFetchData.billingCardNumber.replace(/\W+/g, ``)
 		}
 
-		const jsonBody = JSON.stringify(preFetchData, null, 2)
+		const jsonBody = JSON.stringify(preFetchData)
 
 		console.log(`Sending to API:`, jsonBody)
 		if (path) {
