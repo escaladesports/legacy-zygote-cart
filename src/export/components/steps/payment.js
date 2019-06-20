@@ -79,12 +79,14 @@ export default class PaymentStep extends React.Component {
 										}
 									})}
 
+									{(plugins.findIndex(plugin => plugin.hasOwnProperty(`Payment`)) === -1 || !plugins)
+											&& <StandardPayment />}
+
 									{!altPayment && !!stripeApiKey && (
 										<StripePayment />
 									)}
 
-									{plugins.findIndex(plugin => plugin.hasOwnProperty(`Payment`)) === -1
-											&& <StandardPayment />}
+
 
 
 
