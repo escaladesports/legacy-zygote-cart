@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
 
-import { stepState, shippingState, settingsState } from '../../state'
+import { stepState, shippingState, settingsState, messagesState } from '../../state'
 import StepsHeader from '../steps-header'
 import Header from '../header'
 import CardList from '../card-list'
@@ -33,7 +33,7 @@ export default class PaymentStep extends React.Component {
 	render() {
 		let altPayment = false
 		return (
-			<Subscribe to={[stepState, shippingState, settingsState]}>
+			<Subscribe to={[stepState, shippingState, settingsState, messagesState]}>
 				{({
 					step,
 				}, {
@@ -44,6 +44,8 @@ export default class PaymentStep extends React.Component {
 					stripeApiKey,
 					plugins,
 					// paypalAppId,
+				}, {
+					errors,
 				}) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
@@ -138,7 +140,18 @@ export default class PaymentStep extends React.Component {
 									<Totals />
 								</div>
 								<div className='zygotePaymentBtn'>
-									<Button onClick={submitOrder} disabled={loading ? true : false} dataTestid="submit-order-button">Place Order</Button>
+									<Button
+										onClick={() => {
+											if ((errors && errors.length) || loading){
+												return
+											}
+											submitOrder()
+										}}
+										disabled={((errors && errors.length) || loading) ? true : false}
+										dataTestid="submit-order-button"
+									>
+											Place Order
+									</Button>
 								</div>
 								<div className='zygoteInfoLink'>
 									<Button className='zygoteBtn' secondary={true} onClick={previousStep}>
