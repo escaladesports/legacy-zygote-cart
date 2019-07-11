@@ -17,6 +17,7 @@ export default async function submitInfo() {
 		const vals = getFormValues()
 		vals.event = `info`
 		vals.shippingStateAbbr = table[vals.shippingState]
+		console.log(`submitInfo`, vals)
 
 		let data
 		try {
