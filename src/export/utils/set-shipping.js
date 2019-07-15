@@ -54,7 +54,7 @@ export default function setShipping(selected, setId) {
 
 	settingsState.state.plugins.forEach(async plugin => {
 		if (typeof plugin.calculateTax === `function` && settingsState.state.tax) {
-			calcTax()
+			await calcTax()
 		}
 	})
 	totalsState.setState({ loading: false })
