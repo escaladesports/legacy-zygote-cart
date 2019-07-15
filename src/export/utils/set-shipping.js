@@ -34,6 +34,7 @@ export default function setShipping(selected, setId) {
 	settingsState.state.plugins.forEach(plugin => {
 		console.log(`PLUGIN FROM SET-SHIPPING`,plugin)
 		if (typeof plugin.calculateTax === `function` && settingsState.state.tax) {
+			console.log(`calculate tax called from inside set shipping`)
 			plugin.calculateTax({
 				shippingAddress: shippingState.state.address,
 				subtotal: totalsState.state.subtotal,
