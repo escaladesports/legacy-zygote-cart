@@ -36,6 +36,7 @@ export default async function fetchWebhook(path, body) {
 
 		console.log(`Sending to API:`, jsonBody)
 		if (path) {
+			console.log(`Information sent to ${path}`)
 			response = await fetch(path, {
 				method: `post`,
 				body: jsonBody,
