@@ -34,17 +34,19 @@ export default function setShipping(selected, setId) {
 	settingsState.state.plugins.forEach(plugin => {
 		if (typeof plugin.calculateTax === `function` && settingsState.state.tax) {
 			console.log(`calculate tax called from inside set shipping`, plugin)
-			const taxObj = {
+			console.log(`Tax Obj`, JSON.stringify({
 				shippingAddress: shippingState.state.address,
 				subtotal: totalsState.state.subtotal,
 				shipping: totalShippingCost.value ? totalShippingCost.value : totalShippingCost,
 				discount,
-			}
-
-			console.log(`Tax Obj`, taxObj)
-			plugin.calculateTax(taxObj)
+			}, null, 2))
+			plugin.calculateTax({
+				shippingAddress: shippingState.state.address,
+				subtotal: totalsState.state.subtotal,
+				shipping: totalShippingCost.value ? totalShippingCost.value : totalShippingCost,
+				discount,
+			})
 				.then(tax => {
-					console.log(`Tax Response`, tax)
 					if (tax.id) addTotalModification(tax)
 				})
 				.catch(error => console.log(`Error applying taxes to new shipping method`, error))
