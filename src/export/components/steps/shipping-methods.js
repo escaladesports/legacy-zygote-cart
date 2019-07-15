@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Subscribe } from 'statable'
 
-import { stepState, shippingState, settingsState } from '../../state'
+import { stepState, shippingState, settingsState, statusMessagesState } from '../../state'
 import StepsHeader from '../steps-header'
 import Button from '../button'
 import ProductList from '../product-list'
@@ -13,8 +13,8 @@ import previousStep from '../../utils/previous-step'
 export default class ShippingStep extends React.Component{
 	render() {
 		return (
-			<Subscribe to={[stepState, shippingState, settingsState]}>
-				{({ step }, { loading }, { paymentHeader, paymentFooter, plugins }) => (
+			<Subscribe to={[stepState, shippingState, settingsState, statusMessagesState]}>
+				{({ step }, { loading }, { paymentHeader, paymentFooter, plugins }, { errors }) => (
 					<Fragment>
 						{(step === `info` || step === `shipping` || step === `payment`) && (
 							<form data-form='shipping'>
@@ -37,8 +37,8 @@ export default class ShippingStep extends React.Component{
 								})}
 								<div className='zygoteShippingBtn'>
 									<Button
-										onClick={loading ? null : nextStep}
-										disabled={loading ? true : false}
+										onClick={((errors && errors.length) || loading) ? null : nextStep}
+										disabled={((errors && errors.length) || loading) ? true : false}
 									>
 										Next Step
 									</Button>

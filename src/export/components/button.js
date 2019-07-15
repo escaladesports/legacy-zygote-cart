@@ -47,6 +47,7 @@ export default class Button extends React.Component {
 				backgroundColor: borderColor,
 				cursor: `default`,
 				color: backgroundColor,
+				opacity: .7,
 				':hover': {
 					opacity: 1,
 				},
