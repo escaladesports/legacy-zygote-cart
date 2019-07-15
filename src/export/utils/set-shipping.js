@@ -31,25 +31,30 @@ export default function setShipping(selected, setId) {
 		discount += mod.value
 	})
 
-	settingsState.state.plugins.forEach(plugin => {
-		if (typeof plugin.calculateTax === `function` && settingsState.state.tax) {
-			console.log(`calculate tax called from inside set shipping`, plugin)
-			console.log(`Tax Obj`, JSON.stringify({
-				shippingAddress: shippingState.state.address,
-				subtotal: totalsState.state.subtotal,
-				shipping: totalShippingCost.value ? totalShippingCost.value : totalShippingCost,
-				discount,
-			}, null, 2))
-			plugin.calculateTax({
-				shippingAddress: shippingState.state.address,
-				subtotal: totalsState.state.subtotal,
-				shipping: totalShippingCost.value ? totalShippingCost.value : totalShippingCost,
-				discount,
-			})
-				.then(tax => {
-					if (tax.id) addTotalModification(tax)
+	const calcTax = async plugin => {
+		const	subToShipState = async (shipState) => {
+			try {
+				console.log(`Inside Subscribe ship state`, shipState)
+				const tax = await plugin.calculateTax({
+					shippingAddress: shipState.address,
+					subtotal: totalsState.state.subtotal,
+					shipping: totalShippingCost.value ? totalShippingCost.value : totalShippingCost,
+					discount,
 				})
-				.catch(error => console.log(`Error applying taxes to new shipping method`, error))
+
+				if (tax.id) addTotalModification(tax)
+			} catch(e){
+				console.log(`Error applying taxes to new shipping method`, e)
+			}
+		}
+
+		await shippingState.subscribe(subToShipState)
+		shippingState.unsubscribe(subToShipState)
+	}
+
+	settingsState.state.plugins.forEach(async plugin => {
+		if (typeof plugin.calculateTax === `function` && settingsState.state.tax) {
+			calcTax()
 		}
 	})
 	totalsState.setState({ loading: false })
