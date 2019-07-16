@@ -18,6 +18,9 @@ export default async function submitInfo() {
 		vals.event = `info`
 		vals.shippingStateAbbr = table[vals.shippingState]
 
+		shippingState.setState({address: vals}) // ==> This will probably fix the error revert the subscribing part
+
+
 		let data
 		try {
 			data = await fetch(infoWebhook, vals)
@@ -40,6 +43,6 @@ export default async function submitInfo() {
 		}
 
 		totalsState.setState({ loading: false })
-		shippingState.setState({ loading: false, address: vals })
+		shippingState.setState({ loading: false /* address: vals */ })
 	}
 }
