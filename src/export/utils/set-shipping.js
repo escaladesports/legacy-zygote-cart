@@ -33,6 +33,7 @@ export default function setShipping(selected, setId) {
 
 	settingsState.state.plugins.forEach(plugin => {
 		if (typeof plugin.calculateTax === `function` && settingsState.state.tax) {
+			console.log(`Applying taxes to new shipping method`)
 			plugin.calculateTax({
 				shippingAddress: shippingState.state.address,
 				subtotal: totalsState.state.subtotal,
