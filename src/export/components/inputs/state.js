@@ -27,14 +27,17 @@ export default class StateInput extends React.Component {
 				step={step}
 				value={value}
 			>
-				{states.map((state, index) => (
-					<option
-						key={`state${index}`}
-						value={state}
-					>
-						{state}
-					</option>
-				))}
+				{states.map((state, index) => {
+					if(state === `Hawaii` || state === `Alaska`) return null
+					return (
+						<option
+							key={`state${index}`}
+							value={state}
+						>
+							{state}
+						</option>
+					)
+				})}
 			</Select>
 		)
 	}
