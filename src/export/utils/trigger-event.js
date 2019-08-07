@@ -21,7 +21,7 @@ export default function eventTrigger(type, data){
 			ga(`require`, `ecommerce`)
 			ga(`ecommerce:addTransaction`, {
 				id: meta.orderId || `${Date.now()}`,
-				revenue: total / 10,
+				revenue: (total / 10).toFixed(2),
 				shipping: getValue(`shipping`),
 				tax: getValue(`tax`),
 			})
