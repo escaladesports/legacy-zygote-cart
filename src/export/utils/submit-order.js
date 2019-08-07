@@ -15,7 +15,8 @@ import metaState from '../state/meta'
 import shippingState from '../state/shipping'
 import successState from '../state/success'
 
-export default async function submitOrder({ type, token }) {
+export default async function submitOrder(opt = {}) {
+	const { type, token } = opt
 	clearMessages()
 	if (!token) {
 		validateAllInput()
