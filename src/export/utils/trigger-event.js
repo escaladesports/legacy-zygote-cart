@@ -9,27 +9,32 @@ export default function eventTrigger(type, data){
 	settingsState.state[`on${capType}`](data)
 	const { ga, dataLayer } = global
 	if (settingsState.state.googleAnalytics && ga){
-		ga(`send`, {
-			hitType: `event`,
-			eventCategory: `Zygote`,
-			eventAction: type,
-		})
-		if(type === `order`){
-			const { products } = productsState.state
-			const { total } = totalsState.state
-			const { meta } = metaState.state
-			ga(`require`, `ecommerce`)
-			ga(`ecommerce:addTransaction`, {
-				id: meta.orderId || `${Date.now()}`,
-				revenue: (total / 10).toFixed(2),
-				shipping: getValue(`shipping`),
-				tax: getValue(`tax`),
+		try {
+			ga(`send`, {
+				hitType: `event`,
+				eventCategory: `Zygote`,
+				eventAction: type,
 			})
-			products.forEach(prod => {
-				ga(`ecommerce:addItem`, prod)
-			})
-			ga(`ecommerce:send`)
-			ga(`ecommerce:clear`)
+			if (type === `order`) {
+				const { products } = productsState.state
+				const { total } = totalsState.state
+				const { meta } = metaState.state
+				ga(`require`, `ecommerce`)
+				ga(`ecommerce:addTransaction`, {
+					id: meta.orderId || `${Date.now()}`,
+					revenue: (total / 10).toFixed(2),
+					shipping: getValue(`shipping`),
+					tax: getValue(`tax`),
+				})
+				products.forEach(prod => {
+					ga(`ecommerce:addItem`, prod)
+				})
+				ga(`ecommerce:send`)
+				ga(`ecommerce:clear`)
+			}
+		}
+		catch(err){
+			console.error(err)
 		}
 	}
 	if (settingsState.state.googleTagManager && dataLayer){
