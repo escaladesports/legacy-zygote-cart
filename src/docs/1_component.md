@@ -61,6 +61,8 @@ If you need to run client side code when something happens, Zygote comes with a 
 
 By default, Zygote will send cart events to Google Analytics if Google Analytics is found on the site. It will also send e-commerce order information. To disable this feature, set the `googleAnalytics` property to `false`.
 
+Note that this is for use with [analytics.js](https://developers.google.com/analytics/devguides/collection/analyticsjs/). For Google Analytics tracking via Google Tag Manager ([gtm.js](https://developers.google.com/tag-manager/quickstart)), see below.
+
 ## Google Tag Manager Integration
 
 ```javascript
@@ -78,6 +80,9 @@ By default, Zygote will send cart data and events to Google Tag Manager if GTM i
 - `zygoteInfo`
 - `zygoteAttemptOrder`
 - `zygoteOrder`
+	- Sends all order fields
+- `zygoteOrderGA`
+	- Sends fields for [Google Analytics e-commerce transactions](https://support.google.com/tagmanager/answer/6107169?hl=en)
 
 To disable this, set the `googleTagManager` property to `false`.
 
