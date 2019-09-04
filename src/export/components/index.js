@@ -1,5 +1,6 @@
 import React from 'react'
 import { injectGlobal } from 'emotion'
+import { css } from 'emotion'
 
 import Cart from './cart'
 import styles from '../styles'
@@ -34,8 +35,9 @@ export default class Zygote extends React.Component {
 		settingsState.setState(props)
 	}
 	render(){
+		const { wrapperStyles } = this.props
 		return (
-			<div className={this.state.styles ? styles(this.state.styles) : ``}>
+			<div className={`zygoteWrapper ${wrapperStyles ? css(wrapperStyles) : ``} ${this.state.styles ? styles(this.state.styles) : ``}`}>
 				<Cart />
 			</div>
 		)
