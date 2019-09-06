@@ -45,6 +45,9 @@ class ZygoteInject {
 		this.inject()
 		document.addEventListener(`click`, initZygoteButtons)
 	}
+	componentDidMount() {
+		console.log(`Zygote Mounted`)
+	}
 	componentWillUnmount() {
 		document.removeEventListener(`click`, initZygoteButtons)
 	}
