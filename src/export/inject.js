@@ -9,6 +9,7 @@ import Cart from './components'
 
 
 function initZygoteButtons(e) {
+	console.log(`Event: `, e)
 	const dataId = e.target.dataset.id
 	const dataPrice = e.target.dataset.price
 	const dataToggle = e.target.dataset.zygoteToggle
