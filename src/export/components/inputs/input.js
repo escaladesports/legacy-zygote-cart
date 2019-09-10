@@ -1,5 +1,5 @@
 import React from 'react'
-import InputMask from 'react-input-mask'
+import InputMask from '../react-input-mask'
 import classNames from 'classnames'
 
 import registerInput from '../../utils/register-input'
@@ -50,6 +50,9 @@ export default class Input extends React.Component{
 		}
 		this.validate()
 	}
+	handleMouseDown(e){
+		console.log(e)
+	}
 	validate(focus = false){
 		const { value } = this.input
 
@@ -97,7 +100,7 @@ export default class Input extends React.Component{
 			checked,
 			value: defaultVal,
 		} = this.props
-		
+
 		return (
 			<label
 				className={classNames(
@@ -123,19 +126,21 @@ export default class Input extends React.Component{
 						onBlur={this.validate}
 						value={userEditing ? value : defaultVal || value}
 					>
-						{(inputProps) => (
-							<input
-								type={type || `text`}
-								autoComplete={autoComplete}
-								ref={input => {
-									this.input = input
-									inputRef(input)
-								}}
-								className='zygoteInput'
-								name={name}
-								{...inputProps}
-							/>
-						)}
+						{(inputProps) => {
+							return (
+								<input
+									type={type || `text`}
+									autoComplete={autoComplete}
+									ref={input => {
+										this.input = input
+										inputRef(input)
+									}}
+									className='zygoteInput'
+									name={name}
+									{...inputProps}
+								/>
+							)
+						}}
 					</InputMask>
 				)}
 				{!mask && (
