@@ -66,6 +66,7 @@ export default class InfoStep extends React.Component{
 										step='info'
 										value={vals.infoEmail ? vals.infoEmail : ``}
 									/>
+
 									<PhoneInput
 										name='infoPhone'
 										autoComplete='shipping tel'
