@@ -59,11 +59,11 @@
 <a href="https://travis-ci.org/escaladesports/zygote-cart"><img src="https://travis-ci.org/escaladesports/zygote-cart.svg?branch=master" alt="Build Status"></a>
 <img src="https://img.shields.io/npm/v/@escaladesports/zygote-cart.svg" alt="npm"></p>
 <h2 id="usage">Usage</h2>
-<pre class="highlight jsx"><code>import { Cart, openCart, addToCart } from '@escaladesports/zygote-cart';
+<pre class="highlight jsx"><code><span class="hljs-keyword">import</span> { Cart, openCart, addToCart } <span class="hljs-keyword">from</span> <span class="hljs-string">'@escaladesports/zygote-cart'</span>;
 
 
 
-&lt;button onClick={() =&gt; addToCart({
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> addToCart({
   id: `TESTID`,
   name: `Billiard Table`,
   image: `https://via.placeholder.com/75x75`,
@@ -73,7 +73,7 @@
   quantity: 1,
 })}&gt;
   Add to Cart!
-&lt;/button&gt;
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
 
 
 
@@ -82,11 +82,11 @@
 
 
 
-&lt;button onClick={openCart}&gt;Open Cart&lt;/button&gt;
-&lt;Cart
-  stripeApiKey='pk_test_12345'
-  orderWebhook='/api/place-order'
-/&gt;</code></pre><p>There are only two main functions of the application that you need to use in order to get the default behavior.</p>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{openCart}</span>&gt;</span>Open Cart<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Cart</span>
+  <span class="hljs-attr">stripeApiKey</span>=<span class="hljs-string">'pk_test_12345'</span>
+  <span class="hljs-attr">orderWebhook</span>=<span class="hljs-string">'/api/place-order'</span>
+/&gt;</span></span></code></pre><p>There are only two main functions of the application that you need to use in order to get the default behavior.</p>
 <h3 id="add-to-cart-button">Add to cart button</h3>
 <p>The button needs to be added to any and all products that you wish to sell on your site.</p>
 <table>
