@@ -7,7 +7,7 @@ export default class PhoneInput extends React.Component {
 		autoComplete: `tel`,
 		label: `Phone`,
 		required: true,
-		mask: `(999) 999-9999`,
+		mask: `(000) 000-0000`,
 		name: `phone`,
 		testing: false,
 	}

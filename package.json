@@ -145,6 +145,7 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-helmet": "^5.2.0",
+    "react-imask": "^5.2.1",
     "react-netlify-form": "^2.0.7",
     "react-no-ssr": "^1.1.0",
     "react-testing-library": "^4.1.7",

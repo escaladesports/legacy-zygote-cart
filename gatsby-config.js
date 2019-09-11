@@ -2,6 +2,7 @@ require(`dotenv`).config({ silent: true })
 const config = require(`./site-config`)
 const proxy = require(`http-proxy-middleware`)
 
+console.log(process.env.STRIPE_API_SECRET)
 module.exports = {
 	plugins: [
 		// Build plugins
@@ -39,13 +40,13 @@ module.exports = {
 			},
 		},
 		`gatsby-plugin-netlify`,
-		{
-			resolve: `gatsby-source-stripe`,
-			options: {
-				objects: [`skus`, `plans`],
-				secretKey: process.env.STRIPE_API_SECRET,
-			},
-		},
+		// {
+		// 	resolve: `gatsby-source-stripe`,
+		// 	options: {
+		// 		objects: [`skus`, `plans`],
+		// 		secretKey: process.env.STRIPE_API_SECRET,
+		// 	},
+		// },
 		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
