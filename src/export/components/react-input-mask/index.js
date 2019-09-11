@@ -1,4 +1,5 @@
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import invariant from 'invariant'
 import warning from 'warning'
 
@@ -205,7 +206,8 @@ getInputDOMNode = () => {
 		return null
 	}
 
-	let input = this.node
+	let input = findDOMNode(this) // eslint-disable-line
+
 	const isDOMNode = typeof window !== `undefined`
 					&&
 					input instanceof window.Element
@@ -542,6 +544,7 @@ onPaste = (event) => {
 }
 
 handleRef = (ref) => {
+	this.node = ref
 	if (this.props.children == null && isFunction(this.props.inputRef)) {
 		this.props.inputRef(ref)
 	}
@@ -577,10 +580,11 @@ render() {
 		controlledProps.forEach((propId) => delete childrenProps[propId])
 
 		inputElement = children(childrenProps)
-		warning(
-			!inputElement,
-			`A child function was found, but no input element was formed. This is likely due to not returning any jsx within the child function`
-		)
+		console.log(`INPUT ELEMENT: `, inputElement)
+
+		if(!inputElement){
+			console.error(`A child function was found, but no input element was formed. This is likely due to not returning any jsx within the child function`)
+		}
 
 		const conflictProps = controlledProps
 			.filter((propId) => inputElement.props[propId] != null && inputElement.props[propId] !== restProps[propId])
