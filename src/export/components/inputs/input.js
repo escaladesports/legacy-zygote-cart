@@ -90,6 +90,7 @@ export default class Input extends React.Component{
 		const {
 			label,
 			mask,
+			unmask,
 			type,
 			autoComplete,
 			name,
@@ -118,7 +119,11 @@ export default class Input extends React.Component{
 				{mask && (
 					<InputMask
 						mask={mask}
-						onChange={this.handleChange}
+						unmask={unmask || true}
+						onAccept={(value) => {
+							let userEditing = true
+							this.setState({ value: value, userEditing })
+						}}
 						onFocus={this.handleFocus}
 						onBlur={this.validate}
 						value={userEditing ? value : defaultVal || value}

@@ -30,6 +30,7 @@ export default class PhoneInput extends React.Component {
 		return (
 			<Input
 				type='tel'
+				unmask={`typed`}
 				autoComplete={autoComplete}
 				label={label}
 				required={required}
