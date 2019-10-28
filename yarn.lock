@@ -713,6 +713,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
+"@escaladesports/us-states-lib@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@escaladesports/us-states-lib/-/us-states-lib-1.0.1.tgz#5d442d21c7631995c5b149dda5eb2bd1a7b2272f"
+  integrity sha512-P31ys2wtJFQn/4Ec6AvrAq1Wo0s6ITM1FC790+D7d6O6S9O742ZnM7bvXO+CWdvxPVJ+VJWyPy7ZuucBzLNtag==
+
 "@jest/types@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/types/-/types-24.9.0.tgz#63cb26cb7500d069e5a389441a7c6ab5e909fc59"
@@ -5213,16 +5218,6 @@ data-urls@^1.0.0:
     abab "^2.0.0"
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
-
-datasets-us-states-names-abbr@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/datasets-us-states-names-abbr/-/datasets-us-states-names-abbr-1.0.0.tgz#d65ca12d67c98cb04cce92ba6fe71effaca57de2"
-  integrity sha1-1lyhLWfJjLBMzpK6b+ce/6ylfeI=
-
-datasets-us-states-names@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/datasets-us-states-names/-/datasets-us-states-names-1.0.0.tgz#f2b55cd08472ba46d8d71b1dc002322b86370f15"
-  integrity sha1-8rVc0IRyukbY1xsdwAIyK4Y3DxU=
 
 date-fns@^1.27.2:
   version "1.30.1"

@@ -1,6 +1,8 @@
 import React from 'react'
-import states from 'datasets-us-states-names'
 import Select from './select'
+import { getStateList } from '@escaladesports/us-states-lib'
+
+var states = getStateList(JSON.parse(process.env.GATSBY_SHOW_STATES))
 
 export default class StateInput extends React.Component {
 	static defaultProps = {
