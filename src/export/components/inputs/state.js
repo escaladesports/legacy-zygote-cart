@@ -2,7 +2,7 @@ import React from 'react'
 import Select from './select'
 import { getStateList } from '@escaladesports/us-states-lib'
 
-var states = getStateList(JSON.parse(process.env.GATSBY_SHOW_STATES))
+var states = getStateList(JSON.parse( process.env.GATSBY_SHOW_STATES || process.env.SHOW_STATES || null ))
 
 export default class StateInput extends React.Component {
 	static defaultProps = {
