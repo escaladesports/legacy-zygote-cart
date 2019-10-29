@@ -15,7 +15,7 @@ import metaState from '../state/meta'
 import shippingState from '../state/shipping'
 import successState from '../state/success'
 
-var table = getStateList(`all-abbrv`)
+var table = getStateList(JSON.parse(`["all-abbrv"]`))
 
 export default async function submitOrder(opt = {}) {
 	const { type, token } = opt

@@ -9,7 +9,7 @@ import stepState from '../state/step'
 import messagesState from '../state/status-messages'
 import displayError from './display-error'
 
-var table = getStateList(`all-abbrv`)
+var table = getStateList(JSON.parse(`["all-abbrv"]`))
 
 export default async function submitInfo() {
 	const { infoWebhook } = settingsState.state
