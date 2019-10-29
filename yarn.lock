@@ -713,10 +713,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
-"@escaladesports/us-states-lib@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@escaladesports/us-states-lib/-/us-states-lib-1.0.2.tgz#44e3bc8cfcc8789b2fdfedf974b8da70b687b695"
-  integrity sha512-jmaUd5w0FpTAxnl9zel2odABC4xfLfgb4WhhTpzAO4PgvANjnXPfoN1FQybiLPkNiEPMrNDMGYzvEXrGV4aMEQ==
+"@escaladesports/us-states-lib@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@escaladesports/us-states-lib/-/us-states-lib-1.0.3.tgz#ed022a2a7e9e17ad7027e5bf2086e84d65d61cb6"
+  integrity sha512-WrXMV7dCAzQtrIEADdm3E2nkct9ClNENohfnTY0TRxBZkBjaDmECJRI9P4iZv8EvVr4IG8tTnb+Y3DsF67oHUg==
 
 "@jest/types@^24.9.0":
   version "24.9.0"
