@@ -24,7 +24,7 @@ export default class StateInput extends React.Component {
 		try {
 			var states = getStateList(JSON.parse( this.props.showStates ))
 		} catch (e) {
-			states = []
+			states = getStateList()
 		}
 
 		return (
