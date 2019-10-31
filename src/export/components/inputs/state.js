@@ -1,8 +1,8 @@
 import React from 'react'
 import Select from './select'
-import { getStateList } from '@escaladesports/us-states-lib'
+// import settingsState from '../../state/settings'
 
-var states = getStateList(JSON.parse( process.env.GATSBY_SHOW_STATES || process.env.SHOW_STATES || null ))
+import { getStateList } from '@escaladesports/us-states-lib'
 
 export default class StateInput extends React.Component {
 	static defaultProps = {
@@ -20,6 +20,9 @@ export default class StateInput extends React.Component {
 			step,
 			value,
 		} = this.props
+		var states = getStateList(JSON.parse( this.props.showStates ))
+		{console.log(`showStates`, states)}
+
 		return (
 			<Select
 				label={label}
