@@ -20,9 +20,10 @@ export default class StateInput extends React.Component {
 			step,
 			value,
 		} = this.props
-		if ( (this.props.showStates != undefined) ) {
+
+		try {
 			var states = getStateList(JSON.parse( this.props.showStates ))
-		} else {
+		} catch (e) {
 			states = []
 		}
 
