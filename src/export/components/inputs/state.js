@@ -20,7 +20,11 @@ export default class StateInput extends React.Component {
 			step,
 			value,
 		} = this.props
-		if ( this.props.showStates !== `undefined` ) var states = getStateList(JSON.parse( this.props.showStates ))
+		if ( (this.props.showStates !== undefined) ) {
+			var states = getStateList(JSON.parse( this.props.showStates ))
+		} else {
+			states = []
+		}
 
 		return (
 			<Select
