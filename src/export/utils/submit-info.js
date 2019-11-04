@@ -1,4 +1,4 @@
-import table from 'datasets-us-states-names-abbr'
+import { getStateList } from '@escaladesports/us-states-lib'
 
 import fetch from './fetch'
 import getFormValues from './get-form-values'
@@ -8,6 +8,8 @@ import shippingState from '../state/shipping'
 import stepState from '../state/step'
 import messagesState from '../state/status-messages'
 import displayError from './display-error'
+
+var table = getStateList(JSON.parse(`["all-abbrv"]`))
 
 export default async function submitInfo() {
 	const { infoWebhook } = settingsState.state

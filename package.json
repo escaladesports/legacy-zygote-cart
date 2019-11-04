@@ -50,13 +50,12 @@
     ]
   },
   "dependencies": {
+    "@escaladesports/us-states-lib": "^1.0.5",
     "auth0-js": "^9.8.2",
     "auth0-lock": "^11.12.1",
     "babel-runtime": "^6.26.0",
     "better-react-spinkit": "^2.0.4",
     "classnames": "^2.2.6",
-    "datasets-us-states-names": "^1.0.0",
-    "datasets-us-states-names-abbr": "^1.0.0",
     "emotion": "^9.2.8",
     "form-to-object": "^5.1.0",
     "is-email": "^1.0.0",

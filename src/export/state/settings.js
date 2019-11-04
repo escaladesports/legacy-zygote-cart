@@ -22,6 +22,7 @@ const settingsState = new State({
 	splitName: false,
 	testing: false,
 	plugins: [],
+	showStates: noop,
 })
 
 export default settingsState

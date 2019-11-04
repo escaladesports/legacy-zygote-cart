@@ -116,6 +116,7 @@ export default class InfoStep extends React.Component{
 													name='shippingState'
 													autoComplete='shipping address-level1'
 													step='info'
+													showStates={ settingsState.state.showStates }
 													value={vals.shippingState ? vals.shippingState : ``}
 												/>
 											</div>
