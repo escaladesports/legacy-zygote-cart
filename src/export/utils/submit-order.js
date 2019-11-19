@@ -31,7 +31,8 @@ export default async function submitOrder(opt = {}) {
 	stepState.setState({ processing: true })
 
 	const body = getFormValues()
-	body.billingStateAbbr = body.sameBilling ? table[body.shippingState] : table[body.billingState]
+	body.shippingStateAbbr = table[body.shippingState]
+	body.billingStateAbbr = body.sameBilling ? body.shippingStateAbbr : table[body.billingState]
 
 	if (type === `paypal`) {
 		body.paymentType = `paypal`
