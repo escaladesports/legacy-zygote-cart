@@ -6,7 +6,7 @@ export default class CartQuantity extends React.Component {
 	render() {
 		return (
 			<Subscribe to={productsState}>
-				{({ products }) => this.props.children(products.length)}
+				{({ products }) => this.props.children(products.reduce((total, { quantity }) => total + quantity, 0))}
 			</Subscribe>
 		)
 	}
