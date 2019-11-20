@@ -155,3 +155,20 @@ There are two error events that we've exposed to allow you to enter your own cus
 |:---------:|:--------:|
 | `infoSubmitError` | When an error occurs between the `Details` stage and the `Shipping` stage |
 | `orderSubmitError` | When an error occurs while trying to submit the order to your webhook, or when trying to pay |
+
+
+## Cart Quantity - Higher Order Component (HOC)
+
+HOC that displays total quantity of items added to Cart.
+
+```javascript
+import { CartQuantity } from '@escaladesports/zygote-cart';
+
+<CartQuantity>
+  {qty => (
+    <React.Fragment>
+      {qty}
+    </React.Fragment>
+  )}
+</CartQuantity>
+```

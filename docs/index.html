@@ -345,7 +345,17 @@
 <td align="center">When an error occurs while trying to submit the order to your webhook, or when trying to pay</td>
 </tr>
 </tbody></table>
+<h2 id="cart-quantity---higher-order-component-hoc">Cart Quantity - Higher Order Component (HOC)</h2>
+<p>HOC that displays total quantity of items added to Cart.</p>
+<pre class="highlight javascript"><code><span class="hljs-keyword">import</span> { CartQuantity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@escaladesports/zygote-cart'</span>;
 
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">CartQuantity</span>&gt;</span>
+  {qty =&gt; (
+    <span class="hljs-tag">&lt;<span class="hljs-name">React.Fragment</span>&gt;</span>
+      {qty}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">React.Fragment</span>&gt;</span>
+  )}
+<span class="hljs-tag">&lt;/<span class="hljs-name">CartQuantity</span>&gt;</span></span></code></pre>
         
           <h1 id="webhooks">Webhooks</h1>
 <p>There are two URLs that can be passed as properties to send the cart information to your server:</p>
