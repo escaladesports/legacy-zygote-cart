@@ -758,6 +758,7 @@
     tax: <span class="hljs-literal">true</span>
     coupons: <span class="hljs-literal">true</span>
     splitName: <span class="hljs-literal">false</span>
+    showStates={<span class="hljs-string">`["state-list", "dc-list"]`</span>}
   /&gt;</code></pre><p>Here are a few configurations you can turn on and off on a cart per cart basis.</p>
 <table>
 <thead>
@@ -781,6 +782,10 @@
 <tr>
 <td align="center"><code>splitName</code></td>
 <td align="center">Turn on <code>true</code> or off <code>false</code> the option which controls whether the name field on the info page is one single <code>name</code> input (false), or two separate fields <code>firstName</code> and <code>lastName</code> (true)</td>
+</tr>
+<tr>
+<td align="center"><code>showStates</code></td>
+<td align="center">States which appear in the shipping dropdown <br/>Use array options from <a href="https://www.npmjs.com/package/@escaladesports/us-states-lib">@escaladesports/us-states-lib</a><br />Defaults to lower 48 US States</td>
 </tr>
 </tbody></table>
 <h2 id="plugins">Plugins</h2>
