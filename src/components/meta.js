@@ -5,16 +5,16 @@ import {
 	description as siteDescription,
 } from '../../site-config'
 
-export default class Meta extends React.Component {
-	render() {
-		const { title, description } = this.props
-		let pageTitle = title ? `${title} | ${siteTitle}` : siteTitle
-		let pageDescription = description || siteDescription
-		return (
-			<Helmet>
-				<title>{pageTitle}</title>
-				<meta name='description' content={pageDescription} />
-			</Helmet>
-		)
-	}
+const Meta = ({ title, description }) => {	  
+	const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle
+	const pageDescription = description || siteDescription
+	return (
+		<Helmet>
+			<title>{pageTitle}</title>
+			<meta name='description' content={pageDescription} />
+		</Helmet>
+	)
 }
+
+
+export default Meta
