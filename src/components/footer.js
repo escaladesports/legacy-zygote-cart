@@ -2,8 +2,7 @@ import React from 'react'
 import { css } from 'emotion'
 import Link from 'gatsby-link'
 
-const Footer = () => {
-	
+const Footer = () => {	
 	return (
 		<footer className={footerStyles}>
 			<ul>
@@ -13,7 +12,6 @@ const Footer = () => {
 		</footer>
 	)
 }
-
 
 const footerStyles = css({
 	ul: {
