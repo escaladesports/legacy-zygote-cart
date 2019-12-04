@@ -43,7 +43,7 @@ export default function addToCart(newProduct){
 
 	for (let i = 0; i < settingsState.state.plugins.length; i++) {
 		if(typeof settingsState.state.plugins[i].addToCart === `function`) {
-			settingsState.state.plugins[i].addToCart({ products })
+			settingsState.state.plugins[i].addToCart({ products, newProduct })
 		}
 	}
 }

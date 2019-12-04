@@ -14,6 +14,7 @@ You can take advantage of the fact that you are an adult and that you can not on
 
 | Hook Name | Description |
 |:---------:|:--------:|
+| `addToCart` | Fires when a product is added to the cart |
 | `preInfo` | Fires before fetching the `infoWebhook` between the 'Details' and 'Shipping' steps |
 | `postInfo` | Fires after fetching the `infoWebhook` between the 'Details' and 'Shipping' steps |
 | `coupons` | Fires after fetching the `infoWebhook` between the 'Details' and 'Shipping' steps |
@@ -28,6 +29,15 @@ You can take advantage of the fact that you are an adult and that you can not on
 | `Shipping` | React component injected into the 'Shipping' step |
 | `Payment` | React component injected into the 'Payment' step (usually form fields) |
 | `ExternalPayment` | React component injected into the 'Payment' step used for external payment gateways such as PayPal and Apple Pay (usually a button) |
+
+## addToCart
+
+```javascript
+const addToCart = async ({ products, newProduct }) => {  
+  return { ...products }
+}
+```
+Fires **last** in the `addToCart` click event and returns the products (including the new product) and the newProduct added.
 
 ## preInfo
 

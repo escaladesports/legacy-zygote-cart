@@ -923,6 +923,10 @@ By default, if a PayPal App ID is provided, the express checkout button will be 
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><code>addToCart</code></td>
+<td align="center">Fires when a product is added to the cart</td>
+</tr>
+<tr>
 <td align="center"><code>preInfo</code></td>
 <td align="center">Fires before fetching the <code>infoWebhook</code> between the &#39;Details&#39; and &#39;Shipping&#39; steps</td>
 </tr>
@@ -975,6 +979,10 @@ By default, if a PayPal App ID is provided, the express checkout button will be 
 <td align="center">React component injected into the &#39;Payment&#39; step used for external payment gateways such as PayPal and Apple Pay (usually a button)</td>
 </tr>
 </tbody></table>
+<h2 id="addtocart">addToCart</h2>
+<pre class="highlight javascript"><code><span class="hljs-keyword">const</span> addToCart = <span class="hljs-keyword">async</span> ({ products, newProduct }) =&gt; {  
+  <span class="hljs-keyword">return</span> { ...products }
+}</code></pre><p>Fires <strong>last</strong> in the <code>addToCart</code> click event and returns the products (including the new product) and the newProduct added.</p>
 <h2 id="preinfo">preInfo</h2>
 <pre class="highlight javascript"><code><span class="hljs-keyword">const</span> preInfo = <span class="hljs-keyword">async</span> ({ preFetchData, info }) =&gt; {
   <span class="hljs-keyword">return</span> {
