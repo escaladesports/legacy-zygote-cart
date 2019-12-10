@@ -1,9 +1,9 @@
-import productState from '../state/products'
+import { productsState, settingsState } from '../state'
 import calculateTotals from './calculate-totals'
 import triggerEvent from './trigger-event'
 
 export default function decreaseQuantity(id, quantity = 1, quantityModded = false) {
-	let products = [...productState.state.products]
+	let products = [...productsState.state.products]
 	let removedProduct
 	for (let i = products.length; i--;) {
 		const product = products[i]
@@ -22,12 +22,18 @@ export default function decreaseQuantity(id, quantity = 1, quantityModded = fals
 			break
 		}
 	}
-	productState.setState({ products })
+	productsState.setState({ products })
 	calculateTotals()
 	if (removedProduct){
 		triggerEvent(`removeProduct`, {
 			...removedProduct,
 			quantity,
 		})
+	}
+	
+	for (let i = 0; i < settingsState.state.plugins.length; i++) {
+		if (typeof settingsState.state.plugins[i].decreaseQuantity === `function`) {
+			settingsState.state.plugins[i].decreaseQuantity({ products, removedProduct })
+		}
 	}
 }
