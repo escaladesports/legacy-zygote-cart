@@ -42,7 +42,7 @@ export default function addToCart(newProduct){
 	triggerEvent(`addProduct`, newProduct)
 
 	for (let i = 0; i < settingsState.state.plugins.length; i++) {
-		if(typeof settingsState.state.plugins[i].addToCart === `function`) {
+		if (typeof settingsState.state.plugins[i].addToCart === `function`) {
 			settingsState.state.plugins[i].addToCart({ products, newProduct })
 		}
 	}
