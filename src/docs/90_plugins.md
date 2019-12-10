@@ -15,6 +15,9 @@ You can take advantage of the fact that you are an adult and that you can not on
 | Hook Name | Description |
 |:---------:|:--------:|
 | `addToCart` | Fires when a product is added to the cart |
+| `removeFromCart` | Fires when a product is removed from the cart |
+| `increaseQuantity` | Fires when a product quantity is increases |
+| `decreaseQuantity` | Fires when a product quantity is decreases |
 | `preInfo` | Fires before fetching the `infoWebhook` between the 'Details' and 'Shipping' steps |
 | `postInfo` | Fires after fetching the `infoWebhook` between the 'Details' and 'Shipping' steps |
 | `coupons` | Fires after fetching the `infoWebhook` between the 'Details' and 'Shipping' steps |
@@ -38,6 +41,33 @@ const addToCart = async ({ products, newProduct }) => {
 }
 ```
 Fires **last** in the `addToCart` click event and returns the products (including the new product) and the newProduct added.
+
+## removeFromCart
+
+```javascript
+const removeFromCart = async ({ products, removedProduct }) => {  
+  return { ...products }
+}
+```
+Fires **last** in the `removeFromCart` click event and returns the products (excluding the removed product) and the removed product.
+
+## increaseQuantity
+
+```javascript
+const increaseQuantity = async ({ products, modifiedProduct }) => {  
+  return { ...products }
+}
+```
+Fires **last** in the `increaseQuantity` click event and returns the products (including the increased quantity) and the modified product.
+
+## decreaseQuantity
+
+```javascript
+const decreaseQuantity = async ({ products, removedProduct }) => {  
+  return { ...products }
+}
+```
+Fires **last** in the `decreaseQuantity` click event and returns the products (excluding the decreased quantity) and the removed product.
 
 ## preInfo
 
