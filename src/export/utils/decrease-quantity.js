@@ -1,4 +1,5 @@
-import { productsState, settingsState } from '../state'
+import { productsState } from '../state'
+import triggerPluginHook from './trigger-plugin-hook'
 import calculateTotals from './calculate-totals'
 import triggerEvent from './trigger-event'
 
@@ -31,9 +32,6 @@ export default function decreaseQuantity(id, quantity = 1, quantityModded = fals
 		})
 	}
 	
-	for (let i = 0; i < settingsState.state.plugins.length; i++) {
-		if (typeof settingsState.state.plugins[i].decreaseQuantity === `function`) {
-			settingsState.state.plugins[i].decreaseQuantity({ products, removedProduct })
-		}
-	}
+	triggerPluginHook(`decreaseQuantity`, { products, removedProduct })
+	
 }

@@ -1,4 +1,5 @@
-import { productsState, stepState, addedToCartState, settingsState } from '../state'
+import { productsState, stepState, addedToCartState } from '../state'
+import triggerPluginHook from './trigger-plugin-hook'
 import openCart from './open-cart'
 import calculateTotals from './calculate-totals'
 import triggerEvent from './trigger-event'
@@ -41,9 +42,6 @@ export default function addToCart(newProduct){
 	addedToCartState.setState({ addedToCart: true })
 	triggerEvent(`addProduct`, newProduct)
 
-	for (let i = 0; i < settingsState.state.plugins.length; i++) {
-		if (typeof settingsState.state.plugins[i].addToCart === `function`) {
-			settingsState.state.plugins[i].addToCart({ products, newProduct })
-		}
-	}
+	triggerPluginHook(`addToCart`, { products, newProduct })
+
 }

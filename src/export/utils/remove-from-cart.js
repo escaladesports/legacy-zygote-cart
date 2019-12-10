@@ -1,4 +1,5 @@
-import { productsState, settingsState } from '../state'
+import { productsState } from '../state'
+import triggerPluginHook from './trigger-plugin-hook'
 import stepState from '../state/step'
 import calculateTotals from './calculate-totals'
 import triggerEvent from './trigger-event'
@@ -34,10 +35,7 @@ export default function removeFromCart(id){
 		}
 		triggerEvent(`removeProduct`, removedProduct.map(prod => prod.id))
 	}
-	
-	for (let i = 0; i < settingsState.state.plugins.length; i++) {
-		if (typeof settingsState.state.plugins[i].removeFromCart === `function`) {
-			settingsState.state.plugins[i].removeFromCart({ products, removedProduct })
-		}
-	}
+
+	triggerPluginHook(`removeFromCart`, { products, removedProduct })
+
 }

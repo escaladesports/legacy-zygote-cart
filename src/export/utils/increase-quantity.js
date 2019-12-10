@@ -1,4 +1,5 @@
-import { productsState, settingsState } from '../state'
+import { productsState } from '../state'
+import triggerPluginHook from './trigger-plugin-hook'
 import calculateTotals from './calculate-totals'
 import triggerEvent from './trigger-event'
 
@@ -26,10 +27,7 @@ export default function increaseQuantity(id, quantity = 1) {
 			quantity,
 		})
 	}
+	
+	triggerPluginHook(`increaseQuantity`, { products, modifiedProduct })
 
-	for (let i = 0; i < settingsState.state.plugins.length; i++) {
-		if (typeof settingsState.state.plugins[i].increaseQuantity === `function`) {
-			settingsState.state.plugins[i].increaseQuantity({ products, modifiedProduct })
-		}
-	}
 }
