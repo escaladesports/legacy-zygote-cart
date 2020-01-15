@@ -18,6 +18,7 @@ import successState from '../state/success'
 var table = getStateList(JSON.parse(`["all-abbrv"]`))
 
 export default async function submitOrder(opt = {}) {
+	console.log(`CALLED SUBMIT ORDER [zygote cart]`)
 	const { type, token } = opt
 	clearMessages()
 	if (!token) {
@@ -82,6 +83,8 @@ export default async function submitOrder(opt = {}) {
 	}
 	body.event = `order`
 
+	console.log(`BODY SENT TO WEBHOOK [zygote cart]: `, body)
+
 	let data
 	try {
 		data = await fetch(settingsState.state.orderWebhook, body)
@@ -91,7 +94,7 @@ export default async function submitOrder(opt = {}) {
 		console.error(err)
 	}
 
-	console.log(data)
+	console.log(`DATA FROM ORDER WEBOOK [zygote cart]: `, data)
 	if (!data.success) {
 		if (!messagesState.state.errors.length) {
 			displayError(settingsState.state.orderSubmitError)

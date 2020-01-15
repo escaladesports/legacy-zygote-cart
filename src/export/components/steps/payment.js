@@ -142,6 +142,7 @@ export default class PaymentStep extends React.Component {
 								<div className='zygotePaymentBtn'>
 									<Button
 										onClick={() => {
+											console.log(`ZYGOTE PAYMENT STEP CLICKED`)
 											if ((errors && errors.length) || loading){
 												return
 											}
