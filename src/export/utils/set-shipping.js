@@ -2,6 +2,7 @@ import shippingState, { findShippingMethod } from '../state/shipping'
 import totalsState from '../state/totals'
 import settingsState from '../state/settings'
 import addTotalModification from './add-total-modification'
+import * as cartState from '../state'
 
 export default function setShipping(selected, setId) {
 	const method = findShippingMethod(selected)
@@ -39,6 +40,7 @@ export default function setShipping(selected, setId) {
 				subtotal: totalsState.state.subtotal,
 				shipping: totalShippingCost.value ? totalShippingCost.value : totalShippingCost,
 				discount,
+				cartState,
 			})
 				.then(tax => {
 					if (tax.id) addTotalModification(tax)

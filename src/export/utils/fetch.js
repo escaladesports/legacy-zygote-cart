@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch'
 
 import { metaState, shippingState, productsState, totalsState, stepState, settingsState } from '../state'
+import * as cartState from '../state'
 import displayError from './display-error'
 import displayInfo from './display-info'
 import addTotalModification from './add-total-modification'
@@ -9,6 +10,11 @@ import setShipping from './set-shipping'
 import triggerEvent from './trigger-event'
 
 export default async function fetchWebhook(path, body) {
+	// const cartState = Object.keys(state).reduce((acc, currentKey) => ({
+	// 	...acc,
+	// 	[currentKey]: state[currentKey].state ? { ...state[currentKey].state } : state[currentKey],
+	// }), {})
+
 	if (body.event) {
 		triggerEvent(`${body.event}Attempt`, body)
 	}
@@ -24,8 +30,8 @@ export default async function fetchWebhook(path, body) {
 
 		preFetchData = info
 		for (let i = 0; i < settingsState.state.plugins.length; i++) {
-			preFetchData = await (body.event == `info` && typeof settingsState.state.plugins[i].preInfo === `function` ? settingsState.state.plugins[i].preInfo({ preFetchData, info }) : preFetchData)
-			preFetchData = await (body.event == `order` && typeof settingsState.state.plugins[i].preOrder === `function` ? settingsState.state.plugins[i].preOrder({ preFetchData, info }) : preFetchData)
+			preFetchData = await (body.event === `info` && typeof settingsState.state.plugins[i].preInfo === `function` ? settingsState.state.plugins[i].preInfo({ preFetchData, info, cartState }) : preFetchData)
+			preFetchData = await (body.event === `order` && typeof settingsState.state.plugins[i].preOrder === `function` ? settingsState.state.plugins[i].preOrder({ preFetchData, info, cartState }) : preFetchData)
 		}
 
 		if (preFetchData.billingCardNumber) {
@@ -49,9 +55,9 @@ export default async function fetchWebhook(path, body) {
 		}
 
 		for (let i = 0; i < settingsState.state.plugins.length; i++) {
-			response = await (body.event == `info` && typeof settingsState.state.plugins[i].coupons === `function` ? settingsState.state.plugins[i].coupons({ response, info, preFetchData }) : response)
-			response = await (body.event == `info` && typeof settingsState.state.plugins[i].postInfo === `function` ? settingsState.state.plugins[i].postInfo({ response, info, preFetchData }) : response)
-			response = await (body.event == `order` && typeof settingsState.state.plugins[i].postOrder === `function` ? settingsState.state.plugins[i].postOrder({ response, info, preFetchData }) : response)
+			response = await (body.event == `info` && typeof settingsState.state.plugins[i].coupons === `function` ? settingsState.state.plugins[i].coupons({ response, info, preFetchData, cartState }) : response)
+			response = await (body.event == `info` && typeof settingsState.state.plugins[i].postInfo === `function` ? settingsState.state.plugins[i].postInfo({ response, info, preFetchData, cartState }) : response)
+			response = await (body.event == `order` && typeof settingsState.state.plugins[i].postOrder === `function` ? settingsState.state.plugins[i].postOrder({ response, info, preFetchData, cartState }) : response)
 		}
 		console.log(`Received from API:`, response)
 	}
@@ -113,7 +119,7 @@ export default async function fetchWebhook(path, body) {
 		}
 		else {
 			for (let i = 0; i < settingsState.state.plugins.length; i++) {
-				const ship = await (typeof settingsState.state.plugins[i].getShippingMethods === `function` ? settingsState.state.plugins[i].getShippingMethods({ response, info, preFetchData }) : {})
+				const ship = await (typeof settingsState.state.plugins[i].getShippingMethods === `function` ? settingsState.state.plugins[i].getShippingMethods({ response, info, preFetchData, cartState }) : {})
 				if (ship && ship.methods && ship.methods.length) {
 					shippingState.setState({
 						methods: ship.methods,
