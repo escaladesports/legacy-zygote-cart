@@ -33,3 +33,5 @@ netlify.toml.bak
 # Temporary
 temp
 temp-*
+
+.tool-versions
